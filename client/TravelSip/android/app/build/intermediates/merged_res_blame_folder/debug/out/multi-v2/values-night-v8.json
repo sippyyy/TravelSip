@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/home/xc/work/thuy/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/packaged_res/debug/values-night-v8/values-night-v8.xml",
+                    "source": "/home/xc/work/thuy/TravelSipApp/client/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/packaged_res/debug/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,5",
                         "startColumns": "4,4",

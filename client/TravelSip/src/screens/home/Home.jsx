@@ -2,7 +2,7 @@ import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import reusable from '../../components/Reusable/reusable.style';
-import {HeightSpacer, ReusableText} from '../../components';
+import {HeightSpacer, Places, ReusableText} from '../../components';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './home.style';
@@ -31,6 +31,7 @@ const Home = ({navigation}) => {
           size={TEXT.large}
           color={COLORS.black}
         />
+        <Places />
       </View>
     </SafeAreaView>
   );
