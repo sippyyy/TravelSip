@@ -1,0 +1,12 @@
+import {View, Text} from 'react-native';
+import React from 'react';
+
+const Recommended = () => {
+  return (
+    <View>
+      <Text>Recommended</Text>
+    </View>
+  );
+};
+
+export default Recommended;

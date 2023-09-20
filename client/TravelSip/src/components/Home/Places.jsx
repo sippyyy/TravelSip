@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, VirtualizedList} from 'react-native';
+import {View, VirtualizedList} from 'react-native';
 import React from 'react';
 import HeightSpacer from '../Reusable/HeightSpacer';
 import {countries} from '../../mock_api';
@@ -27,5 +27,3 @@ const Places = () => {
 };
 
 export default Places;
-
-const styles = StyleSheet.create({});
