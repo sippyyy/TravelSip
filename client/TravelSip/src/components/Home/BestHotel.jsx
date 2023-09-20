@@ -1,21 +1,23 @@
-import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
-import reusable from '../Reusable/reusable.style';
+import HeightSpacer from '../Reusable/HeightSpacer';
 import ReusableText from '../Reusable/ReusableText';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';
+import reusable from '../Reusable/reusable.style';
+import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {recommendations} from '../../mock_api';
-import ReusableTile from '../Reusable/ReusableTile';
+import {hotels} from '../../mock_api';
+import HotelCard from '../Tiles/Hotels/HotelCard';
 
-const Recommendation = () => {
+const BestHotel = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <View>
+      <HeightSpacer height={30} />
       <View
         style={[reusable.rowWithSpace('space-between'), {paddingBottom: 20}]}>
         <ReusableText
-          text="Recommendations"
+          text="Nearby hotels"
           family="medium"
           size={TEXT.large}
           color={COLORS.black}
@@ -25,15 +27,15 @@ const Recommendation = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={recommendations}
+        data={hotels}
         horizontal
+        showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.id}
         contentContainerStyle={{columnGap: SIZES.medium}}
-        showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <ReusableTile
+          <HotelCard
             item={item}
-            onPress={() => navigation.navigate('PlaceDetails', item.id)}
+            onPress={() => navigation.navigate('HotelDetails')}
           />
         )}
       />
@@ -41,10 +43,6 @@ const Recommendation = () => {
   );
 };
 
-export default Recommendation;
+export default BestHotel;
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-  },
-});
+const styles = StyleSheet.create({});

@@ -1,8 +1,9 @@
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, ScrollView} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import reusable from '../../components/Reusable/reusable.style';
 import {
+  BestHotel,
   HeightSpacer,
   Places,
   Recommendation,
@@ -15,7 +16,7 @@ import styles from './home.style';
 const Home = ({navigation}) => {
   return (
     <SafeAreaView style={reusable.container}>
-      <View>
+      <ScrollView>
         <View style={reusable.rowWithSpace('space-between')}>
           <ReusableText
             text="Hello User!"
@@ -40,7 +41,10 @@ const Home = ({navigation}) => {
 
         <HeightSpacer height={15} />
         <Recommendation />
-      </View>
+        <HeightSpacer height={15} />
+        <BestHotel />
+        <HeightSpacer height={120} />
+      </ScrollView>
     </SafeAreaView>
   );
 };

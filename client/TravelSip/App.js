@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Platform} from 'react-native';
+import {Platform} from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen';
 import {useEffect} from 'react';
@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   CountryDetails,
+  HotelDetails,
   Onboarding,
   PlaceDetails,
   Recommended,
@@ -56,16 +57,14 @@ function App() {
           component={PlaceDetails}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="HotelDetails"
+          component={HotelDetails}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  highlight: {
-    fontFamily: 'xtrabold',
-    fontSize: 30,
-  },
-});
 
 export default App;

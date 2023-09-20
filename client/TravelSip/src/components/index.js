@@ -9,6 +9,8 @@ import NetworkImage from './Reusable/NetworkImage';
 import Recommendation from './Home/Recommendation';
 import ReusableTile from './Reusable/ReusableTile';
 import Rating from './Reusable/Rating';
+import BestHotel from './Home/BestHotel';
+import HotelCard from './Tiles/Hotels/HotelCard';
 
 export {
   Slides,
@@ -22,4 +24,6 @@ export {
   Recommendation,
   ReusableTile,
   Rating,
+  BestHotel,
+  HotelCard,
 };
