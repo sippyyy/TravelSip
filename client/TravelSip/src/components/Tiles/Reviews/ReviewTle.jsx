@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import { View} from 'react-native';
 import React from 'react';
 import styles from './review.style';
 import reusable from '../../Reusable/reusable.style';
@@ -41,7 +41,7 @@ const ReviewTle = ({review}) => {
                 />
               </View>
             </View>
-            <DescriptionText lines={3} text={review.review} />
+            <DescriptionText lines={2} text={review.review} />
           </View>
         </View>
       </View>

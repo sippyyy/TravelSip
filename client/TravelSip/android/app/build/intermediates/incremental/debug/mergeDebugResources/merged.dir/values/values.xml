@@ -856,7 +856,7 @@
   </style>
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         
-        <item name="android:editTextBackground">@layout/launch_screen</item>
+        
     </style>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>
