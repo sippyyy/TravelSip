@@ -11,6 +11,12 @@ import ReusableTile from './Reusable/ReusableTile';
 import Rating from './Reusable/Rating';
 import BestHotel from './Home/BestHotel';
 import HotelCard from './Tiles/Hotels/HotelCard';
+import AppBar from './Reusable/AppBar';
+import DescriptionText from './Reusable/DescriptionText';
+import PopularList from './Country/PopularList';
+import HotelMap from './Hotel/HotelMap';
+import ReviewList from './Hotel/ReviewList';
+import ReviewTle from './Tiles/Reviews/ReviewTle';
 
 export {
   Slides,
@@ -26,4 +32,10 @@ export {
   Rating,
   BestHotel,
   HotelCard,
+  AppBar,
+  DescriptionText,
+  PopularList,
+  HotelMap,
+  ReviewList,
+  ReviewTle,
 };

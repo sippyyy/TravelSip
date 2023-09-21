@@ -53,6 +53,9 @@
         </activity>
 
         <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBMTjW7UFyFf5mE7KSSydWsGrQz-igYkJA" />
+        <meta-data
             android:name="com.facebook.soloader.enabled"
             android:value="false" />
 

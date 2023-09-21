@@ -1,10 +1,10 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-24:12
-INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-24:12
-INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-24:12
-INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-24:12
-MERGED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-24:12
+ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-27:12
+MERGED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-27:12
 MERGED from [com.facebook.flipper:flipper-network-plugin:0.182.0] /home/xc/.gradle/caches/transforms-3/e47626a30834dcd66576d826bae55315/transformed/jetified-flipper-network-plugin-0.182.0/AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.182.0] /home/xc/.gradle/caches/transforms-3/927874504f02e490d8ef5fc541319ddd/transformed/jetified-flipper-fresco-plugin-0.182.0/AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper:0.182.0] /home/xc/.gradle/caches/transforms-3/e13f88164840fe641a466d05cd8edac7/transformed/jetified-flipper-0.182.0/AndroidManifest.xml:8:1-18:12
@@ -91,17 +91,17 @@ INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/d
 INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/debug/AndroidManifest.xml:2:1-13:12
 	package
 		INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml
-		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-24:12
+		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-27:12
 		INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/debug/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml
-		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-24:12
+		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-27:12
 		INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/debug/AndroidManifest.xml
 	xmlns:tools
 		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/debug/AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml
-		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-24:12
+		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:1-27:12
 		INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/debug/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:1:11-69
@@ -114,9 +114,9 @@ MERGED from [com.google.android.gms:play-services-maps:18.0.2] /home/xc/.gradle/
 	android:name
 		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:3:22-64
 application
-ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:5:5-23:19
-MERGED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:5:5-23:19
-MERGED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:5:5-23:19
+ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:5:5-26:19
+MERGED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:5:5-26:19
+MERGED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:5:5-26:19
 MERGED from [:react-native-community_datetimepicker] /home/xc/work/thuy/TravelSipApp/client/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-20
 MERGED from [:react-native-community_datetimepicker] /home/xc/work/thuy/TravelSipApp/client/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-20
 MERGED from [com.facebook.soloader:soloader:0.10.5] /home/xc/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:11:5-15:19
@@ -196,6 +196,12 @@ category#android.intent.category.LAUNCHER
 ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:20:13-73
 	android:name
 		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:20:23-70
+meta-data#com.google.android.geo.API_KEY
+ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:23:10-25:63
+	android:value
+		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:25:6-61
+	android:name
+		ADDED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml:24:6-51
 uses-sdk
 INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/xc/work/thuy/TravelSipApp/client/TravelSip/android/app/src/main/AndroidManifest.xml

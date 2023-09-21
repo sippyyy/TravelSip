@@ -13,7 +13,7 @@ const Places = () => {
         data={countries}
         horizontal
         keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         getItemCount={data => data.length}
         getItem={(data, index) => data[index]}
         renderItem={({item, index}) => (

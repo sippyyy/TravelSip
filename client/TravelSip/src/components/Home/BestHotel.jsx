@@ -22,7 +22,7 @@ const BestHotel = () => {
           size={TEXT.large}
           color={COLORS.black}
         />
-        <TouchableOpacity onPress={() => navigation.navigate('Recommended')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HotelList')}>
           <Icon name="list" size={20} color={COLORS.black} />
         </TouchableOpacity>
       </View>
@@ -34,6 +34,7 @@ const BestHotel = () => {
         contentContainerStyle={{columnGap: SIZES.medium}}
         renderItem={({item}) => (
           <HotelCard
+            margin={10}
             item={item}
             onPress={() => navigation.navigate('HotelDetails')}
           />

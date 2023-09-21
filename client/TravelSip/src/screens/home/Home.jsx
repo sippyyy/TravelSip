@@ -16,7 +16,7 @@ import styles from './home.style';
 const Home = ({navigation}) => {
   return (
     <SafeAreaView style={reusable.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={reusable.rowWithSpace('space-between')}>
           <ReusableText
             text="Hello User!"
