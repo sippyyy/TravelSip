@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'center',
-    marginHorizontal: SIZES.small,
     borderColor: COLORS.blue,
     borderWidth: 1,
     borderRadius: SIZES.medium,
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
     fontFamily: 'regular',
     width: '100%',
     height: '100%',
-    paddingHorizontal: 50,
+    paddingHorizontal: 20,
   },
   searchWrapper: {
     flex: 1,
@@ -28,10 +27,21 @@ const styles = StyleSheet.create({
   searchBtn: {
     width: 50,
     height: '100%',
-    borderRadius: SIZES.medium,
+    borderRadius: SIZES.small,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.lightBlue,
+  },
+  searchImage: {
+    flex: 1,
+    resizeMode: 'contain',
+    width: '100%',
+    height: SIZES.height,
+    paddingHorizontal: 20,
+  },
+  tile: {
+    marginHorizontal: 12,
+    marginBottom: 10,
   },
 });
 
