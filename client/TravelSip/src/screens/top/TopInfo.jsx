@@ -1,10 +1,25 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import {ProfileTile} from '../../components';
 
-const TopInfo = () => {
+const TopInfo = ({navigation}) => {
   return (
-    <View>
-      <Text>TopInfo</Text>
+    <View style={{margin: 20}}>
+      <ProfileTile
+        title={'Personal Infomation'}
+        icon={'person'}
+        onPress={() => navigation.navigate('')}
+      />
+      <ProfileTile
+        title={'Payment'}
+        icon={'credit-card'}
+        onPress={() => navigation.navigate('Payment')}
+      />
+      <ProfileTile
+        title={'Settings'}
+        icon={'settings'}
+        onPress={() => navigation.navigate('Settings')}
+      />
     </View>
   );
 };

@@ -17,6 +17,9 @@ import PopularList from './Country/PopularList';
 import HotelMap from './Hotel/HotelMap';
 import ReviewList from './Hotel/ReviewList';
 import ReviewTle from './Tiles/Reviews/ReviewTle';
+import ProfileTile from './Reusable/ProfileTile';
+import Settings from '../screens/settings/Settings';
+import SettingTile from './Tiles/Settings/SettingTile';
 
 export {
   Slides,
@@ -38,4 +41,7 @@ export {
   HotelMap,
   ReviewList,
   ReviewTle,
+  ProfileTile,
+  Settings,
+  SettingTile,
 };

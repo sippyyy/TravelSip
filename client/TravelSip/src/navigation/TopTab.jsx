@@ -1,4 +1,4 @@
-import {View, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {TopBookings, TopInfo, TopTrips} from '../screens';

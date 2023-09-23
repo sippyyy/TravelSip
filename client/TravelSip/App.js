@@ -11,10 +11,12 @@ import {
   HotelList,
   HotelSearch,
   Onboarding,
+  Payment,
   PlaceDetails,
   Recommended,
   Search,
   SelectRoom,
+  Settings,
 } from './src/screens';
 import BottomTabNavigation from './src/navigation/BottomTabNavigation';
 
@@ -78,6 +80,16 @@ function App() {
         <Stack.Screen
           name="SelectRoom"
           component={SelectRoom}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={Payment}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={Settings}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
