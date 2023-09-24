@@ -21,6 +21,7 @@ import ProfileTile from './Reusable/ProfileTile';
 import Settings from '../screens/settings/Settings';
 import SettingTile from './Tiles/Settings/SettingTile';
 import AssetImage from './Reusable/AssetImage';
+import Counter from './Reusable/Counter';
 
 export {
   Slides,
@@ -46,4 +47,5 @@ export {
   Settings,
   SettingTile,
   AssetImage,
+  Counter,
 };

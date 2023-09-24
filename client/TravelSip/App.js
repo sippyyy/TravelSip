@@ -16,6 +16,7 @@ import {
   Recommended,
   Search,
   SelectRoom,
+  SelectedRoom,
   Settings,
 } from './src/screens';
 import BottomTabNavigation from './src/navigation/BottomTabNavigation';
@@ -90,6 +91,11 @@ function App() {
         <Stack.Screen
           name="Settings"
           component={Settings}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="SelectedRoom"
+          component={SelectedRoom}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

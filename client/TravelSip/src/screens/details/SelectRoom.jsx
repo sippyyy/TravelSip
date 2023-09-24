@@ -33,7 +33,7 @@ const SelectRoom = ({navigation}) => {
               <HeightSpacer height={10} />
               <View style={{marginHorizontal: 10}}>
                 <ReusableBtn
-                  onPress={() => navigation.navigate('SelectedRoom', item.id)}
+                  onPress={() => navigation.navigate('SelectedRoom', {item})}
                   btnText="Choose"
                   width={SIZES.width - 60}
                   backGroundColor={COLORS.green}
