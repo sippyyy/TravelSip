@@ -5,6 +5,7 @@ import reusable from '../Reusable/reusable.style';
 import ReusableText from '../Reusable/ReusableText';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 import {recommendations} from '../../mock_api';
 import ReusableTile from '../Reusable/ReusableTile';
 
