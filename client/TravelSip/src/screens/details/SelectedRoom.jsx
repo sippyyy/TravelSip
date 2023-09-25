@@ -25,7 +25,7 @@ const SelectedRoom = ({navigation}) => {
         top={10}
         left={20}
         right={20}
-        title={'Selected Room'}
+        title={item.title}
         color={COLORS.white}
         onPress={() => navigation.goBack()}
       />
@@ -128,7 +128,7 @@ const SelectedRoom = ({navigation}) => {
             </View>
             <HeightSpacer height={30} />
             <ReusableBtn
-              onPress={() => navigation.navigate('SelectedRoom', {item})}
+              onPress={() => navigation.navigate('Successful')}
               btnText="Select Room"
               width={SIZES.width - 40}
               backGroundColor={COLORS.green}

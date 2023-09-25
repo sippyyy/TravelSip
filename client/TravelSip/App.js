@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   CountryDetails,
+  Failed,
   HotelDetails,
   HotelList,
   HotelSearch,
@@ -18,6 +19,7 @@ import {
   SelectRoom,
   SelectedRoom,
   Settings,
+  Successful,
 } from './src/screens';
 import BottomTabNavigation from './src/navigation/BottomTabNavigation';
 
@@ -96,6 +98,16 @@ function App() {
         <Stack.Screen
           name="SelectedRoom"
           component={SelectedRoom}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Successful"
+          component={Successful}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Failed"
+          component={Failed}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
