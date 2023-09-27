@@ -31,6 +31,7 @@ const Home = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <HeightSpacer height={SIZES.xLarge} />
+
         <ReusableText
           text="Places"
           family="medium"
