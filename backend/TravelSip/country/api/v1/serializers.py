@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Region, Country
+from ...models import Region, Country
 
 
 class RegionSerializer(serializers.ModelSerializer):
@@ -13,7 +13,7 @@ class CountrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Country
-        fields = ["id", "country", "description", "imageUrl"]
+        fields = ["id", "country", "description", "imageUrl", "region"]
 
     def get_country(self, obj):
         return obj.name

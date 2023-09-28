@@ -1,7 +1,7 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
 from rest_framework.response import Response
-from .models import Region, Country
+from ...models import Region, Country
 from .serializers import (
     RegionSerializer,
     CountrySerializer,
