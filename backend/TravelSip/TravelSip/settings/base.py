@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "country",
+    "destination",
 ]
 
 MIDDLEWARE = [
@@ -105,8 +106,10 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 
 # Google Cloud Storage settings
-GS_BUCKET_NAME = "travelsipapp"  # Replace with your GCS bucket name
-GS_PROJECT_ID = "travelsip"  # Replace with your GCP project ID
+GS_BUCKET_NAME = "travelsipapp"
+GS_PROJECT_ID = "travelsip"
 MEDIA_ROOT = "media/"
 UPLOAD_ROOT = "media/uploads/"
 MEDIA_URL = "https://storage.googleapis.com/{}/".format(GS_BUCKET_NAME)
+
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")

@@ -8,5 +8,5 @@ router.register(r"regions", RegionView, basename="region")
 router.register(r"country", CountryView, basename="country")
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("v1/", include(router.urls)),
 ]
