@@ -15,10 +15,16 @@ class CitySerializer(serializers.ModelSerializer):
 
     def get_country_name(self, obj):
         serializer_data = CountrySerializer(obj.country).data
-        return serializer_data["country"]
+        return serializer_data['country']
 
     def get_country_id(self, obj):
-        return self.country
+        return obj.country.id
+
+
+class CityCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = "__all__"
 
 
 class DestinationSerializer(serializers.ModelSerializer):
@@ -36,7 +42,7 @@ class DestinationCreateSerializer(serializers.ModelSerializer):
 
 
 class DestinationDetailsSerializer(serializers.ModelSerializer):
-    coordinates = serializers.SerializerMethodField(read_only=True)
+    # coordinates = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Destination
@@ -48,16 +54,16 @@ class DestinationDetailsSerializer(serializers.ModelSerializer):
             "address",
             "created_at",
             "edited_at",
-            "coordinates",
+            # "coordinates",
         ]
 
-    def get_coordinates(self, obj):
-        map_api_key = settings.GOOGLE_API_KEY
-        location = f"{obj.address}, {obj.city}, {obj.city.country}"
-        gmaps = googlemaps.Client(map_api_key)
-        loca_detail = gmaps.geocode(location)[0]
-        location_longlat = loca_detail["geometry"]["location"]
-        return {
-            "longtitude": location_longlat["lng"],
-            "latitude": location_longlat["lat"],
-        }
+    # def get_coordinates(self, obj):
+    #     map_api_key = settings.GOOGLE_API_KEY
+    #     location = f"{obj.address}, {obj.city}, {obj.city.country}"
+    #     gmaps = googlemaps.Client(map_api_key)
+    #     loca_detail = gmaps.geocode(location)[0]
+    #     location_longlat = loca_detail["geometry"]["location"]
+    #     return {
+    #         "longtitude": location_longlat["lng"],
+    #         "latitude": location_longlat["lat"],
+    #     }

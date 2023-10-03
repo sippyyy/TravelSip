@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "country",
     "destination",
+    "hotel",
 ]
 
 MIDDLEWARE = [
@@ -103,6 +104,7 @@ SPECTACULAR_SETTINGS = {
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     os.path.join(BASE_DIR, "credential.json")
 )
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(BASE_DIR, "credential.json")
 
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 

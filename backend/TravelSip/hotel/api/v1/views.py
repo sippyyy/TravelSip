@@ -1,5 +1,4 @@
 from rest_framework.viewsets import GenericViewSet
-from google.cloud import storage
 from rest_framework.mixins import (
     CreateModelMixin,
     ListModelMixin,
@@ -7,18 +6,19 @@ from rest_framework.mixins import (
     DestroyModelMixin,
     UpdateModelMixin,
 )
-from ...models import Destination, City
+from ...models import Hotel, Room, Facility
 from .serializers import (
-    DestinationSerializer,
-    DestinationCreateSerializer,
-    DestinationDetailsSerializer,
-    CitySerializer,
-    CityCreateSerializer,
+    HotelSerializer,
+    HotelCreateSerializer,
+    RoomSerializer,
+    RoomDetailsSerializer,
+    HotelDetailSerializer,
+    FacilitySerializer,
 )
 from rest_framework.response import Response
 
 
-class DestinationView(
+class HotelView(
     CreateModelMixin,
     ListModelMixin,
     RetrieveModelMixin,
@@ -26,15 +26,15 @@ class DestinationView(
     UpdateModelMixin,
     GenericViewSet,
 ):
-    queryset = Destination.objects.all()
-    serializer_class = DestinationSerializer
+    queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
 
     def get_serializer_class(self):
         if self.action == "create":
-            return DestinationCreateSerializer
+            return HotelCreateSerializer
 
         if self.action == "retrieve":
-            return DestinationDetailsSerializer
+            return HotelDetailSerializer
         return super().get_serializer_class()
 
     def retrieve(self, request, *args, **kwargs):
@@ -54,17 +54,8 @@ class DestinationView(
         serializer_data = self.serializer_class(qs, many=True).data
         return Response(serializer_data)
 
-    def destroy(self, request, *args, **kwargs):
-        obj = self.get_object()
-        if obj.imageUrl:
-            client = storage.Client()
-            bucket = client.bucket("travelsipapp")
-            blob = bucket.blob(obj.imageUrl.name)
-            blob.delete()
-        return super().destroy(request, *args, **kwargs)
 
-
-class CityView(
+class RoomView(
     CreateModelMixin,
     ListModelMixin,
     RetrieveModelMixin,
@@ -72,12 +63,12 @@ class CityView(
     UpdateModelMixin,
     GenericViewSet,
 ):
-    queryset = City.objects.all()
-    serializer_class = CitySerializer
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
 
     def get_serializer_class(self):
-        if self.action == "create":
-            return CityCreateSerializer
+        if self.action == "retrieve":
+            return RoomDetailsSerializer
         return super().get_serializer_class()
 
     def retrieve(self, request, *args, **kwargs):
@@ -97,21 +88,31 @@ class CityView(
         serializer_data = self.serializer_class(qs, many=True).data
         return Response(serializer_data)
 
-    def destroy(self, request, *args, **kwargs):
-        obj = self.get_object()
-        images = obj.destination_set.filter(imageUrl__isnull=False)
-        hotels = obj.hotel_set.filter(imageUrl__isnull=False)
-        client = storage.Client()
-        bucket = client.bucket("travelsipapp")
-        for image in images:
-            if image.imageUrl:
-                blob = bucket.blob(image.imageUrl.name)
-                blob.delete()
-        for hotel in hotels:
-            if hotel.imageUrl:
-                blob = bucket.blob(hotel.imageUrl.name)
-                blob.delete()
 
-        obj.destination_set.all().delete()
-        obj.hotel_set.all().delete()
-        return super().destroy(request, *args, **kwargs)
+class FacilityView(
+    CreateModelMixin,
+    ListModelMixin,
+    RetrieveModelMixin,
+    DestroyModelMixin,
+    UpdateModelMixin,
+    GenericViewSet,
+):
+    queryset = Facility.objects.all()
+    serializer_class = FacilitySerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            data = self.get_serializer(instance).data
+            return Response(data)
+        except Exception as er:
+            return Response({"Error": str(er)})
+
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        super().create(request, *args, **kwargs)
+        qs = self.queryset
+        serializer_data = self.serializer_class(qs, many=True).data
+        return Response(serializer_data)

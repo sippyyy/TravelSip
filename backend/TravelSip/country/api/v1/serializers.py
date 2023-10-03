@@ -17,3 +17,9 @@ class CountrySerializer(serializers.ModelSerializer):
 
     def get_country(self, obj):
         return obj.name
+
+
+class CountryCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = "__all__"

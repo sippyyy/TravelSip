@@ -1,10 +1,12 @@
 from rest_framework.viewsets import GenericViewSet
+from google.cloud import storage
 from rest_framework import mixins
 from rest_framework.response import Response
 from ...models import Region, Country
 from .serializers import (
     RegionSerializer,
     CountrySerializer,
+    CountryCreateSerializer,
 )  # Replace with your actual serializer
 
 
@@ -35,6 +37,20 @@ class RegionView(
         qs = Region.objects.all()
         serializer_data = self.serializer_class(qs, many=True).data
         return Response(serializer_data)
+    
+    def destroy(self, request, *args, **kwargs):
+        obj = self.get_object()
+        images = obj.country_set.filter(imageUrl__isnull=False)
+        client = storage.Client()
+        bucket = client.bucket("travelsipapp")
+        for image in images:
+            if image.imageUrl:
+                blob = bucket.blob(image.imageUrl.name)
+                blob.delete()
+
+        obj.country_set.all().delete()
+        
+        return super().destroy(request, *args, **kwargs)
 
 
 class CountryView(
@@ -47,6 +63,11 @@ class CountryView(
 ):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return CountryCreateSerializer
+        return super().get_serializer_class()
 
     def retrieve(self, request, *args, **kwargs):
         try:
@@ -64,3 +85,12 @@ class CountryView(
         qs = Country.objects.all()
         serializer_data = self.serializer_class(qs, many=True).data
         return Response(serializer_data)
+    
+    def destroy(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.imageUrl:
+            client = storage.Client()
+            bucket = client.bucket("travelsipapp")
+            blob = bucket.blob(obj.imageUrl.name)
+            blob.delete()
+        return super().destroy(request, *args, **kwargs)

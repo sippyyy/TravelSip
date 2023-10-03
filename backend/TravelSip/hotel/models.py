@@ -1,5 +1,7 @@
 from django.db import models
 from destination.models import City
+from django.core.validators import MaxValueValidator, MinValueValidator
+from google.cloud import storage
 
 # from phonenumber_field.modelfields import PhoneNumberField
 
@@ -11,19 +13,32 @@ class Hotel(models.Model):
     imageUrl = models.ImageField(upload_to="hotel_images/")
     address = models.CharField(max_length=150)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return self.title
+
+    def delete(self, *args, **kwargs):
+        if self.imageUrl:
+            client = storage.Client()
+            bucket = client.bucket("travelsipapp")
+            blob = bucket.blob(self.imageUrl.name)
+            blob.delete()
+        super(Hotel, self).delete(*args, **kwargs)
 
 
 class Room(models.Model):
     name = models.CharField(max_length=70)
-    person = models.IntegerField(min=1)
-    price = models.DecimalField(max_digits=2)
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    
+    person = models.PositiveIntegerField(
+        default=1, validators=[MinValueValidator(1), MaxValueValidator(10)]
+    )
+    bed = models.PositiveIntegerField(
+        default=1, validators=[MinValueValidator(1), MaxValueValidator(10)]
+    )
+    price = models.DecimalField(decimal_places=2, max_digits=9)
+    hotel = models.ForeignKey(Hotel, related_name="rooms", on_delete=models.CASCADE)
+
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Facility(models.Model):
@@ -36,4 +51,4 @@ class Facility(models.Model):
     view = models.BooleanField(default=False)
     laundry = models.BooleanField(default=False)
     cleaning_room = models.BooleanField(default=False)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="facilities")
