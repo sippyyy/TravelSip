@@ -8,7 +8,7 @@ from rest_framework.mixins import (
 )
 from rest_framework.response import Response
 
-from .models import UserProfile
+from ...models import UserProfile
 from django.contrib.auth.models import User
 from .serializers import UserCreateSerializer, UserSerializer, UserProfileSerializer
 

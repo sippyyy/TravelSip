@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import UserProfileView, UserView
+from .api.v1.views import UserProfileView, UserView
 
 route = DefaultRouter()
 route.register("user_profiles", UserProfileView, basename="user_profile")

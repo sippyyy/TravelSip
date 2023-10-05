@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from .models import UserProfile
+from ...models import UserProfile
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -22,10 +21,20 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username", "email", "date_joined"]
+        fields = ["id", "username", "email", "date_joined"]
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = UserProfile
         fields = "__all__"
+
+
+class UserProfileBasicSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = UserProfile
+        fields = ["id", "user", "nickname", "imageUrl"]

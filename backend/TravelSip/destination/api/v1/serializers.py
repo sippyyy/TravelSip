@@ -43,7 +43,6 @@ class DestinationCreateSerializer(serializers.ModelSerializer):
 
 class DestinationDetailsSerializer(serializers.ModelSerializer):
     # coordinates = serializers.SerializerMethodField(read_only=True)
-
     class Meta:
         model = Destination
         fields = [
