@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from django.conf.urls.static import static
-from django.conf import settings
 
 
 urlpatterns = [
@@ -12,4 +10,6 @@ urlpatterns = [
         path("api/", include("country.urls")),
         path("api/", include("destination.urls")),
         path("api/", include("hotel.urls")),
+        path("api/", include("booking.urls")),
+        path("api/", include("user.urls")),
     ]
