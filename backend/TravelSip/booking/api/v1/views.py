@@ -13,7 +13,12 @@ from django.utils import timezone
 from datetime import datetime
 
 from ...models import Booking
-from .serializers import BookingSerializer, BookingDetailSerializer
+from .serializers import (
+    BookingSerializer,
+    BookingApproveSerializer,
+    BookingClientSerializer,
+    BookingDetailSerializer,
+)
 
 
 class BookingView(
@@ -30,6 +35,8 @@ class BookingView(
     def get_serializer_class(self):
         if self.action == "retrieve":
             return BookingDetailSerializer
+        if self.action == "create":
+            return BookingClientSerializer
         return super().get_serializer_class()
 
     def retrieve(self, request, *args, **kwargs):
@@ -48,6 +55,7 @@ class BookingView(
             Q(check_in__lte=start, check_out__gte=start)
             | Q(check_in__lte=end, check_out__gte=end),
             room=room_id,
+            status="approved",
         )
 
         if room_qs.exists():
@@ -60,9 +68,27 @@ class BookingView(
         start_date = datetime.strptime(start, "%Y-%m-%d").date()
 
         if start_date < timezone.now().date():
-            return Response(
-                {"message": "Invalid date"},
-                status=404
-            )
+            return Response({"message": "Invalid date"}, status=404)
         super().create(request, *args, **kwargs)
         return Response(status=201)
+
+
+class BookingApproveView(UpdateModelMixin, GenericViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingApproveSerializer
+
+    def update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        option = (request.data.get("status")).lower()
+        message = ""
+        if option == "rejected":
+            message = f"Reject booking id #{obj.id} successfully!"
+            status = 200
+        if option == "approved":
+            message = f"Approve booking id #{obj.id} successfully"
+            status = 200
+        else:
+            message = "Invalid action"
+            status = 404
+        super().update(request, *args, **kwargs)
+        return Response({"message": message}, status=status)

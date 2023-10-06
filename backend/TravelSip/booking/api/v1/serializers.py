@@ -9,6 +9,18 @@ class BookingSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class BookingClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        exclude = ["status"]
+        
+
+class BookingApproveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ["status"]
+
+
 class BookingDetailSerializer(serializers.ModelSerializer):
     room = RoomDetailsSerializer()
     booking_duration = serializers.SerializerMethodField(read_only=True)

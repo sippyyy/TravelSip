@@ -3,6 +3,7 @@ from ...models import Hotel, Room, Facility
 from destination.api.v1.serializers import CitySerializer
 import googlemaps
 from django.conf import settings
+from review.api.v1.serializers import HotelReviewSerializer
 
 
 class HotelCreateSerializer(serializers.ModelSerializer):
@@ -13,19 +14,28 @@ class HotelCreateSerializer(serializers.ModelSerializer):
 
 class HotelSerializer(serializers.ModelSerializer):
     location = serializers.SerializerMethodField(read_only=True)
+    rating = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Hotel
-        fields = ["id", "title", "imageUrl", "location"]
+        fields = ["id", "title", "imageUrl", "location", "rating"]
 
     def get_location(self, obj):
         return obj.address
+
+    def get_rating(self, obj):
+        all_reviews = HotelReviewSerializer(obj.reviews, many=True).data
+        ratings = [review.get("rating", 0) for review in all_reviews]
+        total = sum(ratings)
+        average_rating = total / len(all_reviews)
+        return average_rating
 
 
 class HotelDetailSerializer(serializers.ModelSerializer):
     country_id = serializers.SerializerMethodField(read_only=True)
     location = serializers.SerializerMethodField(read_only=True)
     rooms = serializers.SerializerMethodField(read_only=True)
+    review = HotelReviewSerializer(many=True, read_only=True)
     coordinates = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
