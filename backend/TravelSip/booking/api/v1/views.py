@@ -35,7 +35,7 @@ class BookingView(
     def get_serializer_class(self):
         if self.action == "retrieve":
             return BookingDetailSerializer
-        if self.action == "create":
+        if self.action == "create" or self.action == "update":
             return BookingClientSerializer
         return super().get_serializer_class()
 

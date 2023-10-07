@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .api.v1.views import HotelView, RoomView, FacilityView
+from .api.v1.hotel.views import HotelView, RoomView, FacilityView
 
 router = DefaultRouter()
 router.register(r"hotels", HotelView, basename="hotel")

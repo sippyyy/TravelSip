@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ...models import Booking
-from hotel.api.v1.serializers import RoomDetailsSerializer
+from TravelSip.hotel.api.v1.hotel.serializers import RoomDetailsSerializer
 
 
 class BookingSerializer(serializers.ModelSerializer):

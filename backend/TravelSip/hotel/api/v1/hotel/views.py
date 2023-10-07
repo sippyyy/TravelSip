@@ -6,7 +6,7 @@ from rest_framework.mixins import (
     DestroyModelMixin,
     UpdateModelMixin,
 )
-from ...models import Hotel, Room, Facility
+from ....models import Hotel, Room, Facility
 from .serializers import (
     HotelSerializer,
     HotelCreateSerializer,

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ...models import Hotel, Room, Facility
+from ....models import Hotel, Room, Facility
 from destination.api.v1.serializers import CitySerializer
 import googlemaps
 from django.conf import settings
