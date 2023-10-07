@@ -1,31 +1,9 @@
 from rest_framework import serializers
-from ...models import Destination, City
+from ....models import Destination
 import googlemaps
 from django.conf import settings
-from country.api.v1.serializers import CountrySerializer
 from review.api.v1.serializers import DestinationReviewSerializer
-
-
-class CitySerializer(serializers.ModelSerializer):
-    country_name = serializers.SerializerMethodField(read_only=True)
-    country_id = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = City
-        fields = ["id", "name", "country_name", "country_id"]
-
-    def get_country_name(self, obj):
-        serializer_data = CountrySerializer(obj.country).data
-        return serializer_data["country"]
-
-    def get_country_id(self, obj):
-        return obj.country.id
-
-
-class CityCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
-        fields = "__all__"
+from ..city.serializers import CitySerializer
 
 
 class DestinationSerializer(serializers.ModelSerializer):
@@ -42,8 +20,9 @@ class DestinationSerializer(serializers.ModelSerializer):
         total = 0
         for review in all_reviews:
             total += review.get("rating")
-        result = total / reviews_length
-        return result
+        if total > 0:
+            return total / reviews_length
+        return 0
 
 
 class DestinationCreateSerializer(serializers.ModelSerializer):
@@ -56,6 +35,7 @@ class DestinationDetailsSerializer(serializers.ModelSerializer):
     reviews = DestinationReviewSerializer(many=True, read_only=True)
 
     # coordinates = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Destination
         fields = [

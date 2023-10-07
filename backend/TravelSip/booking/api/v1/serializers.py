@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ...models import Booking
-from TravelSip.hotel.api.v1.hotel.serializers import RoomDetailsSerializer
+from hotel.api.v1.room.serializers import RoomDetailsSerializer
 
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -13,7 +13,7 @@ class BookingClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         exclude = ["status"]
-        
+
 
 class BookingApproveSerializer(serializers.ModelSerializer):
     class Meta:

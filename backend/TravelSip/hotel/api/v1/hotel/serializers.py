@@ -1,9 +1,10 @@
 from rest_framework import serializers
-from ....models import Hotel, Room, Facility
-from destination.api.v1.serializers import CitySerializer
+from ....models import Hotel
+from destination.api.v1.destination.serializers import CitySerializer
 import googlemaps
 from django.conf import settings
 from review.api.v1.serializers import HotelReviewSerializer
+from ..room.serializers import RoomSerializer
 
 
 class HotelCreateSerializer(serializers.ModelSerializer):
@@ -27,8 +28,9 @@ class HotelSerializer(serializers.ModelSerializer):
         all_reviews = HotelReviewSerializer(obj.reviews, many=True).data
         ratings = [review.get("rating", 0) for review in all_reviews]
         total = sum(ratings)
-        average_rating = total / len(all_reviews)
-        return average_rating
+        if total > 0:
+            return total / len(all_reviews)
+        return 0
 
 
 class HotelDetailSerializer(serializers.ModelSerializer):
@@ -72,32 +74,3 @@ class HotelDetailSerializer(serializers.ModelSerializer):
             "longtitude": location_longlat["lng"],
             "latitude": location_longlat["lat"],
         }
-
-
-class RoomSerializer(serializers.ModelSerializer):
-    facilities = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = Room
-        fields = "__all__"
-
-    def get_facilities(self, obj):
-        return obj.facilities.count()
-
-
-class FacilitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Facility
-        fields = "__all__"
-
-
-class RoomDetailsSerializer(serializers.ModelSerializer):
-    facilities = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = Room
-        fields = "__all__"
-
-    def get_facilities(self, obj):
-        data_serializer = FacilitySerializer(obj.facilities, many=True).data
-        return data_serializer

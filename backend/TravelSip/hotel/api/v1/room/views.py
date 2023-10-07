@@ -6,16 +6,15 @@ from rest_framework.mixins import (
     DestroyModelMixin,
     UpdateModelMixin,
 )
-from ....models import Hotel
+from ....models import Room
 from .serializers import (
-    HotelSerializer,
-    HotelCreateSerializer,
-    HotelDetailSerializer,
+    RoomSerializer,
+    RoomDetailsSerializer,
 )
 from rest_framework.response import Response
 
 
-class HotelView(
+class RoomView(
     CreateModelMixin,
     ListModelMixin,
     RetrieveModelMixin,
@@ -23,15 +22,12 @@ class HotelView(
     UpdateModelMixin,
     GenericViewSet,
 ):
-    queryset = Hotel.objects.all()
-    serializer_class = HotelSerializer
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
 
     def get_serializer_class(self):
-        if self.action == "create":
-            return HotelCreateSerializer
-
         if self.action == "retrieve":
-            return HotelDetailSerializer
+            return RoomDetailsSerializer
         return super().get_serializer_class()
 
     def retrieve(self, request, *args, **kwargs):
