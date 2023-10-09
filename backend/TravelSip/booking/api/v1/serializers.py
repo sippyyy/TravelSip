@@ -24,10 +24,11 @@ class BookingApproveSerializer(serializers.ModelSerializer):
 class BookingDetailSerializer(serializers.ModelSerializer):
     room = RoomDetailsSerializer()
     booking_duration = serializers.SerializerMethodField(read_only=True)
+    client = serializers.CharField(source="user")
 
     class Meta:
         model = Booking
-        fields = "__all__"
+        exclude = ["user"]
 
     def get_booking_duration(self, obj):
         return (obj.check_out - obj.check_in).days

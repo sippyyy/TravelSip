@@ -2,7 +2,7 @@ from rest_framework import serializers
 from ....models import Destination
 import googlemaps
 from django.conf import settings
-from review.api.v1.serializers import DestinationReviewSerializer
+from review.api.v1.destination_review.serializers import DestinationReviewSerializer
 from ..city.serializers import CitySerializer
 
 

@@ -10,3 +10,13 @@ class IsOwnerHotelOrReadOnly(permissions.BasePermission):
 
         # If the permission check fails, raise a PermissionDenied exception
         raise PermissionDenied("You do not have permission to perform this action.")
+
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        if request.user.username == obj.user.username:
+            return True
+
+        # If the permission check fails, raise a PermissionDenied exception
+        raise PermissionDenied("You do not have permission to perform this action.")

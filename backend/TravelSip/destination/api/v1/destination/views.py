@@ -13,7 +13,13 @@ from .serializers import (
     DestinationCreateSerializer,
     DestinationDetailsSerializer,
 )
+
+from user.models import UserOrganization
+
 from rest_framework.response import Response
+from authentication.permissions.owner import IsOwnerHotelOrReadOnly
+from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 
 
 class DestinationView(
@@ -26,6 +32,16 @@ class DestinationView(
 ):
     queryset = Destination.objects.all()
     serializer_class = DestinationSerializer
+    permission_classes = [IsOwnerHotelOrReadOnly]
+
+    def get_permissions(self):
+        if (
+            self.action == "create"
+            or self.action == "update"
+            or self.action == "destroy"
+        ):
+            return [IsAuthenticated(), IsOwnerHotelOrReadOnly()]
+        return super().get_permissions()
 
     def get_serializer_class(self):
         if self.action == "create":
@@ -47,10 +63,27 @@ class DestinationView(
         return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
-        super().create(request, *args, **kwargs)
-        qs = self.queryset
-        serializer_data = self.serializer_class(qs, many=True).data
-        return Response(serializer_data)
+        user_request = request.user
+        or_group = request.data.get("user")
+        owner = UserOrganization.objects.filter(Q(user=user_request) & Q(id=or_group))
+        if owner.exists():
+            owner_obj = owner.first()
+            if owner_obj.is_verified:
+                super().create(request, *args, **kwargs)
+                qs = self.queryset
+                serializer_data = self.serializer_class(qs, many=True).data
+                return Response(serializer_data)
+            else:
+                return Response(
+                    {
+                        "message": "Your organization account is not verified, please contact to support center of TravelSip to activate your Organization account!"
+                    },
+                    status=403,
+                )
+        else:
+            return Response(
+                {"message": "You are not the owner of this organization"}, status=403
+            )
 
     def destroy(self, request, *args, **kwargs):
         obj = self.get_object()

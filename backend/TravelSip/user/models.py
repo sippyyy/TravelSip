@@ -18,4 +18,4 @@ class UserOrganization(models.Model):
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return self.name

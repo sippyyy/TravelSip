@@ -3,7 +3,7 @@ from ....models import Hotel
 from destination.api.v1.destination.serializers import CitySerializer
 import googlemaps
 from django.conf import settings
-from review.api.v1.serializers import HotelReviewSerializer
+from review.api.v1.hotel_review.serializers import HotelReviewSerializer
 from ..room.serializers import RoomSerializer
 
 

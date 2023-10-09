@@ -9,7 +9,7 @@ class Booking(models.Model):
         ("approved", "Approved"),
         ("rejected", "Rejected"),
     )
-    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, related_name="reserved", on_delete=models.CASCADE)
     check_in = models.DateField()
     check_out = models.DateField()

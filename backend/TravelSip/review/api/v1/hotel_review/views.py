@@ -8,8 +8,10 @@ from rest_framework.mixins import (
 )
 from rest_framework.response import Response
 
-from ...models import HotelReview, DestinationReview
-from .serializers import HotelReviewSerializer, DestinationReviewSerializer
+from ....models import HotelReview
+from .serializers import HotelReviewSerializer
+from authentication.permissions.owner import IsOwnerHotelOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
 
 class HotelReviewView(
@@ -22,32 +24,16 @@ class HotelReviewView(
 ):
     queryset = HotelReview.objects.all()
     serializer_class = HotelReviewSerializer
+    permission_classes = [IsOwnerHotelOrReadOnly]
 
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
-
-    def retrieve(self, request, *args, **kwargs):
-        try:
-            obj = self.get_object()
-            serialize_data = self.get_serializer(obj).data
-            return Response(serialize_data)
-        except Exception as err:
-            return Response({"Error": str(err)})
-
-
-class DestinationReviewView(
-    CreateModelMixin,
-    DestroyModelMixin,
-    UpdateModelMixin,
-    RetrieveModelMixin,
-    ListModelMixin,
-    GenericViewSet,
-):
-    queryset = DestinationReview.objects.all()
-    serializer_class = DestinationReviewSerializer
+    def get_permissions(self):
+        if (
+            self.action == "create"
+            or self.action == "update"
+            or self.action == "destroy"
+        ):
+            return [IsAuthenticated(), IsOwnerHotelOrReadOnly()]
+        return super().get_permissions()
 
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)

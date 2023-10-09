@@ -1,5 +1,6 @@
 from django.db import models
 from country.models import Country
+from user.models import UserOrganization
 
 
 class City(models.Model):
@@ -11,6 +12,7 @@ class City(models.Model):
 
 
 class Destination(models.Model):
+    user = models.ForeignKey(UserOrganization, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=150, unique=True)
     description = models.TextField(max_length=500)
     city = models.ForeignKey(City, null=True, on_delete=models.CASCADE)
