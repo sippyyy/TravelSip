@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ...models import HotelReview, DestinationReview
-from user.api.v1.serializers import UserProfileBasicSerializer
+from user.api.v1.user_profile.serializers import UserProfileBasicSerializer
 
 
 class HotelReviewSerializer(serializers.ModelSerializer):

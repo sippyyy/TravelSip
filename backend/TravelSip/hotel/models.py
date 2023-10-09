@@ -1,12 +1,14 @@
 from django.db import models
 from destination.models import City
 from django.core.validators import MaxValueValidator, MinValueValidator
+from user.models import UserOrganization
 from google.cloud import storage
 
 # from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Hotel(models.Model):
+    user = models.ForeignKey(UserOrganization, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=120)
     description = models.CharField(max_length=300)
     contact = models.CharField(max_length=12)

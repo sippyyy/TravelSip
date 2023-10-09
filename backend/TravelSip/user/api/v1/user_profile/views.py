@@ -8,9 +8,8 @@ from rest_framework.mixins import (
 )
 from rest_framework.response import Response
 
-from ...models import UserProfile
-from django.contrib.auth.models import User
-from .serializers import UserCreateSerializer, UserSerializer, UserProfileSerializer
+from ....models import UserProfile
+from .serializers import UserProfileSerializer
 
 
 class UserProfileView(
@@ -39,15 +38,4 @@ class UserProfileView(
         super().create(request, *args, **kwargs)
         qs = self.queryset
         serializer_data = self.serializer_class(qs, many=True).data
-        return Response(serializer_data)
-
-
-class UserView(CreateModelMixin, GenericViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserCreateSerializer
-
-    def create(self, request, *args, **kwargs):
-        super().create(request, *args, **kwargs)
-        qs = self.queryset
-        serializer_data = UserSerializer(qs, many=True).data
         return Response(serializer_data)

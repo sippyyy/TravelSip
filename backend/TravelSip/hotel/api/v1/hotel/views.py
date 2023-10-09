@@ -13,6 +13,9 @@ from .serializers import (
     HotelDetailSerializer,
 )
 from rest_framework.response import Response
+from user.models import UserOrganization
+from authentication.permissions.owner import IsOwnerHotelOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
 
 class HotelView(
@@ -25,6 +28,7 @@ class HotelView(
 ):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
+    permission_classes = [IsOwnerHotelOrReadOnly]
 
     def get_serializer_class(self):
         if self.action == "create":
@@ -33,6 +37,15 @@ class HotelView(
         if self.action == "retrieve":
             return HotelDetailSerializer
         return super().get_serializer_class()
+
+    def get_permissions(self):
+        if (
+            self.action == "create"
+            or self.action == "update"
+            or self.action == "destroy"
+        ):
+            return [IsAuthenticated(), IsOwnerHotelOrReadOnly()]
+        return super().get_permissions()
 
     def retrieve(self, request, *args, **kwargs):
         try:
@@ -46,7 +59,21 @@ class HotelView(
         return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
-        super().create(request, *args, **kwargs)
-        qs = self.queryset
-        serializer_data = self.serializer_class(qs, many=True).data
-        return Response(serializer_data)
+        user_request = request.user.id
+        print(user_request)
+        owner = UserOrganization.objects.filter(user=user_request)
+        if owner.exists():
+            owner_obj = owner.first()
+            if owner_obj.is_verified:
+                super().create(request, *args, **kwargs)
+                qs = self.queryset
+                serializer_data = self.serializer_class(qs, many=True).data
+                return Response(serializer_data)
+            else:
+                return Response(
+                    {
+                        "message": "Your organization account is not verified, please contact to support center of TravelSip to activate your Organization account!"
+                    }
+                )
+        else:
+            return Response({"message": "You are not the owner of this organization"})
