@@ -4,36 +4,7 @@
             "outputFile": "com.travelsip.app-mergeDebugResources-34:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "/home/xc/.gradle/caches/transforms-3/a93c68fb1d2792ca1942259f5092d83b/transformed/work-runtime-2.7.1/res/values-v23/values-v23.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,121",
-                        "endColumns": "65,62",
-                        "endOffsets": "116,179"
-                    }
-                },
-                {
-                    "source": "/home/xc/.gradle/caches/transforms-3/c785f2650a4ab9597610a42a5423b6e7/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endLines": "4",
-                        "endColumns": "12",
-                        "endOffsets": "200"
-                    },
-                    "to": {
-                        "startLines": "52",
-                        "startColumns": "4",
-                        "startOffsets": "3361",
-                        "endLines": "54",
-                        "endColumns": "12",
-                        "endOffsets": "3506"
-                    }
-                },
-                {
-                    "source": "/home/xc/.gradle/caches/transforms-3/b14585e0ae3314e7a64bac79062dab1c/transformed/appcompat-1.4.1/res/values-v23/values-v23.xml",
+                    "source": "/home/thuy/.gradle/caches/transforms-3/b14585e0ae3314e7a64bac79062dab1c/transformed/appcompat-1.4.1/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -52,7 +23,36 @@
                     }
                 },
                 {
-                    "source": "/home/xc/.gradle/caches/transforms-3/9300c7fc5aff0974f1ee709fb212c45e/transformed/material-1.1.0/res/values-v23/values-v23.xml",
+                    "source": "/home/thuy/.gradle/caches/transforms-3/c785f2650a4ab9597610a42a5423b6e7/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "4",
+                        "endColumns": "12",
+                        "endOffsets": "200"
+                    },
+                    "to": {
+                        "startLines": "52",
+                        "startColumns": "4",
+                        "startOffsets": "3361",
+                        "endLines": "54",
+                        "endColumns": "12",
+                        "endOffsets": "3506"
+                    }
+                },
+                {
+                    "source": "/home/thuy/.gradle/caches/transforms-3/a93c68fb1d2792ca1942259f5092d83b/transformed/work-runtime-2.7.1/res/values-v23/values-v23.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,121",
+                        "endColumns": "65,62",
+                        "endOffsets": "116,179"
+                    }
+                },
+                {
+                    "source": "/home/thuy/.gradle/caches/transforms-3/9300c7fc5aff0974f1ee709fb212c45e/transformed/material-1.1.0/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,6",
                         "startColumns": "4,4",

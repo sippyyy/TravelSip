@@ -1,11 +1,17 @@
-import {View, VirtualizedList} from 'react-native';
+import {ActivityIndicator, View, VirtualizedList} from 'react-native';
 import React from 'react';
 import HeightSpacer from '../Reusable/HeightSpacer';
-import {countries} from '../../mock_api';
-import {SIZES} from '../../constants/theme';
+// import {countries} from '../../mock_api';
+import {COLORS, SIZES} from '../../constants/theme';
 import Country from '../Tiles/Country/Country';
+import useFetchCountries from '../../hooks/fetchCountries';
 
 const Places = () => {
+  const {countries, isLoading, error, refetch} = useFetchCountries();
+  if (isLoading) {
+    return <ActivityIndicator size={SIZES.xxLarge} color={COLORS.lightBlue} />;
+  }
+
   return (
     <View>
       <HeightSpacer height={20} />

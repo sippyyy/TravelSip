@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -22,6 +23,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+    "corsheaders",
     "country",
     "destination",
     "hotel",
@@ -34,6 +36,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -129,3 +132,14 @@ UPLOAD_ROOT = "media/uploads/"
 MEDIA_URL = "https://storage.googleapis.com/{}/".format(GS_BUCKET_NAME)
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+
+CORS_ALLOW_ALL_ORIGINS: True
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)

@@ -4,7 +4,7 @@
             "outputFile": "com.travelsip.app-mergeDebugResources-34:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "/home/xc/.gradle/caches/transforms-3/b14585e0ae3314e7a64bac79062dab1c/transformed/appcompat-1.4.1/res/values-v18/values-v18.xml",
+                    "source": "/home/thuy/.gradle/caches/transforms-3/b14585e0ae3314e7a64bac79062dab1c/transformed/appcompat-1.4.1/res/values-v18/values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -16,10 +16,11 @@ class HotelCreateSerializer(serializers.ModelSerializer):
 class HotelSerializer(serializers.ModelSerializer):
     location = serializers.SerializerMethodField(read_only=True)
     rating = serializers.SerializerMethodField(read_only=True)
+    reviews = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Hotel
-        fields = ["id", "title", "imageUrl", "location", "rating"]
+        fields = ["id", "title", "imageUrl", "location", "rating","reviews"]
 
     def get_location(self, obj):
         return obj.address
@@ -31,6 +32,9 @@ class HotelSerializer(serializers.ModelSerializer):
         if total > 0:
             return total / len(all_reviews)
         return 0
+    
+    def get_reviews(self, obj):
+        return obj.reviews.count()
 
 
 class HotelDetailSerializer(serializers.ModelSerializer):

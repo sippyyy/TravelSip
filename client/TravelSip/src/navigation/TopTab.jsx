@@ -4,12 +4,11 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {TopBookings, TopInfo, TopTrips} from '../screens';
 import {COLORS, SIZES} from '../constants/theme';
 import {AppBar, HeightSpacer, NetworkImage, ReusableText} from '../components';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './topTab.style';
 
 const Tab = createMaterialTopTabNavigator();
 
-const TopTab = () => {
+const TopTab = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <View style={{backgroundColor: COLORS.lightWhite}}>
@@ -29,6 +28,7 @@ const TopTab = () => {
             color1={COLORS.white}
             icon={'log-out-outline'}
             // onPress1={()=>{}}
+            onPress={() => navigation.goBack()}
           />
           <View style={styles.profile}>
             <Image
