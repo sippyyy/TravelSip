@@ -38,7 +38,7 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     location = serializers.SerializerMethodField(read_only=True)
     rooms = serializers.SerializerMethodField(read_only=True)
     review = HotelReviewSerializer(many=True, read_only=True)
-    # coordinates = serializers.SerializerMethodField(read_only=True)
+    coordinates = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Hotel
@@ -51,7 +51,7 @@ class HotelDetailSerializer(serializers.ModelSerializer):
             "rooms",
             "description",
             "review"
-            # "coordinates",
+            "coordinates",
         ]
 
     def get_country_id(self, obj):
@@ -65,13 +65,13 @@ class HotelDetailSerializer(serializers.ModelSerializer):
         serializer_data = RoomSerializer(obj.rooms, many=True).data
         return serializer_data
 
-    # def get_coordinates(self, obj):
-    #     location = f"{obj.address}, {obj.city}, {obj.city.country}"
-    #     google_api_key = settings.GOOGLE_API_KEY
-    #     gmaps = googlemaps.Client(google_api_key)
-    #     loca_detail = gmaps.geocode(location)[0]
-    #     location_longlat = loca_detail["geometry"]["location"]
-    #     return {
-    #         "longtitude": location_longlat["lng"],
-    #         "latitude": location_longlat["lat"],
-    #     }
+    def get_coordinates(self, obj):
+        location = f"{obj.address}, {obj.city}, {obj.city.country}"
+        google_api_key = settings.GOOGLE_API_KEY
+        gmaps = googlemaps.Client(google_api_key)
+        loca_detail = gmaps.geocode(location)[0]
+        location_longlat = loca_detail["geometry"]["location"]
+        return {
+            "longtitude": location_longlat["lng"],
+            "latitude": location_longlat["lat"],
+        }

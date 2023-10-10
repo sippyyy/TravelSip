@@ -8,7 +8,9 @@ from google.cloud import storage
 
 
 class Hotel(models.Model):
-    user = models.ForeignKey(UserOrganization, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(
+        UserOrganization, related_name="user_hotel", on_delete=models.CASCADE, null=True
+    )
     title = models.CharField(max_length=120)
     description = models.CharField(max_length=300)
     contact = models.CharField(max_length=12)

@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from hotel.models import Room
+from user.models import UserProfile
 
 
 class Booking(models.Model):
@@ -9,7 +9,7 @@ class Booking(models.Model):
         ("approved", "Approved"),
         ("rejected", "Rejected"),
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, related_name="bookings", on_delete=models.CASCADE)
     room = models.ForeignKey(Room, related_name="reserved", on_delete=models.CASCADE)
     check_in = models.DateField()
     check_out = models.DateField()

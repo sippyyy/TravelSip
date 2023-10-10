@@ -34,7 +34,7 @@ class DestinationCreateSerializer(serializers.ModelSerializer):
 class DestinationDetailsSerializer(serializers.ModelSerializer):
     reviews = DestinationReviewSerializer(many=True, read_only=True)
 
-    # coordinates = serializers.SerializerMethodField(read_only=True)
+    coordinates = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Destination
@@ -47,16 +47,16 @@ class DestinationDetailsSerializer(serializers.ModelSerializer):
             "created_at",
             "edited_at",
             "reviews"
-            # "coordinates",
+            "coordinates",
         ]
 
-    # def get_coordinates(self, obj):
-    #     map_api_key = settings.GOOGLE_API_KEY
-    #     location = f"{obj.address}, {obj.city}, {obj.city.country}"
-    #     gmaps = googlemaps.Client(map_api_key)
-    #     loca_detail = gmaps.geocode(location)[0]
-    #     location_longlat = loca_detail["geometry"]["location"]
-    #     return {
-    #         "longtitude": location_longlat["lng"],
-    #         "latitude": location_longlat["lat"],
-    #     }
+    def get_coordinates(self, obj):
+        map_api_key = settings.GOOGLE_API_KEY
+        location = f"{obj.address}, {obj.city}, {obj.city.country}"
+        gmaps = googlemaps.Client(map_api_key)
+        loca_detail = gmaps.geocode(location)[0]
+        location_longlat = loca_detail["geometry"]["location"]
+        return {
+            "longtitude": location_longlat["lng"],
+            "latitude": location_longlat["lat"],
+        }

@@ -22,7 +22,6 @@ from .serializers import (
 
 from authentication.permissions.owner import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated
-from hotel.models import Room
 
 
 class BookingView(
@@ -35,16 +34,7 @@ class BookingView(
 ):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-    permission_classes = [IsOwnerOrReadOnly]
-
-    def get_permissions(self):
-        if (
-            self.action == "update"
-            or self.action == "create"
-            or self.action == "destroy"
-        ):
-            return [IsAuthenticated(), IsOwnerOrReadOnly()]
-        return super().get_permissions()
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -60,6 +50,17 @@ class BookingView(
             return Response(data)
         except Exception as er:
             return Response({"Error": str(er)})
+
+    def list(self, request, *args, **kwargs):
+        my_booking_list = request.query_params.get("my_booking")
+        user_request = request.user.profile.id
+        if my_booking_list:
+            qs = Booking.objects.filter(user=user_request).all()
+            serialized_data = self.get_serializer(qs, many=True).data
+            return Response(serialized_data, status=200)
+        if request.user.is_staff:
+            return super().list(request, *args, **kwargs)
+        return Response(status=403)
 
     def create(self, request, *args, **kwargs):
         request_user = request.user.id
@@ -78,7 +79,6 @@ class BookingView(
             return Response({"message": "Misleading user"}, status=403)
 
         if room_qs.exists():
-            
             return Response(
                 {
                     "message": "Room is not available, please select other days/ room that could match your vacation time"
