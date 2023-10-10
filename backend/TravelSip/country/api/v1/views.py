@@ -7,7 +7,8 @@ from .serializers import (
     RegionSerializer,
     CountrySerializer,
     CountryCreateSerializer,
-)  # Replace with your actual serializer
+) 
+from authentication.permissions.owner import IsSuperuserOrReadOnly
 
 
 class RegionView(
@@ -20,6 +21,7 @@ class RegionView(
 ):
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
+    permission_classes = [IsSuperuserOrReadOnly]
 
     def retrieve(self, request, *args, **kwargs):
         try:
@@ -63,6 +65,7 @@ class CountryView(
 ):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+    permission_classes = [IsSuperuserOrReadOnly]
 
     def get_serializer_class(self):
         if self.action == "create":

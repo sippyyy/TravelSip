@@ -13,6 +13,7 @@ from .serializers import (
     CityCreateSerializer,
 )
 from rest_framework.response import Response
+from authentication.permissions.owner import IsSuperuserOrReadOnly
 
 
 class CityView(
@@ -25,6 +26,7 @@ class CityView(
 ):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+    permission_classes = [IsSuperuserOrReadOnly]
 
     def get_serializer_class(self):
         if self.action == "create":
