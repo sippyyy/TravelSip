@@ -41,8 +41,9 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     country_id = serializers.SerializerMethodField(read_only=True)
     location = serializers.SerializerMethodField(read_only=True)
     rooms = serializers.SerializerMethodField(read_only=True)
-    review = HotelReviewSerializer(many=True, read_only=True)
-    coordinates = serializers.SerializerMethodField(read_only=True)
+    reviews = HotelReviewSerializer(many=True, read_only=True)
+    review = serializers.SerializerMethodField(read_only=True)
+    # coordinates = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Hotel
@@ -54,8 +55,9 @@ class HotelDetailSerializer(serializers.ModelSerializer):
             "location",
             "rooms",
             "description",
-            "review"
-            "coordinates",
+            "reviews",
+            "review",
+            # "coordinates",
         ]
 
     def get_country_id(self, obj):
@@ -68,14 +70,22 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     def get_rooms(self, obj):
         serializer_data = RoomSerializer(obj.rooms, many=True).data
         return serializer_data
+    
+    def get_review(self,obj):
+        return obj.reviews.count()
 
-    def get_coordinates(self, obj):
-        location = f"{obj.address}, {obj.city}, {obj.city.country}"
-        google_api_key = settings.GOOGLE_API_KEY
-        gmaps = googlemaps.Client(google_api_key)
-        loca_detail = gmaps.geocode(location)[0]
-        location_longlat = loca_detail["geometry"]["location"]
-        return {
-            "longtitude": location_longlat["lng"],
-            "latitude": location_longlat["lat"],
-        }
+    # def get_coordinates(self, obj):
+    #     location = f"{obj.address}, {obj.city}, {obj.city.country}"
+    #     google_api_key = settings.GOOGLE_API_KEY
+    #     gmaps = googlemaps.Client(google_api_key)
+        
+    #     try:
+    #         loca_detail = gmaps.geocode(location)[0]
+    #         location_longlat = loca_detail["geometry"]["location"]
+    #         return {
+    #             "longitude": location_longlat["lng"],
+    #             "latitude": location_longlat["lat"],
+    #         }
+    #     except Exception as e:
+    #         # Handle the exception, log it, and return a default value or an error message.
+    #         return {"error": "Unable to fetch coordinates", "detail": str(e)}

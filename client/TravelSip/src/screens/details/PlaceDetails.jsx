@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
 import {
@@ -16,21 +10,26 @@ import {
   ReusableBtn,
   ReusableText,
 } from '../../components';
-import {place} from '../../mock_api';
+// import {place} from '../../mock_api';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import reusable from '../../components/Reusable/reusable.style';
 import Icon from 'react-native-vector-icons/Ionicons';
+import useFetchData from '../../hooks/fetchData';
 
 const PlaceDetails = ({navigation}) => {
   const route = useRoute();
   const id = route.params;
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: `api/v1/destinations/${id}/`,
+  });
   return (
     <ScrollView>
       <View>
         <NetworkImage
           topLeftRadius={0}
           topRightRadius={0}
-          source={place.imageUrl}
+          source={output.imageUrl}
           width={'100%'}
           height={350}
           radius={30}
@@ -41,7 +40,7 @@ const PlaceDetails = ({navigation}) => {
           right={20}
           onPress={() => navigation.goBack()}
           onPress1={() => {}}
-          title={place.title}
+          title={output.title}
           color={COLORS.white}
           icon="search-outline"
           color1={COLORS.white}
@@ -49,12 +48,12 @@ const PlaceDetails = ({navigation}) => {
       </View>
       <View style={styles.description}>
         <ReusableText
-          text={place.location}
+          text={output.location}
           family="medium"
           size={TEXT.large}
           color={COLORS.black}
         />
-        <DescriptionText text={place.description} />
+        <DescriptionText text={output.description} />
         <View style={{alignContent: 'center'}}>
           <View style={reusable.rowWithSpace('space-between')}>
             <ReusableText
@@ -68,10 +67,10 @@ const PlaceDetails = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <HeightSpacer height={10} />
-          <PopularList data={place.popular} />
+          <PopularList data={output.popular} navigate="HotelDetails" />
         </View>
         <ReusableBtn
-          onPress={() => navigation.navigate('HotelSearch', place.id)}
+          onPress={() => navigation.navigate('HotelSearch', output.id)}
           btnText="Find Best Hotels"
           width={SIZES.width - 40}
           backGroundColor={COLORS.green}

@@ -3,13 +3,13 @@ import React from 'react';
 import ReusableTile from '../Reusable/ReusableTile';
 import {useNavigation} from '@react-navigation/native';
 
-const PopularList = ({data}) => {
+const PopularList = ({data,navigate}) => {
   const navigation = useNavigation();
   const renderItem = ({item}) => (
     <View style={{marginBottom: 10}}>
       <ReusableTile
         item={item}
-        onPress={() => navigation.navigate('PlaceDetails', item.id)}
+        onPress={() => navigation.navigate(navigate, item.id)}
       />
     </View>
   );

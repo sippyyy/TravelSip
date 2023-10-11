@@ -4,10 +4,13 @@ import HeightSpacer from '../Reusable/HeightSpacer';
 // import {countries} from '../../mock_api';
 import {COLORS, SIZES} from '../../constants/theme';
 import Country from '../Tiles/Country/Country';
-import useFetchCountries from '../../hooks/fetchCountries';
+import useFetchData from '../../hooks/fetchData';
 
 const Places = () => {
-  const {countries, isLoading, error, refetch} = useFetchCountries();
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: 'api/v1/country/',
+  });
   if (isLoading) {
     return <ActivityIndicator size={SIZES.xxLarge} color={COLORS.lightBlue} />;
   }
@@ -16,7 +19,7 @@ const Places = () => {
     <View>
       <HeightSpacer height={20} />
       <VirtualizedList
-        data={countries}
+        data={output}
         horizontal
         keyExtractor={item => item.id}
         showsHorizontalScrollIndicator={false}

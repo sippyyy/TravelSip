@@ -8,9 +8,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import {recommendations} from '../../mock_api';
 import ReusableTile from '../Reusable/ReusableTile';
+import useFetchData from '../../hooks/fetchData';
 
 const Recommendation = () => {
   const navigation = useNavigation();
+  const {output, isLoading, error, refetch} = useFetchData({method:"get", endpoint:"api/v1/destinations/"})
   return (
     <View style={styles.container}>
       <View
@@ -26,7 +28,7 @@ const Recommendation = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={recommendations}
+        data={output}
         horizontal
         keyExtractor={item => item.id}
         contentContainerStyle={{columnGap: SIZES.medium}}

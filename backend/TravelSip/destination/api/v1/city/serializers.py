@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from ....models import City
-from country.api.v1.serializers import CountrySerializer
-
+# from country.api.v1.serializers import CountrySerializer
 
 class CitySerializer(serializers.ModelSerializer):
     country_name = serializers.SerializerMethodField(read_only=True)
@@ -12,8 +11,10 @@ class CitySerializer(serializers.ModelSerializer):
         fields = ["id", "name", "country_name", "country_id"]
 
     def get_country_name(self, obj):
-        serializer_data = CountrySerializer(obj.country).data
-        return serializer_data["country"]
+        # serializer_data = CountrySerializer(obj.country).data
+        # return serializer_data["country"]
+        return "a"
+        
 
     def get_country_id(self, obj):
         return obj.country.id
@@ -23,3 +24,4 @@ class CityCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = "__all__"
+        

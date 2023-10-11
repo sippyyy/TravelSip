@@ -7,7 +7,8 @@ from .serializers import (
     RegionSerializer,
     CountrySerializer,
     CountryCreateSerializer,
-) 
+    CountryDetailsSerializer,
+)
 from authentication.permissions.owner import IsSuperuserOrReadOnly
 
 
@@ -39,7 +40,7 @@ class RegionView(
         qs = Region.objects.all()
         serializer_data = self.serializer_class(qs, many=True).data
         return Response(serializer_data)
-    
+
     def destroy(self, request, *args, **kwargs):
         obj = self.get_object()
         images = obj.country_set.filter(imageUrl__isnull=False)
@@ -51,7 +52,7 @@ class RegionView(
                 blob.delete()
 
         obj.country_set.all().delete()
-        
+
         return super().destroy(request, *args, **kwargs)
 
 
@@ -68,14 +69,17 @@ class CountryView(
     permission_classes = [IsSuperuserOrReadOnly]
 
     def get_serializer_class(self):
+        print(self.action)
         if self.action == "create":
             return CountryCreateSerializer
+        if self.action == "retrieve":
+            return CountryDetailsSerializer
         return super().get_serializer_class()
 
     def retrieve(self, request, *args, **kwargs):
         try:
             instance = self.get_object()
-            data = self.serializer_class(instance).data
+            data = CountryDetailsSerializer(instance).data
             return Response(data)
         except Exception as ex:
             return Response({"Error": str(ex)})
@@ -88,7 +92,7 @@ class CountryView(
         qs = Country.objects.all()
         serializer_data = self.serializer_class(qs, many=True).data
         return Response(serializer_data)
-    
+
     def destroy(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj.imageUrl:

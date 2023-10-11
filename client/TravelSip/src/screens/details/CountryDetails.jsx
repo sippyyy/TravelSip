@@ -20,17 +20,20 @@ import {country} from '../../mock_api';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import reusable from '../../components/Reusable/reusable.style';
 import Icon from 'react-native-vector-icons/Ionicons';
+import useFetchData from '../../hooks/fetchData';
 
 const CountryDetails = ({navigation}) => {
   const route = useRoute();
   const item = route.params;
+  const {output, isLoading, error, refetch} = useFetchData({method:"get",endpoint:`api/v1/country/${item.id}/`});
+
   return (
     <ScrollView>
       <View>
         <NetworkImage
           topLeftRadius={0}
           topRightRadius={0}
-          source={country.imageUrl}
+          source={output.imageUrl}
           width={'100%'}
           height={350}
           radius={30}
@@ -41,7 +44,7 @@ const CountryDetails = ({navigation}) => {
           right={20}
           onPress={() => navigation.goBack()}
           onPress1={() => {}}
-          title={country.country}
+          title={output.country}
           color={COLORS.white}
           icon="search-outline"
           color1={COLORS.white}
@@ -49,12 +52,12 @@ const CountryDetails = ({navigation}) => {
       </View>
       <View style={styles.description}>
         <ReusableText
-          text={country.region}
+          text={output.region}
           family="medium"
           size={TEXT.large}
           color={COLORS.black}
         />
-        <DescriptionText text={country.description} />
+        <DescriptionText text={output.description} />
         <View style={{alignContent: 'center'}}>
           <View style={reusable.rowWithSpace('space-between')}>
             <ReusableText
@@ -67,10 +70,10 @@ const CountryDetails = ({navigation}) => {
               <Icon name="list" size={20} color={COLORS.black} />
             </TouchableOpacity>
           </View>
-          <PopularList data={country.popular} />
+          <PopularList data={output.popular} navigate="PlaceDetails"/>
         </View>
         <ReusableBtn
-          onPress={() => navigation.navigate('HotelSearch', country.id)}
+          onPress={() => navigation.navigate('HotelSearch', output.id)}
           btnText="Find Best Hotels"
           width={SIZES.width - 40}
           backGroundColor={COLORS.green}

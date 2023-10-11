@@ -16,8 +16,16 @@ import reusable from '../../components/Reusable/reusable.style';
 import {Rating} from 'react-native-stock-star-rating';
 import hotel, {coordinates} from '../../mock_api/hotel';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useRoute} from '@react-navigation/native';
+import useFetchData from '../../hooks/fetchData';
 
 const HotelDetails = ({navigation}) => {
+  const route = useRoute();
+  const id = route.params;
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: `api/v1/hotels/${id}/`,
+  });
   return (
     <ScrollView>
       <View style={{height: 80}}>
@@ -27,7 +35,7 @@ const HotelDetails = ({navigation}) => {
           right={20}
           onPress={() => navigation.goBack()}
           onPress1={() => {}}
-          title={hotel.title}
+          title={output.title}
           color={COLORS.white}
           icon="search-outline"
           color1={COLORS.white}
@@ -35,7 +43,7 @@ const HotelDetails = ({navigation}) => {
       </View>
       <View style={styles.container}>
         <NetworkImage
-          source={hotel.imageUrl}
+          source={output.imageUrl}
           width={'100%'}
           height={220}
           radius={25}
@@ -43,13 +51,13 @@ const HotelDetails = ({navigation}) => {
         <View style={styles.titleContainer}>
           <View style={styles.titleColumn}>
             <ReusableText
-              text={hotel.title}
+              text={output.title}
               family="medium"
               size={TEXT.xLarge}
               color={COLORS.black}
             />
             <ReusableText
-              text={hotel.location}
+              text={output.location}
               family="medium"
               size={TEXT.medium}
               color={COLORS.black}
@@ -57,12 +65,12 @@ const HotelDetails = ({navigation}) => {
             <View style={reusable.rowWithSpace('space-between')}>
               <Rating
                 maxStars={5}
-                stars={hotel.rating}
+                stars={output.rating}
                 bordered={false}
                 color={'#FD9942'}
               />
               <ReusableText
-                text={`(${hotel.review})`}
+                text={`(${output.review} Reviews)`}
                 family="medium"
                 size={SIZES.medium}
                 color={COLORS.gray}
@@ -78,7 +86,7 @@ const HotelDetails = ({navigation}) => {
             color={COLORS.gray}
           />
           <HeightSpacer height={10} />
-          <DescriptionText text={hotel.description} />
+          <DescriptionText text={output.description} />
           <HeightSpacer height={10} />
           <ReusableText
             text="Location"
@@ -88,7 +96,7 @@ const HotelDetails = ({navigation}) => {
           />
           <HeightSpacer height={15} />
           <ReusableText
-            text={hotel.location}
+            text={output.location}
             family="regular"
             size={SIZES.small + 2}
             color={COLORS.gray}
@@ -106,13 +114,13 @@ const HotelDetails = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <HeightSpacer height={10} />
-          <ReviewList reviews={hotel.reviews} />
+          <ReviewList reviews={output.reviews} />
         </View>
       </View>
       <View style={[reusable.rowWithSpace('space-between'), styles.bottom]}>
         <View>
           <ReusableText
-            text={`\$ ${hotel.price}`}
+            text={`\$ ${output.price}`}
             family="medium"
             size={SIZES.large}
             color={COLORS.black}
@@ -126,7 +134,7 @@ const HotelDetails = ({navigation}) => {
           />
         </View>
         <ReusableBtn
-          onPress={() => navigation.navigate('SelectRoom', hotel.id)}
+          onPress={() => navigation.navigate('SelectRoom', output.id)}
           btnText="Select Room"
           width={(SIZES.width - 50) / 2.2}
           backGroundColor={COLORS.green}

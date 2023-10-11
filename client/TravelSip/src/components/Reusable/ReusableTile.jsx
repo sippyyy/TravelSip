@@ -38,7 +38,7 @@ const ReusableTile = ({item, onPress}) => {
             <Rating rating={item.rating} />
             <WidthSpacer width={5} />
             <ReusableText
-              text={`(${item.review})`}
+              text={`(${item.reviews})`}
               family="medium"
               size={14}
               color={COLORS.gray}
@@ -57,5 +57,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: COLORS.lightWhite,
     borderRadius: 12,
+    overflow: 'hidden'
   },
 });

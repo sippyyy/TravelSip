@@ -62,8 +62,10 @@ class HotelView(
 
     def create(self, request, *args, **kwargs):
         user_request = request.user
-        or_group = request.data.get('user')
-        owner = UserOrganization.objects.filter(Q(user=user_request.id) & Q(id=or_group))
+        or_group = request.data.get("user")
+        owner = UserOrganization.objects.filter(
+            Q(user=user_request.id) & Q(id=or_group)
+        )
         if owner.exists():
             owner_obj = owner.first()
             if owner_obj.is_verified:

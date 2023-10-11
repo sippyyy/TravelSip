@@ -1,9 +1,14 @@
 import {StyleSheet, Text} from 'react-native';
 import React from 'react';
 
-const ReusableText = ({text, family, size, color, align}) => {
+const ReusableText = ({text, family, size, color, align, lines = 1}) => {
   return (
-    <Text style={styles.textStyle(family, size, color, align)}>{text}</Text>
+    <Text
+      numberOfLines={lines}
+      ellipsizeMode="tail"
+      style={styles.textStyle(family, size, color, align)}>
+      {text}
+    </Text>
   );
 };
 
@@ -15,6 +20,5 @@ const styles = StyleSheet.create({
     fontSize: size,
     color: color,
     textAlign: align,
-    
   }),
 });
