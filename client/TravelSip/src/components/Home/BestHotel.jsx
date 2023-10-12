@@ -6,11 +6,16 @@ import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import reusable from '../Reusable/reusable.style';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {hotels} from '../../mock_api';
 import HotelCard from '../Tiles/Hotels/HotelCard';
+import useFetchData from '../../hooks/fetchData';
 
 const BestHotel = () => {
   const navigation = useNavigation();
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: 'api/v1/hotels/',
+  });
+
   return (
     <View>
       <HeightSpacer height={30} />
@@ -27,7 +32,7 @@ const BestHotel = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={hotels}
+        data={output}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.id}
@@ -36,7 +41,7 @@ const BestHotel = () => {
           <HotelCard
             margin={10}
             item={item}
-            onPress={() => navigation.navigate('HotelDetails')}
+            onPress={() => navigation.navigate('HotelDetails', item.id)}
           />
         )}
       />

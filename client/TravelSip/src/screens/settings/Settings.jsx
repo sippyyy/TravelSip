@@ -34,6 +34,8 @@ const Settings = ({navigation}) => {
         <SettingTile title={'Country'} title1={'USA'} />
         <HeightSpacer height={3} />
         <SettingTile title={'Currency'} title1={'USD'} />
+        <HeightSpacer height={3} />
+        <SettingTile title={'Business account'} title1={'Register Now'} />
         <HeightSpacer height={40} />
 
         <ReusableText

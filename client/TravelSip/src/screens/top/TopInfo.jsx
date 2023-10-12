@@ -20,6 +20,11 @@ const TopInfo = ({navigation}) => {
         icon={'settings'}
         onPress={() => navigation.navigate('Settings')}
       />
+      <ProfileTile
+        title={'My business'}
+        icon={'switch-account'}
+        onPress={() => navigation.navigate('Settings')}
+      />
     </View>
   );
 };

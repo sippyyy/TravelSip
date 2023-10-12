@@ -127,14 +127,14 @@ const HotelDetails = ({navigation}) => {
           />
           <HeightSpacer height={5} />
           <ReusableText
-            text="Jan 01 - Dec 25"
+            text="(Per night)"
             family="medium"
             size={SIZES.medium}
             color={COLORS.gray}
           />
         </View>
         <ReusableBtn
-          onPress={() => navigation.navigate('SelectRoom', output.id)}
+          onPress={() => navigation.navigate('SelectRoom', output)}
           btnText="Select Room"
           width={(SIZES.width - 50) / 2.2}
           backGroundColor={COLORS.green}

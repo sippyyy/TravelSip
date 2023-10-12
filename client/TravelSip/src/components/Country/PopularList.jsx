@@ -3,7 +3,7 @@ import React from 'react';
 import ReusableTile from '../Reusable/ReusableTile';
 import {useNavigation} from '@react-navigation/native';
 
-const PopularList = ({data,navigate}) => {
+const PopularList = ({data, navigate}) => {
   const navigation = useNavigation();
   const renderItem = ({item}) => (
     <View style={{marginBottom: 10}}>

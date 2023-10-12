@@ -1,15 +1,12 @@
 import {FlatList, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {
-  AppBar,
-  HeightSpacer,
-  ReusableBtn,
-  ReusableTile,
-} from '../../components';
+import {AppBar, HeightSpacer, ReusableBtn, TileRoom} from '../../components';
 import {COLORS, SIZES} from '../../constants/theme';
-import {hotels} from '../../mock_api';
+import {useRoute} from '@react-navigation/native';
 
 const SelectRoom = ({navigation}) => {
+  const route = useRoute();
+  const data = route.params;
   return (
     <View>
       <View style={{height: 80}}>
@@ -23,17 +20,17 @@ const SelectRoom = ({navigation}) => {
         />
       </View>
       <FlatList
-        data={hotels}
+        data={data.rooms}
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <View style={styles.tileColumn}>
             <View style={styles.tile}>
-              <ReusableTile item={item} />
+              <TileRoom item={item} />
               <HeightSpacer height={10} />
               <View style={{marginHorizontal: 10}}>
                 <ReusableBtn
-                  onPress={() => navigation.navigate('SelectedRoom', {item})}
+                  onPress={() => navigation.navigate('SelectedRoom', item.id)}
                   btnText="Choose"
                   width={SIZES.width - 60}
                   backGroundColor={COLORS.green}

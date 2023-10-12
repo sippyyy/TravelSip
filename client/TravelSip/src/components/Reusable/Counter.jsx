@@ -5,15 +5,20 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {COLORS, SIZES} from '../../constants/theme';
 import ReusableText from './ReusableText';
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
+const Counter = ({bigger = 1, smaller, count,setCount}) => {
 
   const increment = () => {
-    setCount(count + 1);
+    if (smaller) {
+      if (count < smaller) {
+        setCount(count + 1);
+      }
+    } else {
+      setCount(count + 1);
+    }
   };
 
   const decrement = () => {
-    if (count > 1) {
+    if (count > bigger) {
       setCount(count - 1);
     }
   };

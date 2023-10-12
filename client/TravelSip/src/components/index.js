@@ -22,6 +22,9 @@ import Settings from '../screens/settings/Settings';
 import SettingTile from './Tiles/Settings/SettingTile';
 import AssetImage from './Reusable/AssetImage';
 import Counter from './Reusable/Counter';
+import TileRoom from './Hotel/TileRoom';
+import ReusableSpaceText from './Reusable/ReusableSpaceText';
+import CalendarPicker from './Reusable/CalendarPicker';
 
 export {
   Slides,
@@ -48,4 +51,7 @@ export {
   SettingTile,
   AssetImage,
   Counter,
+  TileRoom,
+  ReusableSpaceText,
+  CalendarPicker,
 };
