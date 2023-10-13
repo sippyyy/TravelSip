@@ -24,6 +24,7 @@ import reusable from '../../components/Reusable/reusable.style';
 import useFetchData from '../../hooks/fetchData';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Modal} from 'react-native-paper';
+import {httpRequest} from '../../api/services';
 
 const SelectedRoom = ({navigation}) => {
   const route = useRoute();
@@ -35,6 +36,10 @@ const SelectedRoom = ({navigation}) => {
   const [selectedDates, setSelectedDates] = useState({});
   const [totalNights, setTotalNights] = useState(0);
   const [person, setPerson] = useState(1);
+
+  // temporary
+  const [loading, setLoading] = useState(false);
+  const [error2, setError2] = useState(' ');
 
   const {output, isLoading, error, refetch} = useFetchData({
     method: 'get',
@@ -59,12 +64,25 @@ const SelectedRoom = ({navigation}) => {
     }
   }, [selectedEndDate]);
 
-  const handleSubmit = () => {
-    // navigation.navigate('Successful');
-    const {output, isLoading, error, refetch} = useFetchData({
-      method: 'get',
-      endpoint: `api/v1/rooms/${id}/`,
+  const handleSubmit = async () => {
+    const dataInput = {
+      user: 'sadsad',
+      check_in: {selectedStartDate},
+      check_out: {selectedEndDate},
+      room: {id},
+    };
+
+    const result = await httpRequest({
+      method: 'post-auth',
+      endpoint: 'api/v1/bookings/',
+      dataInput: dataInput,
+      setIsLoading: setLoading,
+      setError: setError2,
+      navigation: navigation,
     });
+    if (result.status === 201) {
+      navigation.navigate('Successful');
+    }
   };
 
   return (

@@ -6,13 +6,15 @@ import ReusableText from '../Reusable/ReusableText';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import {recommendations} from '../../mock_api';
 import ReusableTile from '../Reusable/ReusableTile';
 import useFetchData from '../../hooks/fetchData';
 
 const Recommendation = () => {
   const navigation = useNavigation();
-  const {output, isLoading, error, refetch} = useFetchData({method:"get", endpoint:"api/v1/destinations/"})
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: 'api/v1/destinations/',
+  });
   return (
     <View style={styles.container}>
       <View

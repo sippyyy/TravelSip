@@ -6,6 +6,7 @@ import {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
+  AuthTopTab,
   CountryDetails,
   Failed,
   HotelDetails,
@@ -108,6 +109,11 @@ function App() {
         <Stack.Screen
           name="Failed"
           component={Failed}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AuthTop"
+          component={AuthTopTab}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

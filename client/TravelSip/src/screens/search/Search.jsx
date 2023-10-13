@@ -5,25 +5,31 @@ import reusable from '../../components/Reusable/reusable.style';
 import styles from './search.style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../../constants/theme';
-import {recommendations} from '../../mock_api';
 import {AppBar, HeightSpacer, ReusableTile} from '../../components';
+import useFetchData from '../../hooks/fetchData';
 
 const Search = ({navigation}) => {
   const [searchKey, setSearchKey] = useState('');
   const [searchResults, setSearchResults] = useState('');
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: 'api/v1/destinations/',
+  });
   return (
-    <SafeAreaView style={reusable.container}>
-      <AppBar
-        top={10}
-        left={0}
-        right={0}
-        onPress={() => navigation.goBack()}
-        onPress1={() => {}}
-        title="Search places"
-        color={COLORS.white}
-        icon="funnel"
-        color1={COLORS.white}
-      />
+    <SafeAreaView>
+      <View style={reusable.container}>
+        <AppBar
+          top={10}
+          left={0}
+          right={0}
+          onPress={() => navigation.goBack()}
+          onPress1={() => {}}
+          title="Search places"
+          color={COLORS.white}
+          icon="funnel"
+          color1={COLORS.white}
+        />
+      </View>
       <HeightSpacer height={40} />
 
       <View style={styles.searchContainer}>
@@ -39,9 +45,9 @@ const Search = ({navigation}) => {
           <Icon name="search" size={24} color={COLORS.white} />
         </TouchableOpacity>
       </View>
-      {recommendations.length > 0 ? (
+      {output.length > 0 ? (
         <FlatList
-          data={recommendations}
+          data={output}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <View style={styles.tile}>

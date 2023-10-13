@@ -46,8 +46,8 @@ const useFetchData = ({method, endpoint, params, dataInput, accessToken}) => {
       );
       setOutput(response.data);
       setIsLoading(false);
-    } catch (error) {
-      setError(error);
+    } catch (err) {
+      setError(err);
     } finally {
       setIsLoading(false);
     }

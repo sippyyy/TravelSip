@@ -5,12 +5,16 @@ import reusable from '../../components/Reusable/reusable.style';
 import styles from './search.style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../../constants/theme';
-import {hotels} from '../../mock_api';
 import {AppBar, HeightSpacer, HotelCard} from '../../components';
+import useFetchData from '../../hooks/fetchData';
 
 const HotelSearch = ({navigation}) => {
   const [searchKey, setSearchKey] = useState('');
   const [searchResults, setSearchResults] = useState('');
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: 'api/v1/hotels/',
+  });
   return (
     <SafeAreaView style={reusable.container}>
       <AppBar
@@ -38,10 +42,10 @@ const HotelSearch = ({navigation}) => {
           <Icon name="search" size={24} color={COLORS.white} />
         </TouchableOpacity>
       </View>
-      {hotels.length > 0 ? (
+      {output.length > 0 ? (
         <FlatList
           numColumns={2}
-          data={hotels}
+          data={output}
           ItemSeparatorComponent={<HeightSpacer height={10} />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (

@@ -21,6 +21,7 @@ import Successful from './bookings/Successful';
 import Signin from './authentication/Signin';
 import Registration from './authentication/Registration';
 import SelectedRoom from './details/SelectedRoom';
+import AuthTopTab from '../navigation/AuthTopTab';
 
 export {
   Onboarding,
@@ -46,4 +47,5 @@ export {
   Signin,
   Registration,
   SelectedRoom,
+  AuthTopTab,
 };

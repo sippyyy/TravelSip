@@ -1,11 +1,15 @@
-import {View, Text, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {AppBar, ReusableTile} from '../../components';
 import {COLORS} from '../../constants/theme';
-import {hotels} from '../../mock_api';
+import useFetchData from '../../hooks/fetchData';
 
 const HotelList = ({navigation}) => {
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: 'api/v1/hotels/',
+  });
   return (
     // eslint-disable-next-line react-native/no-inline-styles
     <SafeAreaView style={{marginHorizontal: 20}}>
@@ -24,7 +28,7 @@ const HotelList = ({navigation}) => {
       </View>
       <View style={{paddingTop: 20}}>
         <FlatList
-          data={hotels}
+          data={output}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => (
