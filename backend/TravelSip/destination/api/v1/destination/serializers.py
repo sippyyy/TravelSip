@@ -11,12 +11,12 @@ from hotel.api.v1.hotel.serializers import HotelSerializer
 class DestinationSerializer(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField(read_only=True)
     city = CitySerializer()
-    review = serializers.SerializerMethodField(read_only=True)
+    reviews = serializers.SerializerMethodField(read_only=True)
     location = serializers.CharField(source="address")
 
     class Meta:
         model = Destination
-        fields = ["id", "title", "imageUrl", "city", "rating", "review", "location"]
+        fields = ["id", "title", "imageUrl", "city", "rating", "reviews", "location"]
 
     def get_rating(self, obj):
         all_reviews = DestinationReviewSerializer(obj.reviews, many=True).data
@@ -28,7 +28,7 @@ class DestinationSerializer(serializers.ModelSerializer):
             return total / reviews_length
         return 0
 
-    def get_review(self, obj):
+    def get_reviews(self, obj):
         return obj.reviews.count()
 
 
@@ -62,7 +62,7 @@ class DestinationDetailsSerializer(serializers.ModelSerializer):
     #     location = f"{obj.address}, {obj.city}, {obj.city.country}"
     #     google_api_key = settings.GOOGLE_API_KEY
     #     gmaps = googlemaps.Client(google_api_key)
-        
+
     #     try:
     #         loca_detail = gmaps.geocode(location)[0]
     #         location_longlat = loca_detail["geometry"]["location"]

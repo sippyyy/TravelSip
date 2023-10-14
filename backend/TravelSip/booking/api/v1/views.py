@@ -64,7 +64,7 @@ class BookingView(
 
     def create(self, request, *args, **kwargs):
         request_user = request.user.id
-        client_in_data = int(request.data.get("client"))
+        client_in_data = int(request.data.get("user"))
         start = request.data.get("check_in")
         end = request.data.get("check_out")
         room_id = request.data.get("room")
@@ -74,7 +74,6 @@ class BookingView(
             room=room_id,
             status="approved",
         )
-
         if request_user != client_in_data:
             return Response({"message": "Misleading user"}, status=403)
 

@@ -20,7 +20,7 @@ class HotelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Hotel
-        fields = ["id", "title", "imageUrl", "location", "rating","reviews"]
+        fields = ["id", "title", "imageUrl", "location", "rating", "reviews"]
 
     def get_location(self, obj):
         return obj.address
@@ -32,7 +32,7 @@ class HotelSerializer(serializers.ModelSerializer):
         if total > 0:
             return total / len(all_reviews)
         return 0
-    
+
     def get_reviews(self, obj):
         return obj.reviews.count()
 
@@ -43,6 +43,8 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     rooms = serializers.SerializerMethodField(read_only=True)
     reviews = HotelReviewSerializer(many=True, read_only=True)
     review = serializers.SerializerMethodField(read_only=True)
+    price = serializers.SerializerMethodField(read_only=True)
+    rating = serializers.SerializerMethodField(read_only=True)
     # coordinates = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -57,6 +59,8 @@ class HotelDetailSerializer(serializers.ModelSerializer):
             "description",
             "reviews",
             "review",
+            "price",
+            "rating",
             # "coordinates",
         ]
 
@@ -70,15 +74,28 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     def get_rooms(self, obj):
         serializer_data = RoomSerializer(obj.rooms, many=True).data
         return serializer_data
-    
-    def get_review(self,obj):
+
+    def get_review(self, obj):
         return obj.reviews.count()
+
+    def get_price(self, obj):
+        first_room = obj.rooms.first()
+        serialized_data = RoomSerializer(first_room).data
+        return serialized_data.get("price")
+
+    def get_rating(self, obj):
+        all_reviews = HotelReviewSerializer(obj.reviews, many=True).data
+        ratings = [review.get("rating", 0) for review in all_reviews]
+        total = sum(ratings)
+        if total > 0:
+            return total / len(all_reviews)
+        return 0
 
     # def get_coordinates(self, obj):
     #     location = f"{obj.address}, {obj.city}, {obj.city.country}"
     #     google_api_key = settings.GOOGLE_API_KEY
     #     gmaps = googlemaps.Client(google_api_key)
-        
+
     #     try:
     #         loca_detail = gmaps.geocode(location)[0]
     #         location_longlat = loca_detail["geometry"]["location"]

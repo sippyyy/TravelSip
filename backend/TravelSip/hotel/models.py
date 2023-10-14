@@ -40,9 +40,13 @@ class Room(models.Model):
     )
     price = models.DecimalField(decimal_places=2, max_digits=9)
     hotel = models.ForeignKey(Hotel, related_name="rooms", on_delete=models.CASCADE)
+    imageUrl = models.ImageField(upload_to="room_images/", null=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ["price"]
 
 
 class Facility(models.Model):
