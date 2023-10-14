@@ -1,6 +1,5 @@
 const {post, postNoneAuthorized, put} = require('./utils/methods');
 import {BASE_URL} from '@env';
-
 export const httpRequest = async ({
   method,
   endpoint,

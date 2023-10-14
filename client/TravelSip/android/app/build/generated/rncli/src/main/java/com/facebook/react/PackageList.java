@@ -17,6 +17,8 @@ import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
 // @react-native-community/datetimepicker
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
+// react-native-keychain
+import com.oblador.keychain.KeychainPackage;
 // react-native-maps
 import com.rnmaps.maps.MapsPackage;
 // react-native-pager-view
@@ -77,6 +79,7 @@ public class PackageList {
       new AsyncStoragePackage(),
       new ReactCheckBoxPackage(),
       new RNDateTimePickerPackage(),
+      new KeychainPackage(),
       new MapsPackage(),
       new PagerViewPackage(),
       new SafeAreaContextPackage(),

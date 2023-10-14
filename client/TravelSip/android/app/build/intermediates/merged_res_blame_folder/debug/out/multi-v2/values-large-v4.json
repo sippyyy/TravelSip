@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.travelsip.app-mergeDebugResources-34:/values-large-v4/values-large-v4.xml",
+            "outputFile": "com.travelsip.app-mergeDebugResources-36:/values-large-v4/values-large-v4.xml",
             "map": [
                 {
                     "source": "/home/thuy/.gradle/caches/transforms-3/9300c7fc5aff0974f1ee709fb212c45e/transformed/material-1.1.0/res/values-large-v4/values-large-v4.xml",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/home/thuy/.gradle/caches/transforms-3/b14585e0ae3314e7a64bac79062dab1c/transformed/appcompat-1.4.1/res/values-large-v4/values-large-v4.xml",
+                    "source": "/home/thuy/.gradle/caches/transforms-3/3a7707eb61c15b9e7dac338cab48d89c/transformed/appcompat-1.4.2/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",

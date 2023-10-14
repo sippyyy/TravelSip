@@ -7,6 +7,7 @@ import {
   HeightSpacer,
   Places,
   Recommendation,
+  ReusableBtn,
   ReusableText,
 } from '../../components';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.travelsip.app-mergeDebugResources-34:/values-v23/values-v23.xml",
+            "outputFile": "com.travelsip.app-mergeDebugResources-36:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "/home/thuy/.gradle/caches/transforms-3/b14585e0ae3314e7a64bac79062dab1c/transformed/appcompat-1.4.1/res/values-v23/values-v23.xml",
+                    "source": "/home/thuy/.gradle/caches/transforms-3/3a7707eb61c15b9e7dac338cab48d89c/transformed/appcompat-1.4.2/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",

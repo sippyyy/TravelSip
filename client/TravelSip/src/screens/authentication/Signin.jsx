@@ -8,24 +8,36 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon1 from 'react-native-vector-icons/Ionicons';
 
 import {HeightSpacer, ReusableBtn, WidthSpacer} from '../../components';
+import {httpRequest} from '../../api/services';
+import {setSecureValue} from '../../api/secureValue';
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
+    // .min(8, 'Password must be at least 8 characters')
     .required('Required'),
-  email: Yup.string().email('Provide a valid email').required('Required'),
+  username: Yup.string().required('Required'),
 });
 
-const Signin = () => {
+const Signin = ({navigation}) => {
   const [loader, setLoader] = useState(false);
   const [responseData, setResponseData] = useState(null);
   const [obsecureText, setObsecureText] = useState(false);
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{email: '', password: ''}}
-        onSubmit={value => {
-          console.log(value);
+        initialValues={{username: '', password: ''}}
+        onSubmit={async value => {
+          const result = await httpRequest({
+            method: 'post',
+            endpoint: 'login/',
+            dataInput: value,
+            navigation: navigation,
+            setIsLoading: setLoader,
+          });
+          if (result?.data) {
+            setSecureValue('access_token', result.data.access);
+            setSecureValue('refresh_token', result.data.refresh);
+          }
         }}
         validationSchema={validationSchema}>
         {({
@@ -39,27 +51,27 @@ const Signin = () => {
         }) => (
           <View>
             <View style={styles.wrapper}>
-              <Text style={styles.label}>Email</Text>
+              <Text style={styles.label}>Username</Text>
               <View>
                 <View
                   style={styles.inputWrapper(
-                    touched.email ? COLORS.lightBlue : COLORS.lightGrey,
+                    touched.username ? COLORS.lightBlue : COLORS.lightGrey,
                   )}>
                   <Icon name={'email'} size={20} color={COLORS.gray} />
                   <WidthSpacer width={10} />
                   <TextInput
-                    placeholder="Enter email"
-                    onFocus={() => setFieldTouched('email')}
-                    onBlur={() => setFieldTouched('email', '')}
-                    value={values.email}
+                    placeholder="Enter username"
+                    onFocus={() => setFieldTouched('username')}
+                    onBlur={() => setFieldTouched('username', '')}
+                    value={values.username}
                     autoCapitalize="none"
-                    onChangeText={handleChange('email')}
+                    onChangeText={handleChange('username')}
                     autoCorrect={false}
                     style={{flex: 1}}
                   />
                 </View>
-                {touched.email && errors.email && (
-                  <Text style={styles.errorMessage}>{errors.email}</Text>
+                {touched.username && errors.username && (
+                  <Text style={styles.errorMessage}>{errors.username}</Text>
                 )}
               </View>
             </View>

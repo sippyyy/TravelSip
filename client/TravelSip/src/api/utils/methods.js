@@ -19,7 +19,7 @@ export const post = async (path, data, accessToken) => {
   return await request.post(path, data, optionsAuthorized);
 };
 
-export const postNoneAuthorized = async (path, data) => {
+export const postNoneAuthorized = async (path, params, data, access) => {
   const optionsNoneAuthorized = {
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
