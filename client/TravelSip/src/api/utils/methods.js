@@ -9,13 +9,14 @@ request.defaults.headers.post['Content-Type'] = 'application/json';
 
 // const csrfToken = getCookie('csrftoken');
 
-export const post = async (path, data, accessToken) => {
+export const post = async (path, params, data, accessToken) => {
   const optionsAuthorized = {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
   };
+
   return await request.post(path, data, optionsAuthorized);
 };
 

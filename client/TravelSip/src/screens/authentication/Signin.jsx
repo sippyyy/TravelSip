@@ -9,7 +9,7 @@ import Icon1 from 'react-native-vector-icons/Ionicons';
 
 import {HeightSpacer, ReusableBtn, WidthSpacer} from '../../components';
 import {httpRequest} from '../../api/services';
-import {setSecureValue} from '../../api/secureValue';
+import {getSecureValue, setSecureValue} from '../../api/secureValue';
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -37,6 +37,7 @@ const Signin = ({navigation}) => {
           if (result?.data) {
             setSecureValue('access_token', result.data.access);
             setSecureValue('refresh_token', result.data.refresh);
+            navigation.goBack();
           }
         }}
         validationSchema={validationSchema}>

@@ -1,5 +1,6 @@
 const {post, postNoneAuthorized, put} = require('./utils/methods');
 import {BASE_URL} from '@env';
+import {getSecureValue, setSecureValue} from './secureValue';
 export const httpRequest = async ({
   method,
   endpoint,
@@ -10,6 +11,7 @@ export const httpRequest = async ({
   setOutput,
   setError,
   navigation,
+  token_refresh,
 }) => {
   let httpMethod;
   switch (method) {
@@ -42,7 +44,34 @@ export const httpRequest = async ({
   } catch (err) {
     const {status, data} = err.response;
     if (status === 403 || status === 401) {
-      navigation.navigate('AuthTop');
+      const dataIn = {refresh: token_refresh};
+      if (accessToken) {
+        const refreshTokens = async () => {
+          try {
+            const newToken = await postNoneAuthorized(
+              `${BASE_URL}login/refresh/`,
+              '',
+              dataIn,
+            );
+
+            if (newToken.data) {
+              const {access, refresh} = newToken.data; // Destructure the data
+              setSecureValue('access_token', access);
+              setSecureValue('refresh_token', refresh);
+            } else {
+              navigation.navigate('AuthTop');
+            }
+          } catch (error) {
+            navigation.navigate('AuthTop');
+            console.error('Error:', error);
+          }
+        };
+
+        // Call the refreshTokens function
+        refreshTokens();
+      } else {
+        navigation.navigate('AuthTop');
+      }
     }
     return data;
   }

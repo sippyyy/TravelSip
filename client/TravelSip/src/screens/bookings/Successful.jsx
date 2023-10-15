@@ -6,11 +6,16 @@ import {
   ReusableBtn,
   ReusableText,
   ReusableTile,
+  TileRoomBooking,
 } from '../../components';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import {hotels} from '../../mock_api';
+import {useRoute} from '@react-navigation/native';
 
 const Successful = ({navigation}) => {
+  const route = useRoute();
+  const data = route.params;
+  console.log({data});
   return (
     <View>
       <View style={{marginTop: '20%'}}>
@@ -46,7 +51,8 @@ const Successful = ({navigation}) => {
             color={COLORS.dark}
           />
           <HeightSpacer height={20} />
-          <ReusableTile item={hotels[0]} />
+          <TileRoomBooking room={data} />
+          {/* <ReusableTile item={hotels[0]} /> */}
           <HeightSpacer height={50} />
           <ReusableBtn
             onPress={() => navigation.navigate('Bottom')}
