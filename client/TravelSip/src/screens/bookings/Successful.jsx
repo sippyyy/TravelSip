@@ -15,7 +15,6 @@ import {useRoute} from '@react-navigation/native';
 const Successful = ({navigation}) => {
   const route = useRoute();
   const data = route.params;
-  console.log({data});
   return (
     <View>
       <View style={{marginTop: '20%'}}>

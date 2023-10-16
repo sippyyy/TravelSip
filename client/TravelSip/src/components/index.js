@@ -26,6 +26,7 @@ import TileRoom from './Hotel/TileRoom';
 import ReusableSpaceText from './Reusable/ReusableSpaceText';
 import CalendarPicker from './Reusable/CalendarPicker';
 import TileRoomBooking from './Hotel/TileRoomBooking';
+import InformationTile from './Tiles/Information/InformationTile';
 
 export {
   Slides,
@@ -56,4 +57,5 @@ export {
   ReusableSpaceText,
   CalendarPicker,
   TileRoomBooking,
+  InformationTile,
 };

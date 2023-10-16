@@ -4,8 +4,18 @@ import hotels from '../../mock_api/hotels.list';
 import {HeightSpacer, ReusableBtn, ReusableTile} from '../../components';
 import {COLORS} from '../../constants/theme';
 import reusable from '../../components/Reusable/reusable.style';
+import useFetchData from '../../hooks/fetchData';
+import {useAuth} from '../../context/AuthContext';
 
 const TopBookings = ({navigation}) => {
+  const {authState} = useAuth();
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get-auth',
+    endpoint: 'api/v1/bookings/',
+    params: {my_booking: true},
+    accessToken: authState.accessToken,
+  });
+  console.log({output});
   return (
     <View style={{margin: 20}}>
       <FlatList

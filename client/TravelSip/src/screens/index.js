@@ -22,6 +22,7 @@ import Signin from './authentication/Signin';
 import Registration from './authentication/Registration';
 import SelectedRoom from './details/SelectedRoom';
 import AuthTopTab from '../navigation/AuthTopTab';
+import Info from './profile/Info';
 
 export {
   Onboarding,
@@ -48,4 +49,5 @@ export {
   Registration,
   SelectedRoom,
   AuthTopTab,
+  Info,
 };

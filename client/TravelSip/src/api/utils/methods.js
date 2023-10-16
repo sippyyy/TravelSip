@@ -40,7 +40,7 @@ export const getNoneAuthorized = async (path, data) => {
 
   return await request.get(path, data, optionsNoneAuthorized);
 };
-export const get = async (path, params = {}, accessToken) => {
+export const get = async (path, params = {}, data, accessToken) => {
   const optionsAuthorized = {
     headers: {
       'Content-Type': 'application/json',

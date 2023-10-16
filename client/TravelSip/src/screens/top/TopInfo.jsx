@@ -6,9 +6,9 @@ const TopInfo = ({navigation}) => {
   return (
     <View style={{margin: 20}}>
       <ProfileTile
-        title={'Personal Infomation'}
+        title={'Personal Information'}
         icon={'person'}
-        onPress={() => navigation.navigate('')}
+        onPress={() => navigation.navigate('Information')}
       />
       <ProfileTile
         title={'Payment'}

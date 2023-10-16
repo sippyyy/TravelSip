@@ -8,7 +8,6 @@ import {
   postNoneAuthorized,
   getNoneAuthorized,
 } from '../api/utils/methods';
-
 const useFetchData = ({method, endpoint, params, dataInput, accessToken}) => {
   const [output, setOutput] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +46,8 @@ const useFetchData = ({method, endpoint, params, dataInput, accessToken}) => {
       setOutput(response.data);
       setIsLoading(false);
     } catch (err) {
-      setError(err);
+      const {status, data} = err.response;
+      setError({status, data});
     } finally {
       setIsLoading(false);
     }

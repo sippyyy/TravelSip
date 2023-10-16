@@ -1,13 +1,12 @@
-const {post, postNoneAuthorized, put} = require('./utils/methods');
+const {post, postNoneAuthorized, put, get} = require('./utils/methods');
 import {BASE_URL} from '@env';
-import {getSecureValue, setSecureValue} from './secureValue';
+import {setSecureValue} from './secureValue';
 export const httpRequest = async ({
   method,
   endpoint,
   params,
   dataInput,
   accessToken,
-  setIsLoading,
   setOutput,
   setError,
   navigation,
@@ -21,11 +20,14 @@ export const httpRequest = async ({
     case 'post':
       httpMethod = postNoneAuthorized;
       break;
+    case 'get':
+      httpMethod = get;
+      break;
     case 'put':
       httpMethod = put;
       break;
   }
-  setIsLoading(true);
+  // setIsLoading(true);
   let res = '';
   try {
     res = await httpMethod(
