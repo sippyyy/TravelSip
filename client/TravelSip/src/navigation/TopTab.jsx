@@ -21,7 +21,7 @@ const TopTab = ({navigation}) => {
       navigation.navigate('Information');
     }
   }, [error]);
-  return (
+  return output?.user ? (
     <View style={{flex: 1}}>
       <View style={{backgroundColor: COLORS.lightWhite}}>
         <View>
@@ -73,12 +73,20 @@ const TopTab = ({navigation}) => {
         </View>
       </View>
       <Tab.Navigator>
-        <Tab.Screen name="Bookings" component={TopBookings} />
-        <Tab.Screen name="Trips" component={TopTrips} />
-        <Tab.Screen name="Info" component={TopInfo} />
+        <Tab.Screen
+          name="Bookings"
+          component={TopBookings}
+          initialParams={{output}}
+        />
+        <Tab.Screen
+          name="Trips"
+          component={TopTrips}
+          initialParams={{output}}
+        />
+        <Tab.Screen name="Info" component={TopInfo} initialParams={{output}} />
       </Tab.Navigator>
     </View>
-  );
+  ) : null;
 };
 
 export default TopTab;

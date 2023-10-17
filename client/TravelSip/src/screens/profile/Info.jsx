@@ -11,11 +11,8 @@ import {
 import {COLORS, TEXT} from '../../constants/theme';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import useFetchData from '../../hooks/fetchData';
 import {useRoute} from '@react-navigation/native';
-import {exampleUsage, getSecureValue} from '../../api/secureValue';
 import {httpRequest} from '../../api/services';
-import jwt_decode from 'jwt-decode';
 import {useAuth} from '../../context/AuthContext';
 import reusable from '../../components/Reusable/reusable.style';
 

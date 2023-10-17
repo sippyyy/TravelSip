@@ -13,7 +13,6 @@ import {useAuth} from '../../context/AuthContext';
 
 const TopBookings = ({navigation}) => {
   const {authState} = useAuth();
-  console.log(authState.accessToken);
   const {output, isLoading, error, refetch} = useFetchData({
     method: 'get-auth',
     endpoint: 'api/v1/bookings/',

@@ -4,18 +4,10 @@ import {ProfileTile} from '../../components';
 import useFetchData from '../../hooks/fetchData';
 import {useAuth} from '../../context/AuthContext';
 
-const TopInfo = ({navigation}) => {
-  const {authState} = useAuth();
-  const {output, isLoading, error, reFetch} = useFetchData({
-    method: 'get',
-    endpoint: `api/v1/user_profiles/${authState.id}/`,
-  });
+const TopInfo = ({navigation, route}) => {
+  const {output} = route.params;
 
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-  }, [error]);
+  console.log({output});
 
   return (
     <View style={{margin: 20}}>
