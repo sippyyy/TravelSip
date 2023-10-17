@@ -26,10 +26,7 @@ const TopTab = ({navigation}) => {
       <View style={{backgroundColor: COLORS.lightWhite}}>
         <View>
           <NetworkImage
-            source={
-              output?.imageUrl ??
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpLUVEBqNXABm88W3qH-BcWmm-9YW9zjaAYQ&usqp=CAU'
-            }
+            source={output?.backgroundUrl}
             width="100%"
             height={300}
             radius={0}
@@ -49,9 +46,7 @@ const TopTab = ({navigation}) => {
             <Image
               style={styles.image}
               source={{
-                uri:
-                  output?.imageUrl ??
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpLUVEBqNXABm88W3qH-BcWmm-9YW9zjaAYQ&usqp=CAU',
+                uri: output?.imageUrl,
               }}
             />
             <HeightSpacer height={5} />

@@ -10,11 +10,18 @@ const ReusableBtn = ({
   borderWidth,
   borderColor,
   textColor,
+  flex,
 }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={styles.btnStyle(width, backGroundColor, borderWidth, borderColor)}>
+      style={styles.btnStyle(
+        width,
+        flex,
+        backGroundColor,
+        borderWidth,
+        borderColor,
+      )}>
       <Text style={styles.btnText(textColor)}>{btnText}</Text>
     </TouchableOpacity>
   );
@@ -28,7 +35,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
     color: textColor,
   }),
-  btnStyle: (width, backGroundColor, borderWidth, borderColor) => ({
+  btnStyle: (width, flex, backGroundColor, borderWidth, borderColor) => ({
     width: width,
     backgroundColor: backGroundColor,
     alignItems: 'center',
@@ -37,5 +44,6 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.small,
     borderColor: borderColor,
     borderWidth: borderWidth,
+    flex: flex,
   }),
 });

@@ -50,11 +50,11 @@ export const get = async (path, params = {}, data, accessToken) => {
   return await request.get(path, {params, ...optionsAuthorized});
 };
 
-export const put = async (path, data, accessToken) => {
+export const put = async (path, params, data, access) => {
   const optionsAuthorized = {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${access}`,
     },
   };
   const response = await request.put(path, data, optionsAuthorized);

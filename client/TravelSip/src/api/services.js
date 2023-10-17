@@ -1,4 +1,10 @@
-const {post, postNoneAuthorized, put, get} = require('./utils/methods');
+const {
+  post,
+  postNoneAuthorized,
+  put,
+  get,
+  getNoneAuthorized,
+} = require('./utils/methods');
 import {BASE_URL} from '@env';
 import {setSecureValue} from './secureValue';
 export const httpRequest = async ({
@@ -22,6 +28,9 @@ export const httpRequest = async ({
       break;
     case 'get':
       httpMethod = get;
+      break;
+    case 'get-none-auth':
+      httpMethod = getNoneAuthorized;
       break;
     case 'put':
       httpMethod = put;

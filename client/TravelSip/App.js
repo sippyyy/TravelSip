@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   AuthTopTab,
+  BookingDetails,
   CountryDetails,
   Failed,
   HotelDetails,
@@ -129,6 +130,11 @@ export const Layout = () => {
             <Stack.Screen
               name="Failed"
               component={Failed}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="BookingDetails"
+              component={BookingDetails}
               options={{headerShown: false}}
             />
           </>

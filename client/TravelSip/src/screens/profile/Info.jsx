@@ -4,7 +4,9 @@ import {
   AppBar,
   HeightSpacer,
   InformationTile,
+  ReusableBtn,
   ReusableText,
+  WidthSpacer,
 } from '../../components';
 import {COLORS, TEXT} from '../../constants/theme';
 import {Formik} from 'formik';
@@ -15,23 +17,32 @@ import {exampleUsage, getSecureValue} from '../../api/secureValue';
 import {httpRequest} from '../../api/services';
 import jwt_decode from 'jwt-decode';
 import {useAuth} from '../../context/AuthContext';
+import reusable from '../../components/Reusable/reusable.style';
 
 const validationSchema = Yup.object().shape({
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .required('Required'),
-  username: Yup.string()
-    .min(3, 'Username must be at least 3 characters')
-    .required('Required'),
-  email: Yup.string().email('Provide a valid email').required('Required'),
+  // bio: Yup.string().min(8, 'Password must be at least 8 characters'),
+  // nickname: Yup.string().min(9, 'Username must be at least 3 characters'),
 });
 
 const Info = ({navigation}) => {
   const {authState} = useAuth();
-  const {output, isLoading, error, reFetch} = useFetchData({
-    method: 'get',
-    endpoint: `api/v1/user_profiles/${authState.id}/`,
-  });
+  const route = useRoute();
+  const [output, setOutput] = useState(null);
+  const dataIn = route.params;
+  useEffect(() => {
+    if (dataIn) {
+      setOutput(dataIn);
+    } else {
+      const getData = async () => {
+        const result = await httpRequest({
+          method: 'get',
+          endpoint: `api/v1/user/${authState.id}`,
+        });
+        setOutput(result);
+      };
+      getData();
+    }
+  }, [dataIn]);
 
   return (
     <View>
@@ -52,8 +63,29 @@ const Info = ({navigation}) => {
             mobile: output?.mobile ?? '',
             gender: output?.gender ?? '',
           }}
-          onSubmit={value => {
-            console.log(value);
+          onSubmit={async value => {
+            let method = '';
+            let endpoint = '';
+            if (dataIn) {
+              method = 'put';
+              endpoint = `api/v1/user_profiles/${authState.id}/`;
+            } else {
+              method = 'post';
+              endpoint = `api/v1/user_profiles/`;
+            }
+            const result = await httpRequest({
+              method,
+              endpoint,
+              dataInput: value,
+              accessToken: authState.accessToken,
+            });
+            if (result.status === 200) {
+              if (dataIn) {
+                navigation.goBack();
+              } else {
+                navigation.navigate('Profile');
+              }
+            }
           }}
           validationSchema={validationSchema}>
           {({
@@ -78,7 +110,7 @@ const Info = ({navigation}) => {
                 <HeightSpacer height={8} />
                 <InformationTile
                   field={'Username'}
-                  value={output?.user?.username ?? ''}
+                  value={output?.user?.username ?? output?.username ?? ''}
                 />
                 <HeightSpacer height={5} />
                 <InformationTile
@@ -103,7 +135,10 @@ const Info = ({navigation}) => {
                   />
                 </View>
                 <HeightSpacer height={8} />
-                <InformationTile field={'Email'} value={output?.user?.email} />
+                <InformationTile
+                  field={'Email'}
+                  value={output?.user?.email ?? output?.email ?? ''}
+                />
               </View>
               <HeightSpacer height={8} />
 
@@ -151,6 +186,32 @@ const Info = ({navigation}) => {
                   valueInput={values.dob}
                   handleChange={handleChange}
                   fieldname={'dob'}
+                />
+              </View>
+              <HeightSpacer height={8} />
+              <View
+                style={[
+                  reusable.rowWithSpace('space-between'),
+                  {
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                    backgroundColor: COLORS.white,
+                  },
+                ]}>
+                <ReusableBtn
+                  btnText={'Cancel'}
+                  backGroundColor={COLORS.red}
+                  textColor={COLORS.white}
+                  flex={1}
+                  onPress={() => navigation.goBack()}
+                />
+                <WidthSpacer width={5} />
+                <ReusableBtn
+                  btnText={'Submit'}
+                  backGroundColor={COLORS.green}
+                  textColor={COLORS.white}
+                  flex={1}
+                  onPress={handleSubmit}
                 />
               </View>
             </View>

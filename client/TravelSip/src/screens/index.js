@@ -23,6 +23,7 @@ import Registration from './authentication/Registration';
 import SelectedRoom from './details/SelectedRoom';
 import AuthTopTab from '../navigation/AuthTopTab';
 import Info from './profile/Info';
+import BookingDetails from './bookings/BookingDetails';
 
 export {
   Onboarding,
@@ -50,4 +51,5 @@ export {
   SelectedRoom,
   AuthTopTab,
   Info,
+  BookingDetails,
 };

@@ -1,7 +1,11 @@
 import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
-import React from 'react';
-import hotels from '../../mock_api/hotels.list';
-import {HeightSpacer, ReusableBtn, ReusableTile} from '../../components';
+import React, {useEffect} from 'react';
+import {
+  HeightSpacer,
+  ReusableBtn,
+  ReusableTile,
+  WidthSpacer,
+} from '../../components';
 import {COLORS} from '../../constants/theme';
 import reusable from '../../components/Reusable/reusable.style';
 import useFetchData from '../../hooks/fetchData';
@@ -9,25 +13,28 @@ import {useAuth} from '../../context/AuthContext';
 
 const TopBookings = ({navigation}) => {
   const {authState} = useAuth();
+  console.log(authState.accessToken);
   const {output, isLoading, error, refetch} = useFetchData({
     method: 'get-auth',
     endpoint: 'api/v1/bookings/',
     params: {my_booking: true},
     accessToken: authState.accessToken,
   });
-  console.log({output});
+  useEffect(() => {
+    console.log({error});
+  }, [error]);
   return (
     <View style={{margin: 20}}>
       <FlatList
-        data={hotels}
+        data={output}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => (
           <>
             <View style={styles.bookingContainer}>
               <ReusableTile
-                item={item}
-                onPress={() => navigation.navigate('HotelDetails', item.id)}
+                item={item.hotel}
+                onPress={() => navigation.navigate('HotelDetails', item.hotel)}
               />
               <View
                 style={[
@@ -35,15 +42,16 @@ const TopBookings = ({navigation}) => {
                   {marginHorizontal: 10},
                 ]}>
                 <ReusableBtn
-                  width={170}
-                  onPress={() => navigation.navigate('')}
+                  onPress={() => navigation.navigate('BookingDetails', item)}
                   textColor={COLORS.lightBlue}
                   borderWidth={1}
                   btnText={'Details'}
                   borderColor={COLORS.lightBlue}
+                  flex={1}
                 />
+                <WidthSpacer width={5} />
                 <ReusableBtn
-                  width={170}
+                  flex={1}
                   onPress={() => navigation.navigate('')}
                   textColor={COLORS.white}
                   borderWidth={1}
@@ -54,7 +62,7 @@ const TopBookings = ({navigation}) => {
               </View>
               <HeightSpacer height={10} />
             </View>
-            {index + 1 === hotels.length ? <HeightSpacer height={80} /> : null}
+            {index + 1 === output.length ? <HeightSpacer height={80} /> : null}
           </>
         )}
       />

@@ -19,7 +19,7 @@ const ReusableTile = ({item, onPress}) => {
           radius={12}
         />
         <WidthSpacer width={15} />
-        <View>
+        <View style={{flex: 1}}>
           <ReusableText
             text={item.title}
             family="medium"
