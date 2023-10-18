@@ -10,6 +10,7 @@ import Icon1 from 'react-native-vector-icons/Ionicons';
 import {HeightSpacer, ReusableBtn, WidthSpacer} from '../../components';
 import {httpRequest} from '../../api/services';
 import {getSecureValue, setSecureValue} from '../../api/secureValue';
+import {useAuth} from '../../context/AuthContext';
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -22,6 +23,7 @@ const Signin = ({navigation}) => {
   const [loader, setLoader] = useState(false);
   const [responseData, setResponseData] = useState(null);
   const [obsecureText, setObsecureText] = useState(false);
+  const {loadToken} = useAuth();
   return (
     <View style={styles.container}>
       <Formik
@@ -37,7 +39,8 @@ const Signin = ({navigation}) => {
           if (result?.data) {
             setSecureValue('access_token', result.data.access);
             setSecureValue('refresh_token', result.data.refresh);
-            navigation.goBack();
+            loadToken();
+            navigation.navigate('Bottom');
           }
         }}
         validationSchema={validationSchema}>

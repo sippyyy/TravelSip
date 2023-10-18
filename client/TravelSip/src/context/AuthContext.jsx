@@ -45,24 +45,25 @@ export const AuthProvider = ({children}) => {
     await removeSecureValue('refresh_token');
   };
 
+  const loadToken = async () => {
+    const accessToken = await getSecureValue('access_token');
+    const refreshToken = await getSecureValue('refresh_token');
+    if (accessToken && refreshToken) {
+      const user_data_decoded = jwt_decode(accessToken).user_id;
+      setAuthState({
+        accessToken,
+        refreshToken,
+        authenticated: true,
+        id: user_data_decoded,
+      });
+    }
+  };
+
   useEffect(() => {
     verifyAuthentication();
-    const loadToken = async () => {
-      const accessToken = await getSecureValue('access_token');
-      const refreshToken = await getSecureValue('refresh_token');
-      if (accessToken && refreshToken) {
-        const user_data_decoded = jwt_decode(accessToken).user_id;
-        setAuthState({
-          accessToken,
-          refreshToken,
-          authenticated: true,
-          id: user_data_decoded,
-        });
-      }
-    };
     loadToken();
   }, []);
 
-  const value = {authState, verifyAuthentication, logOut};
+  const value = {authState, verifyAuthentication, logOut, loadToken};
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

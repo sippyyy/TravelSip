@@ -1,24 +1,31 @@
 import {View, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {TopBookings, TopInfo, TopTrips} from '../screens';
-import {COLORS, SIZES} from '../constants/theme';
-import {AppBar, HeightSpacer, NetworkImage, ReusableText} from '../components';
+import {TopBookingRequests, TopBusiness, TopInfoBusiness} from '../screens';
+import {COLORS, SIZES, TEXT} from '../constants/theme';
+import {
+  AppBar,
+  HeightSpacer,
+  NetworkImage,
+  ReusableText,
+  WidthSpacer,
+} from '../components';
 import styles from './topTab.style';
 import useFetchData from '../hooks/fetchData';
 import {useAuth} from '../context/AuthContext';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createMaterialTopTabNavigator();
 
-const TopTab = ({navigation}) => {
+const TopTabBusiness = ({navigation}) => {
   const {authState} = useAuth();
   const {output, isLoading, error, refetch} = useFetchData({
     method: 'get',
-    endpoint: `api/v1/user_profiles/${authState.id}/`,
+    endpoint: `api/v1/user_organizations/${authState.id}/`,
   });
   useEffect(() => {
     if (error?.status === 404) {
-      navigation.navigate('Information');
+      navigation.navigate('BusinessInformation');
     }
   }, [error]);
   return output?.user ? (
@@ -52,42 +59,53 @@ const TopTab = ({navigation}) => {
             <HeightSpacer height={5} />
             <View style={{alignItems: 'center'}}>
               <ReusableText
-                text={output?.nickname ?? output?.user?.username ?? ''}
+                text={output?.name ?? ''}
                 family="medium"
                 size={SIZES.medium}
                 color={COLORS.black}
               />
+              {output?.is_verified ? (
+                <>
+                  <WidthSpacer width={5} />
+                  <Icon
+                    name="verified"
+                    size={TEXT.medium}
+                    color={COLORS.green}
+                  />
+                </>
+              ) : null}
             </View>
             <HeightSpacer height={5} />
-            <View style={styles.name}>
-              <View style={{alignItems: 'center'}}>
-                <ReusableText
-                  text={output?.user?.email ?? ''}
-                  family="medium"
-                  size={SIZES.medium}
-                  color={COLORS.white}
-                />
-              </View>
+            <View style={{alignItems: 'center'}}>
+              <ReusableText
+                text={output?.bio ?? ''}
+                family="medium"
+                size={SIZES.medium}
+                color={COLORS.white}
+              />
             </View>
           </View>
         </View>
       </View>
       <Tab.Navigator>
         <Tab.Screen
-          name="Bookings"
-          component={TopBookings}
+          name="Booking Requests"
+          component={TopBookingRequests}
           initialParams={{output}}
         />
         <Tab.Screen
-          name="Trips"
-          component={TopTrips}
+          name="My Business"
+          component={TopBusiness}
           initialParams={{output}}
         />
-        <Tab.Screen name="Info" component={TopInfo} initialParams={{output}} />
+        <Tab.Screen
+          name="Info"
+          component={TopInfoBusiness}
+          initialParams={{output}}
+        />
       </Tab.Navigator>
     </View>
   ) : null;
 };
 
-export default TopTab;
-
+export default TopTabBusiness;

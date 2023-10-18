@@ -6,6 +6,12 @@ import {useAuth} from '../../context/AuthContext';
 
 const TopInfo = ({navigation, route}) => {
   const {output} = route.params;
+  const {logOut} = useAuth();
+
+  const handleLogout = () => {
+    logOut();
+    navigation.navigate('AuthTop');
+  };
 
   return (
     <View style={{margin: 20}}>
@@ -27,7 +33,12 @@ const TopInfo = ({navigation, route}) => {
       <ProfileTile
         title={'My business'}
         icon={'switch-account'}
-        onPress={() => navigation.navigate('Settings')}
+        onPress={() => navigation.navigate('TopBusiness')}
+      />
+      <ProfileTile
+        title={'Log out'}
+        icon={'logout'}
+        onPress={() => handleLogout()}
       />
     </View>
   );

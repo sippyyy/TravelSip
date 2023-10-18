@@ -24,6 +24,10 @@ import SelectedRoom from './details/SelectedRoom';
 import AuthTopTab from '../navigation/AuthTopTab';
 import Info from './profile/Info';
 import BookingDetails from './bookings/BookingDetails';
+import TopBookingRequests from './top/TopBookingRequests';
+import TopBusiness from './top/TopBusiness';
+import TopInfoBusiness from './top/TopInfoBusiness';
+import BusinessInfo from './business/BusinessInfo';
 
 export {
   Onboarding,
@@ -52,4 +56,8 @@ export {
   AuthTopTab,
   Info,
   BookingDetails,
+  TopBookingRequests,
+  TopBusiness,
+  TopInfoBusiness,
+  BusinessInfo,
 };

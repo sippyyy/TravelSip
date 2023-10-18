@@ -8,6 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   AuthTopTab,
   BookingDetails,
+  BusinessInfo,
   CountryDetails,
   Failed,
   HotelDetails,
@@ -26,6 +27,7 @@ import {
 } from './src/screens';
 import BottomTabNavigation from './src/navigation/BottomTabNavigation';
 import {AuthProvider, useAuth} from './src/context/AuthContext';
+import TopTabBusiness from './src/navigation/TopTabBusiness';
 
 const Stack = createNativeStackNavigator();
 
@@ -135,6 +137,21 @@ export const Layout = () => {
             <Stack.Screen
               name="BookingDetails"
               component={BookingDetails}
+              options={{headerShown: false}}
+            />
+            {/* <Stack.Screen
+              name="AuthTop"
+              component={AuthTopTab}
+              options={{headerShown: false}}
+            /> */}
+            <Stack.Screen
+              name="TopBusiness"
+              component={TopTabBusiness}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="BusinessInformation"
+              component={BusinessInfo}
               options={{headerShown: false}}
             />
           </>
