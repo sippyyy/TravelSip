@@ -27,6 +27,7 @@ import ReusableSpaceText from './Reusable/ReusableSpaceText';
 import CalendarPicker from './Reusable/CalendarPicker';
 import TileRoomBooking from './Hotel/TileRoomBooking';
 import InformationTile from './Tiles/Information/InformationTile';
+import ReusableModal from './Reusable/ReusableModal';
 
 export {
   Slides,
@@ -58,4 +59,5 @@ export {
   CalendarPicker,
   TileRoomBooking,
   InformationTile,
+  ReusableModal,
 };

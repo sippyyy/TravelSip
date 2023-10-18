@@ -1,4 +1,4 @@
-import {StyleSheet, View, TextInput} from 'react-native';
+import {StyleSheet, View, TextInput, Pressable} from 'react-native';
 import React from 'react';
 import ReusableText from '../../Reusable/ReusableText';
 import {COLORS, SIZES, TEXT} from '../../../constants/theme';
@@ -13,6 +13,7 @@ const InformationTile = ({
   setFieldTouched,
   handleChange,
   fieldname,
+  press,
 }) => {
   return (
     <View
@@ -28,27 +29,29 @@ const InformationTile = ({
         family={'medium'}
       />
       <HeightSpacer height={5} />
-      {!input ? (
-        <ReusableText
-          text={value}
-          size={TEXT.small}
-          color={COLORS.black}
-          family={'regular'}
-        />
-      ) : (
-        <TextInput
-          style={{
-            padding: 0,
-          }}
-          placeholder={placeholder}
-          value={valueInput}
-          onFocus={() => setFieldTouched(fieldname)}
-          onBlur={() => setFieldTouched(fieldname, '')}
-          autoCapitalize="none"
-          onChangeText={handleChange(fieldname)}
-          autoCorrect={false}
-        />
-      )}
+      <Pressable onPress={press}>
+        {!input ? (
+          <ReusableText
+            text={value}
+            size={TEXT.small}
+            color={COLORS.black}
+            family={'regular'}
+          />
+        ) : (
+          <TextInput
+            style={{
+              padding: 0,
+            }}
+            placeholder={placeholder}
+            value={valueInput}
+            onFocus={() => setFieldTouched(fieldname)}
+            onBlur={() => setFieldTouched(fieldname, '')}
+            autoCapitalize="none"
+            onChangeText={handleChange(fieldname)}
+            autoCorrect={false}
+          />
+        )}
+      </Pressable>
     </View>
   );
 };

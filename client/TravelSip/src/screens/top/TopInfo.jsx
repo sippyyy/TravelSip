@@ -7,8 +7,6 @@ import {useAuth} from '../../context/AuthContext';
 const TopInfo = ({navigation, route}) => {
   const {output} = route.params;
 
-  console.log({output});
-
   return (
     <View style={{margin: 20}}>
       <ProfileTile
