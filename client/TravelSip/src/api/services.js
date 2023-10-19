@@ -4,6 +4,7 @@ const {
   put,
   get,
   getNoneAuthorized,
+  del,
 } = require('./utils/methods');
 import {BASE_URL} from '@env';
 import {setSecureValue} from './secureValue';
@@ -35,6 +36,8 @@ export const httpRequest = async ({
     case 'put':
       httpMethod = put;
       break;
+    case 'del':
+      httpMethod = del;
   }
   // setIsLoading(true);
   let res = '';
@@ -46,7 +49,7 @@ export const httpRequest = async ({
       accessToken,
     );
     const {status, data, message} = res;
-    if (status === 200 || status === 201) {
+    if (status === 200 || status === 201 || status === 204) {
       const result = {status, data};
       return result;
     } else {

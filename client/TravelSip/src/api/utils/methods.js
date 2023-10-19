@@ -61,7 +61,7 @@ export const put = async (path, params, data, access) => {
   return response;
 };
 
-export const del = async (path, accessToken) => {
+export const del = async (path, params, data, accessToken) => {
   const optionsAuthorized = {
     headers: {
       'Content-Type': 'application/json',

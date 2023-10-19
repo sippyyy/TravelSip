@@ -20,7 +20,7 @@ const TopBookings = ({navigation}) => {
     accessToken: authState.accessToken,
   });
   useEffect(() => {
-    console.log({error});
+    // console.log({error});
   }, [error]);
   return (
     <View style={{margin: 20}}>

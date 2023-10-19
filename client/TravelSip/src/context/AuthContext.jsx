@@ -43,6 +43,12 @@ export const AuthProvider = ({children}) => {
   const logOut = async () => {
     await removeSecureValue('access_token');
     await removeSecureValue('refresh_token');
+    setAuthState({
+      accessToken: null,
+      refreshToken: null,
+      authenticated: false,
+      id: null,
+    });
   };
 
   const loadToken = async () => {

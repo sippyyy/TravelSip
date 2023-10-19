@@ -14,6 +14,7 @@ const InformationTile = ({
   handleChange,
   fieldname,
   press,
+  error,
 }) => {
   return (
     <View
@@ -44,7 +45,6 @@ const InformationTile = ({
             }}
             placeholder={placeholder}
             value={valueInput}
-            onFocus={() => setFieldTouched(fieldname)}
             onBlur={() => setFieldTouched(fieldname, '')}
             autoCapitalize="none"
             onChangeText={handleChange(fieldname)}
@@ -52,6 +52,9 @@ const InformationTile = ({
           />
         )}
       </Pressable>
+      {error ? (
+        <ReusableText text={error} size={SIZES.small} color={COLORS.red} />
+      ) : null}
     </View>
   );
 };

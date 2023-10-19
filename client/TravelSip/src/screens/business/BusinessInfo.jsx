@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Formik} from 'formik';
 import {
   AppBar,
@@ -12,27 +12,61 @@ import {
 import reusable from '../../components/Reusable/reusable.style';
 import {COLORS, TEXT} from '../../constants/theme';
 import * as Yup from 'yup';
+import {httpRequest} from '../../api/services';
+import {useAuth} from '../../context/AuthContext';
 
 const BusinessInfo = ({navigation, route}) => {
-  return (
+  const [info, setInfo] = useState(null);
+  const {authState} = useAuth();
+  const dataIn = route.params;
+  useEffect(() => {
+    if (dataIn) {
+      setInfo(dataIn);
+    } else {
+      setInfo([]);
+    }
+  }, [dataIn]);
+
+  return info ? (
     <Formik
       initialValues={{
-        bio: '',
-        name: '',
-        email: '',
-        phone: '',
-        tax: '',
+        bio: info?.bio ?? '',
+        name: info?.name ?? '',
+        email: info?.email ?? '',
+        phone: info?.phone ?? '',
+        tax: info?.tax ?? '',
       }}
-      onSubmit={values => {
-        console.log(values);
+      onSubmit={async values => {
+        let method = '';
+        let endpoint = '';
+        if (dataIn) {
+          method = 'put';
+          endpoint = `api/v1/user_organizations/${authState.id}/`;
+        } else {
+          method = 'post-auth';
+          endpoint = `api/v1/user_organizations/`;
+        }
+        const result = await httpRequest({
+          method,
+          endpoint,
+          dataInput: values,
+          accessToken: authState.accessToken,
+        });
+        if (result.status === 200) {
+          if (dataIn) {
+            navigation.goBack();
+          } else {
+            navigation.navigate('TopBusiness');
+          }
+        }
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string().email('Provide a valid email').required('Required'),
         name: Yup.string().required('Required'),
-        tax: Yup.number()
+        tax: Yup.string()
           .max(12, 'Tax number must less than 12 character')
           .required('Required'),
-        phone: Yup.number()
+        phone: Yup.string()
           .max(12, 'Tax number must less than 12 character')
           .required('Required'),
       })}>
@@ -51,7 +85,7 @@ const BusinessInfo = ({navigation, route}) => {
             top={10}
             left={20}
             right={20}
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate('Profile')}
           />
           <HeightSpacer height={60} />
           <View style={{paddingHorizontal: 20}}>
@@ -69,8 +103,9 @@ const BusinessInfo = ({navigation, route}) => {
             field={'Business Name'}
             handleChange={handleChange}
             setFieldTouched={setFieldTouched}
-            inputValue={values.name}
+            valueInput={values.name}
             placeholder="Your official business name..."
+            error={errors.name}
           />
           <HeightSpacer height={8} />
           <InformationTile
@@ -79,8 +114,9 @@ const BusinessInfo = ({navigation, route}) => {
             field={'Email'}
             handleChange={handleChange}
             setFieldTouched={setFieldTouched}
-            inputValue={values.email}
+            valueInput={values.email}
             placeholder="Your business email..."
+            error={errors.email}
           />
           <HeightSpacer height={8} />
           <InformationTile
@@ -89,8 +125,9 @@ const BusinessInfo = ({navigation, route}) => {
             field={'Contact Number'}
             handleChange={handleChange}
             setFieldTouched={setFieldTouched}
-            inputValue={values.phone}
+            valueInput={values.phone}
             placeholder="Your business contact number..."
+            error={errors.phone}
           />
           <HeightSpacer height={8} />
           <InformationTile
@@ -99,8 +136,9 @@ const BusinessInfo = ({navigation, route}) => {
             field={'Tax Number'}
             handleChange={handleChange}
             setFieldTouched={setFieldTouched}
-            inputValue={values.tax}
+            valueInput={values.tax}
             placeholder="Your business tax number..."
+            error={errors.tax}
           />
           <HeightSpacer height={15} />
 
@@ -119,8 +157,9 @@ const BusinessInfo = ({navigation, route}) => {
             field={'Business Bio'}
             handleChange={handleChange}
             setFieldTouched={setFieldTouched}
-            inputValue={values.name}
+            valueInput={values.bio}
             placeholder="Business's bio..."
+            error={errors.bio}
           />
           <HeightSpacer height={8} />
           <View
@@ -151,7 +190,7 @@ const BusinessInfo = ({navigation, route}) => {
         </View>
       )}
     </Formik>
-  );
+  ) : null;
 };
 
 export default BusinessInfo;
