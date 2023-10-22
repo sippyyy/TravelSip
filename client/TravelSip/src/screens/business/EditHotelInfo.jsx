@@ -1,18 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
+import React, {useState} from 'react';
 import {Formik} from 'formik';
 import useFetchData from '../../hooks/fetchData';
 import {
   AppBar,
   HeightSpacer,
+  ImageFieldTile,
   InformationTile,
   ReusableBtn,
+  ReusableText,
   WidthSpacer,
 } from '../../components';
 import reusable from '../../components/Reusable/reusable.style';
-import {COLORS} from '../../constants/theme';
+import {COLORS, TEXT} from '../../constants/theme';
 import {httpRequest} from '../../api/services';
 import {useAuth} from '../../context/AuthContext';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const EditHotelInfo = ({navigation, route}) => {
   const id = route.params;
@@ -21,6 +24,20 @@ const EditHotelInfo = ({navigation, route}) => {
     method: 'get',
     endpoint: `api/v1/hotels/${id}/`,
   });
+  const [selectedImage, setSelectedImage] = useState(output.imageUrl);
+  const handleChooseImage = async () => {
+    const options = {
+      mediaType: 'photo',
+    };
+    const result = await launchImageLibrary(options);
+    const data = result.assets[0];
+    const image = {
+      uri: data?.uri,
+      type: data?.type,
+      name: data?.fileName,
+    };
+    setSelectedImage(image);
+  };
   return output?.title ? (
     <Formik
       initialValues={{
@@ -28,13 +45,24 @@ const EditHotelInfo = ({navigation, route}) => {
         description: output?.description ?? '',
         contact: output?.contact ?? '',
         address: output?.location ?? '',
+        imageUrl: output?.imageUrl ?? '',
       }}
       onSubmit={async values => {
+        const formData = new FormData();
+        formData.append('title', values.title);
+        formData.append('description', values.description);
+        formData.append('contact', values.contact);
+        formData.append('address', values.address);
+        if (selectedImage) {
+          formData.append('imageUrl', selectedImage);
+        }
+
         const result = await httpRequest({
           method: 'put',
           endpoint: `api/v1/hotels/${id}/`,
           accessToken: authState.accessToken,
-          dataInput: values,
+          dataInput: formData,
+          formData: true,
         });
         if (result.status === 200) {
           navigation.goBack();
@@ -58,16 +86,28 @@ const EditHotelInfo = ({navigation, route}) => {
             onPress={() => navigation.goBack()}
           />
           <HeightSpacer height={60} />
-          <InformationTile
-            field={'Accommodation Name'}
-            input={true}
-            placeholder="Your accommodation name"
-            valueInput={values.title}
-            fieldname={'title'}
-            handleChange={handleChange}
-            setFieldTouched={setFieldTouched}
-            error={errors.title}
-          />
+          <View
+            style={[
+              reusable.rowWithSpace('flex-start'),
+              {
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                backgroundColor: COLORS.white,
+              },
+            ]}>
+            <ImageFieldTile
+              onPress={() => handleChooseImage()}
+              source={selectedImage?.uri ?? output.imageUrl}
+            />
+            <WidthSpacer width={10} />
+            <TextInput
+              style={styles.input}
+              placeholder="Accommodation's name"
+              value={values.title}
+              onChangeText={handleChange('title')}
+              onBlur={() => setFieldTouched('title', '')}
+            />
+          </View>
           <HeightSpacer height={8} />
           <InformationTile
             field={'Description'}
@@ -101,7 +141,16 @@ const EditHotelInfo = ({navigation, route}) => {
             setFieldTouched={setFieldTouched}
             error={errors.address}
           />
+          <View style={{paddingHorizontal: 20}}>
+            <ReusableText
+              text={'IMAGE'}
+              size={TEXT.medium}
+              color={COLORS.black}
+              family={'medium'}
+            />
+          </View>
           <HeightSpacer height={8} />
+
           <View
             style={[
               reusable.rowWithSpace('space-between'),
@@ -118,6 +167,7 @@ const EditHotelInfo = ({navigation, route}) => {
               flex={1}
               onPress={() => navigation.goBack()}
             />
+
             <WidthSpacer width={5} />
             <ReusableBtn
               btnText={'Submit'}
@@ -135,4 +185,13 @@ const EditHotelInfo = ({navigation, route}) => {
 
 export default EditHotelInfo;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  input: {
+    fontSize: TEXT.medium,
+    fontFamily: 'medium',
+    borderBottomWidth: 3,
+    flex: 1,
+    borderBottomColor: COLORS.red,
+    paddingVertical: 5,
+  },
+});

@@ -28,6 +28,7 @@ import CalendarPicker from './Reusable/CalendarPicker';
 import TileRoomBooking from './Hotel/TileRoomBooking';
 import InformationTile from './Tiles/Information/InformationTile';
 import ReusableModal from './Reusable/ReusableModal';
+import ImageFieldTile from './Tiles/Information/ImageFieldTile';
 
 export {
   Slides,
@@ -60,4 +61,5 @@ export {
   TileRoomBooking,
   InformationTile,
   ReusableModal,
+  ImageFieldTile,
 };

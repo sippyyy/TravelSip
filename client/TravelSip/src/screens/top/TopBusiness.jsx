@@ -1,15 +1,17 @@
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import reusable from '../../components/Reusable/reusable.style';
 import {
   HeightSpacer,
   ReusableBtn,
+  ReusableText,
   ReusableTile,
   WidthSpacer,
 } from '../../components';
-import {COLORS} from '../../constants/theme';
+import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import {httpRequest} from '../../api/services';
 import {useAuth} from '../../context/AuthContext';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const TopBusiness = ({navigation, route}) => {
   const {user_hotel} = route.params.output;
@@ -41,7 +43,9 @@ const TopBusiness = ({navigation, route}) => {
               <View style={styles.bookingContainer}>
                 <ReusableTile
                   item={item.item}
-                  onPress={() => navigation.navigate('BookingDetails', item)}
+                  onPress={() =>
+                    navigation.navigate('HotelDetails', item.item.id)
+                  }
                 />
                 <View
                   style={[
@@ -76,6 +80,13 @@ const TopBusiness = ({navigation, route}) => {
           )}
         />
       ) : null}
+      <Pressable
+        onPress={() => {
+          navigation.navigate('CreateHotel');
+        }}
+        style={styles.addBtn}>
+        <Icon name="add" color={COLORS.white} size={SIZES.xxLarge} />
+      </Pressable>
     </View>
   );
 };
@@ -87,5 +98,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: COLORS.lightWhite,
     borderRadius: 12,
+  },
+  addBtn: {
+    position: 'absolute',
+    bottom: 40,
+    right: 0,
+    width: 50,
+    height: 50,
+    borderRadius: 80,
+    backgroundColor: COLORS.green,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

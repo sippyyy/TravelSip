@@ -10,6 +10,7 @@ import {
   BookingDetails,
   BusinessInfo,
   CountryDetails,
+  CreateHotel,
   EditHotelInfo,
   Failed,
   HotelDetails,
@@ -158,6 +159,11 @@ export const Layout = () => {
             <Stack.Screen
               name="EditHotel"
               component={EditHotelInfo}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="CreateHotel"
+              component={CreateHotel}
               options={{headerShown: false}}
             />
           </>

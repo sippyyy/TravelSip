@@ -57,6 +57,17 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBMTjW7UFyFf5mE7KSSydWsGrQz-igYkJA" />
+
+        <provider
+            android:name="com.imagepicker.ImagePickerProvider"
+            android:authorities="com.travelsip.imagepickerprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/imagepicker_provider_paths" />
+        </provider>
+
         <meta-data
             android:name="com.facebook.soloader.enabled"
             android:value="false" />

@@ -18,6 +18,7 @@ export const httpRequest = async ({
   setError,
   navigation,
   token_refresh,
+  formData,
 }) => {
   let httpMethod;
   switch (method) {
@@ -47,6 +48,7 @@ export const httpRequest = async ({
       params,
       dataInput,
       accessToken,
+      formData,
     );
     const {status, data, message} = res;
     if (status === 200 || status === 201 || status === 204) {

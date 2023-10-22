@@ -29,6 +29,7 @@ import TopBusiness from './top/TopBusiness';
 import TopInfoBusiness from './top/TopInfoBusiness';
 import BusinessInfo from './business/BusinessInfo';
 import EditHotelInfo from './business/EditHotelInfo';
+import CreateHotel from './business/CreateHotel';
 
 export {
   Onboarding,
@@ -62,4 +63,5 @@ export {
   TopInfoBusiness,
   BusinessInfo,
   EditHotelInfo,
+  CreateHotel,
 };

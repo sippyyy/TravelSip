@@ -5,7 +5,12 @@ export const request = axios.create({
   baseURL: BASE_URL,
 });
 
+export const request2 = axios.create({
+  baseURL: BASE_URL,
+});
+
 request.defaults.headers.post['Content-Type'] = 'application/json';
+request.defaults.headers.post['Content-Type'] = 'multipart/form-data';
 
 // const csrfToken = getCookie('csrftoken');
 
@@ -50,14 +55,18 @@ export const get = async (path, params = {}, data, accessToken) => {
   return await request.get(path, {params, ...optionsAuthorized});
 };
 
-export const put = async (path, params, data, access) => {
+export const put = async (path, params, data, access, formData) => {
   const optionsAuthorized = {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${access}`,
     },
   };
-  const response = await request.put(path, data, optionsAuthorized);
+  let response;
+  if (formData) {
+    response = await request2.put(path, data, optionsAuthorized);
+  } else {
+    response = await request.put(path, data, optionsAuthorized);
+  }
   return response;
 };
 

@@ -12,6 +12,7 @@ MERGED from [:react-native-splash-screen] /home/thuy/work/TravelSip/client/Trave
 MERGED from [:react-native-async-storage_async-storage] /home/thuy/work/TravelSip/client/TravelSip/node_modules/@react-native-async-storage/async-storage/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-community_checkbox] /home/thuy/work/TravelSip/client/TravelSip/node_modules/@react-native-community/checkbox/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-community_datetimepicker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-19:12
 MERGED from [:react-native-keychain] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-keychain/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-10:12
 MERGED from [:react-native-maps] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-maps/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-pager-view] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-pager-view/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
@@ -63,6 +64,7 @@ MERGED from [androidx.startup:startup-runtime:1.0.0] /home/thuy/.gradle/caches/t
 MERGED from [androidx.tracing:tracing:1.1.0] /home/thuy/.gradle/caches/transforms-3/816103dcaf20cc3449d44e7aef228ddc/transformed/jetified-tracing-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.facebook.fresco:middleware:2.6.0] /home/thuy/.gradle/caches/transforms-3/64b55a0ad447c9d7608986823ffb3a12/transformed/jetified-middleware-2.6.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:ui-common:2.6.0] /home/thuy/.gradle/caches/transforms-3/c15a7e0a99bb25483d068fddbb8c4f6a/transformed/jetified-ui-common-2.6.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.3] /home/thuy/.gradle/caches/transforms-3/0eba2a16e2a1cb3e4265e0366e9b27e0/transformed/exifinterface-1.3.3/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/thuy/.gradle/caches/transforms-3/1b2a468e511b40252f50abd3e2702db9/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] /home/thuy/.gradle/caches/transforms-3/f2782bc466a14e48ac3fd50422df07eb/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1] /home/thuy/.gradle/caches/transforms-3/05e32d0972721ec86db9faf3518c82bb/transformed/jetified-lifecycle-viewmodel-savedstate-2.3.1/AndroidManifest.xml:17:1-24:12
@@ -131,6 +133,8 @@ MERGED from /home/thuy/work/TravelSip/client/TravelSip/android/app/src/main/Andr
 MERGED from /home/thuy/work/TravelSip/client/TravelSip/android/app/src/main/AndroidManifest.xml:5:5-26:19
 MERGED from [:react-native-community_datetimepicker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-20
 MERGED from [:react-native-community_datetimepicker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-20
+MERGED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-17:19
+MERGED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-17:19
 MERGED from [com.facebook.soloader:soloader:0.10.5] /home/thuy/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:11:5-15:19
 MERGED from [com.facebook.soloader:soloader:0.10.5] /home/thuy/.gradle/caches/transforms-3/ec3312a013bd7d8a70466a1977a1dba4/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:11:5-15:19
 MERGED from [com.google.android.material:material:1.1.0] /home/thuy/.gradle/caches/transforms-3/9300c7fc5aff0974f1ee709fb212c45e/transformed/material-1.1.0/AndroidManifest.xml:22:5-20
@@ -232,6 +236,8 @@ MERGED from [:react-native-community_checkbox] /home/thuy/work/TravelSip/client/
 MERGED from [:react-native-community_checkbox] /home/thuy/work/TravelSip/client/TravelSip/node_modules/@react-native-community/checkbox/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-community_datetimepicker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-community_datetimepicker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-keychain] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-keychain/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-keychain] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-keychain/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:react-native-maps] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-maps/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
@@ -334,6 +340,8 @@ MERGED from [com.facebook.fresco:middleware:2.6.0] /home/thuy/.gradle/caches/tra
 MERGED from [com.facebook.fresco:middleware:2.6.0] /home/thuy/.gradle/caches/transforms-3/64b55a0ad447c9d7608986823ffb3a12/transformed/jetified-middleware-2.6.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:ui-common:2.6.0] /home/thuy/.gradle/caches/transforms-3/c15a7e0a99bb25483d068fddbb8c4f6a/transformed/jetified-ui-common-2.6.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:ui-common:2.6.0] /home/thuy/.gradle/caches/transforms-3/c15a7e0a99bb25483d068fddbb8c4f6a/transformed/jetified-ui-common-2.6.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.3] /home/thuy/.gradle/caches/transforms-3/0eba2a16e2a1cb3e4265e0366e9b27e0/transformed/exifinterface-1.3.3/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.3] /home/thuy/.gradle/caches/transforms-3/0eba2a16e2a1cb3e4265e0366e9b27e0/transformed/exifinterface-1.3.3/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/thuy/.gradle/caches/transforms-3/1b2a468e511b40252f50abd3e2702db9/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/thuy/.gradle/caches/transforms-3/1b2a468e511b40252f50abd3e2702db9/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /home/thuy/.gradle/caches/transforms-3/f2782bc466a14e48ac3fd50422df07eb/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
@@ -426,6 +434,22 @@ uses-permission#android.permission.ACCESS_WIFI_STATE
 ADDED from [com.facebook.flipper:flipper:0.182.0] /home/thuy/.gradle/caches/transforms-3/e13f88164840fe641a466d05cd8edac7/transformed/jetified-flipper-0.182.0/AndroidManifest.xml:16:5-76
 	android:name
 		ADDED from [com.facebook.flipper:flipper:0.182.0] /home/thuy/.gradle/caches/transforms-3/e13f88164840fe641a466d05cd8edac7/transformed/jetified-flipper-0.182.0/AndroidManifest.xml:16:22-73
+provider#com.imagepicker.ImagePickerProvider
+ADDED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:8:9-16:20
+	android:grantUriPermissions
+		ADDED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-47
+	android:authorities
+		ADDED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:13-71
+	android:exported
+		ADDED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-37
+	android:name
+		ADDED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-63
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-15:70
+	android:resource
+		ADDED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:15:17-67
+	android:name
+		ADDED from [:react-native-image-picker] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-image-picker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:17-67
 uses-permission#android.permission.USE_BIOMETRIC
 ADDED from [:react-native-keychain] /home/thuy/work/TravelSip/client/TravelSip/node_modules/react-native-keychain/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-72
 MERGED from [androidx.biometric:biometric:1.1.0] /home/thuy/.gradle/caches/transforms-3/81fa63908754b0560a308dc43bb0fd56/transformed/biometric-1.1.0/AndroidManifest.xml:24:5-72
