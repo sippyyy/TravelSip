@@ -1,5 +1,5 @@
 import {View, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {TopBookingRequests, TopBusiness, TopInfoBusiness} from '../screens';
 import {COLORS, SIZES, TEXT} from '../constants/theme';
@@ -37,6 +37,7 @@ const TopTabBusiness = ({navigation}) => {
       refetch();
     }
   }, [isFocused]);
+
   return output?.user ? (
     <View style={{flex: 1}}>
       <View style={{backgroundColor: COLORS.lightWhite}}>
@@ -65,7 +66,7 @@ const TopTabBusiness = ({navigation}) => {
               }}
             />
             <HeightSpacer height={5} />
-            <View style={reusable.rowWithSpace("center")}>
+            <View style={reusable.rowWithSpace('center')}>
               <ReusableText
                 text={output?.name ?? ''}
                 family="medium"
@@ -99,17 +100,17 @@ const TopTabBusiness = ({navigation}) => {
         <Tab.Screen
           name="Booking Requests"
           component={TopBookingRequests}
-          initialParams={{output}}
+          initialParams={output}
         />
         <Tab.Screen
           name="My Business"
           component={TopBusiness}
-          initialParams={{output}}
+          initialParams={{id: authState.id}}
         />
         <Tab.Screen
           name="Info"
           component={TopInfoBusiness}
-          initialParams={{output}}
+          initialParams={output}
         />
       </Tab.Navigator>
     </View>

@@ -1,22 +1,34 @@
 import {FlatList, Pressable, StyleSheet, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import reusable from '../../components/Reusable/reusable.style';
 import {
   HeightSpacer,
   ReusableBtn,
-  ReusableText,
   ReusableTile,
   WidthSpacer,
 } from '../../components';
-import {COLORS, SIZES, TEXT} from '../../constants/theme';
+import {COLORS, SIZES} from '../../constants/theme';
 import {httpRequest} from '../../api/services';
 import {useAuth} from '../../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import useFetchData from '../../hooks/fetchData';
+import {useIsFocused} from '@react-navigation/native';
 
 const TopBusiness = ({navigation, route}) => {
-  const {user_hotel} = route.params.output;
-  const [data, setData] = useState(user_hotel);
+  const isFocused = useIsFocused();
+  const id = route.params.id;
+  const {output, isLoading, error, refetch} = useFetchData({
+    method: 'get',
+    endpoint: `api/v1/user_organizations/${id}/`,
+  });
+  const [data, setData] = useState(output?.user_hotel ?? '');
   const {authState} = useAuth();
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+    }
+  }, [isFocused]);
 
   const handleDelete = async id => {
     const result = await httpRequest({
@@ -25,10 +37,15 @@ const TopBusiness = ({navigation, route}) => {
       accessToken: authState.accessToken,
     });
     if (result.status === 200) {
+      console.log(id);
       const new_data = data.filter(item => item.id !== id);
       setData(new_data);
     }
   };
+
+  useEffect(() => {
+    setData(output.user_hotel);
+  }, [output]);
 
   return (
     <View style={reusable.container}>

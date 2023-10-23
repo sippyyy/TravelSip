@@ -29,6 +29,7 @@ import TileRoomBooking from './Hotel/TileRoomBooking';
 import InformationTile from './Tiles/Information/InformationTile';
 import ReusableModal from './Reusable/ReusableModal';
 import ImageFieldTile from './Tiles/Information/ImageFieldTile';
+import Dropdown from './Reusable/Dropdown';
 
 export {
   Slides,
@@ -62,4 +63,5 @@ export {
   InformationTile,
   ReusableModal,
   ImageFieldTile,
+  Dropdown,
 };

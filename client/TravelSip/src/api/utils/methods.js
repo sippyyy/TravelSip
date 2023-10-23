@@ -14,15 +14,19 @@ request.defaults.headers.post['Content-Type'] = 'multipart/form-data';
 
 // const csrfToken = getCookie('csrftoken');
 
-export const post = async (path, params, data, accessToken) => {
+export const post = async (path, params, data, accessToken, formData) => {
   const optionsAuthorized = {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
   };
-
-  return await request.post(path, data, optionsAuthorized);
+  let response;
+  if (formData) {
+    response = await request2.post(path, data, optionsAuthorized);
+  } else {
+    response = await request.post(path, data, optionsAuthorized);
+  }
+  return response;
 };
 
 export const postNoneAuthorized = async (path, params, data, access) => {
@@ -73,7 +77,6 @@ export const put = async (path, params, data, access, formData) => {
 export const del = async (path, params, data, accessToken) => {
   const optionsAuthorized = {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
   };

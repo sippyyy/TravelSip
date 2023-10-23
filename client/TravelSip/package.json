@@ -28,6 +28,7 @@
     "react-native-bouncy-checkbox": "^3.0.7",
     "react-native-calendars": "^1.1301.0",
     "react-native-dotenv": "^3.4.9",
+    "react-native-dropdown-picker": "^5.4.6",
     "react-native-image-picker": "^7.0.1",
     "react-native-keychain": "^8.1.2",
     "react-native-maps": "^1.7.1",
