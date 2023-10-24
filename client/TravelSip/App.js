@@ -6,6 +6,7 @@ import {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
+  AddFacility,
   AuthTopTab,
   BookingDetails,
   BusinessInfo,
@@ -176,6 +177,11 @@ export const Layout = () => {
             <Stack.Screen
               name="EditHotel"
               component={EditHotel}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="AddFacility"
+              component={AddFacility}
               options={{headerShown: false}}
             />
           </>

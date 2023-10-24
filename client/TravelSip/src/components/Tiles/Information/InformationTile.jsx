@@ -15,6 +15,7 @@ const InformationTile = ({
   fieldname,
   press,
   error,
+  mode
 }) => {
   return (
     <View
@@ -43,6 +44,7 @@ const InformationTile = ({
             style={{
               padding: 0,
             }}
+            inputMode={mode}
             placeholder={placeholder}
             value={valueInput}
             onBlur={() => setFieldTouched(fieldname, '')}

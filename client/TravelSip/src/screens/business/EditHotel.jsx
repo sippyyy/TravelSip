@@ -139,6 +139,9 @@ const EditHotel = ({navigation, route}) => {
           <View style={styles.tileColumn}>
             <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
               <Pressable
+                onPress={() =>
+                  navigation.navigate('AddFacility', {id: item.id})
+                }
                 style={[reusable.rowWithSpace('center'), styles.topTab]}>
                 <Icon
                   name="all-inbox"

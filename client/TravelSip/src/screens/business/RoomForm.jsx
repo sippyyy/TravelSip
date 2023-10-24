@@ -1,10 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, TextInput} from 'react-native';
+import React, {useState} from 'react';
 import {
   AppBar,
   HeightSpacer,
   ImageFieldTile,
   InformationTile,
+  ReusableBtn,
   ReusableText,
   WidthSpacer,
 } from '../../components';
@@ -12,8 +13,10 @@ import {useRoute} from '@react-navigation/native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import reusable from '../../components/Reusable/reusable.style';
-import {TextInput} from 'react-native-paper';
 import {COLORS, SIZES, TEXT} from '../../constants/theme';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {httpRequest} from '../../api/services';
+import {useAuth} from '../../context/AuthContext';
 
 const validationSchemas = Yup.object().shape({
   name: Yup.string().required('Required'),
@@ -31,6 +34,7 @@ const validationSchemas = Yup.object().shape({
 const RoomForm = ({navigation}) => {
   const route = useRoute();
   const {id, screen, dataIn} = route.params;
+  const {authState} = useAuth();
   return (
     <View>
       <AppBar
@@ -44,17 +48,48 @@ const RoomForm = ({navigation}) => {
       <Formik
         initialValues={{
           name: dataIn?.name ?? '',
-          person: dataIn?.person ?? 0,
+          person: dataIn.person,
           bed: dataIn?.bed ?? 0,
           price: dataIn?.price ?? 0,
-          imageUrl: dataIn?.price ?? '',
+          imageUrl: dataIn?.imageUrl ?? '',
           hotel: id,
         }}
         onSubmit={async values => {
-          console.log(values);
+          const formData = new FormData();
+          formData.append('name', values.name);
+          formData.append('person', values.person);
+          formData.append('bed', values.bed);
+          formData.append('price', values.price);
+          if (values.imageUrl !== dataIn?.imageUrl ?? '') {
+            formData.append('imageUrl', values.imageUrl);
+          }
+          let method;
+          let endpoint;
+          if (screen === 'Create') {
+            formData.append('hotel', id);
+            method = 'post-auth';
+            endpoint = '';
+          } else {
+            method = 'put';
+            endpoint = id + '/';
+          }
+          const result = await httpRequest({
+            method: method,
+            endpoint: `api/v1/rooms/${endpoint}`,
+            accessToken: authState.accessToken,
+            formData: true,
+            dataInput: formData,
+          });
+          if (result.status === 200 || result.status === 201) {
+            if (screen === 'Create') {
+              navigation.navigate('AddFacility');
+            } else {
+              navigation.goBack();
+            }
+          }
         }}
         validationSchema={validationSchemas}>
-        {props => <Form {...props} navigation={navigation} screen={screen} />}
+        {props => <Form {...props} navigation={navigation} />}
       </Formik>
     </View>
   );
@@ -68,14 +103,7 @@ const Form = ({
   handleSubmit,
   setFieldValue,
   navigation,
-  screen,
 }) => {
-  const {output, isLoading, error, refetch} = useFetchData({
-    method: 'get',
-    endpoint: 'api/v1/city/',
-  });
-  const [city, setCity] = useState(null);
-
   const handleChooseImage = async () => {
     const options = {
       mediaType: 'photo',
@@ -90,12 +118,6 @@ const Form = ({
     setFieldValue('imageUrl', image);
   };
 
-  useEffect(() => {
-    if (city) {
-      setFieldValue('city', city);
-    }
-  }, [city]);
-
   return (
     <View>
       <View
@@ -109,18 +131,18 @@ const Form = ({
         ]}>
         <ImageFieldTile
           onPress={() => handleChooseImage()}
-          source={values?.imageUrl?.uri ?? ''}
+          source={values?.imageUrl?.uri ?? values?.imageUrl ?? ''}
         />
         <WidthSpacer width={10} />
         <View style={{flex: 1}}>
           <TextInput
             style={styles.input}
-            placeholder={`Your ${type(screen)} name`}
-            value={values.title}
-            onChangeText={handleChange('title')}
-            onBlur={() => setFieldTouched('title', '')}
+            placeholder={`Set your room name/type`}
+            value={values.name}
+            onChangeText={handleChange('name')}
+            onBlur={() => setFieldTouched('name', '')}
           />
-          {errors?.title ? (
+          {errors?.name ? (
             <View style={{paddingHorizontal: 10}}>
               <ReusableText
                 text={errors.title}
@@ -133,69 +155,41 @@ const Form = ({
       </View>
       <HeightSpacer height={10} />
       <InformationTile
-        field={'Description'}
+        mode="numeric"
+        field={'Person'}
         input={true}
         handleChange={handleChange}
-        fieldname={'description'}
+        fieldname={'person'}
         setFieldTouched={setFieldTouched}
-        error={errors.description}
-        valueInput={values.description}
-        placeholder={`Your ${type(screen)} description`}
+        error={errors.person}
+        valueInput={values.person.toString()}
+        placeholder={`Set number of person allowed`}
       />
       <HeightSpacer height={10} />
       <InformationTile
-        field={'Reception Number'}
+        mode="numeric"
+        field={'Number of bed(s)'}
         input={true}
         handleChange={handleChange}
-        fieldname={'contact'}
+        fieldname={'bed'}
         setFieldTouched={setFieldTouched}
-        error={errors.contact}
-        valueInput={values.contact}
-        placeholder={`Your ${type(screen)} contact number`}
+        error={errors.bed}
+        valueInput={values.bed.toString()}
+        placeholder={`Set number of bed allowed`}
       />
       <HeightSpacer height={10} />
       <InformationTile
-        field={"Hotel's address"}
+        field={'Price per night'}
+        mode="numeric"
         input={true}
         handleChange={handleChange}
-        fieldname={'address'}
+        fieldname={'price'}
         setFieldTouched={setFieldTouched}
-        error={errors.address}
-        valueInput={values.address}
-        placeholder={'Fill address/location'}
+        error={errors.price}
+        valueInput={values.price.toString()}
+        placeholder={`Set room's price`}
       />
       <HeightSpacer height={10} />
-      <View
-        style={{
-          backgroundColor: COLORS.white,
-          paddingHorizontal: 10,
-          paddingVertical: 10,
-        }}>
-        <View style={{paddingHorizontal: 10}}>
-          <ReusableText
-            text={'City'}
-            size={SIZES.small}
-            color={COLORS.gray}
-            family={'medium'}
-          />
-        </View>
-        <HeightSpacer height={5} />
-        <Dropdown
-          data={output}
-          schema={{label: 'name', value: 'id'}}
-          setValue={setCity}
-          value={city}
-        />
-        {errors?.city ? (
-          <View style={{paddingHorizontal: 10}}>
-            <ReusableText
-              text={errors.city}
-              size={SIZES.small}
-              color={COLORS.red}
-            />
-          </View>
-        ) : null}
-      </View>
       <HeightSpacer height={8} />
 
       <View

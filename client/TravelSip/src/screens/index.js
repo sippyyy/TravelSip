@@ -33,6 +33,7 @@ import TopHotel from './top/TopHotel';
 import TopDestination from './top/TopDestination';
 import EditHotel from './business/EditHotel';
 import RoomForm from './business/RoomForm';
+import AddFacility from './business/AddFacility';
 
 export {
   Onboarding,
@@ -70,4 +71,5 @@ export {
   TopDestination,
   EditHotel,
   RoomForm,
+  AddFacility,
 };
