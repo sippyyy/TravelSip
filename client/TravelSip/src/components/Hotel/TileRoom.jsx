@@ -10,7 +10,7 @@ import HeightSpacer from '../Reusable/HeightSpacer';
 
 const TileRoom = ({item}) => {
   return (
-    <View style={styles.container}>
+    <View style={{padding:10}}>
       <View style={reusable.rowWithSpace('flex-start')}>
         <NetworkImage
           source={item.imageUrl}
@@ -26,7 +26,7 @@ const TileRoom = ({item}) => {
             family={'medium'}
             color={COLORS.black}
           />
-          <HeightSpacer height={10} />
+          <HeightSpacer height={5} />
           <View style={reusable.rowWithSpace('flex-start')}>
             <View style={reusable.rowWithSpace('flex-start')}>
               <Icon name="bed" size={TEXT.small} />
@@ -51,7 +51,7 @@ const TileRoom = ({item}) => {
               />
             </View>
           </View>
-          <HeightSpacer height={10} />
+          <HeightSpacer height={5} />
           <View style={reusable.rowWithSpace('flex-end')}>
             <ReusableText
               text={`$${item.price}`}

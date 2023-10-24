@@ -25,11 +25,14 @@ import AuthTopTab from '../navigation/AuthTopTab';
 import Info from './profile/Info';
 import BookingDetails from './bookings/BookingDetails';
 import TopBookingRequests from './top/TopBookingRequests';
-import TopBusiness from './top/TopBusiness';
 import TopInfoBusiness from './top/TopInfoBusiness';
 import BusinessInfo from './business/BusinessInfo';
-import EditHotelInfo from './business/EditHotelInfo';
-import CreateHotel from './business/CreateHotel';
+import EditPlaceInfo from './business/EditPlaceInfo';
+import CreatePlace from './business/CreatePlace';
+import TopHotel from './top/TopHotel';
+import TopDestination from './top/TopDestination';
+import EditHotel from './business/EditHotel';
+import RoomForm from './business/RoomForm';
 
 export {
   Onboarding,
@@ -59,9 +62,12 @@ export {
   Info,
   BookingDetails,
   TopBookingRequests,
-  TopBusiness,
   TopInfoBusiness,
   BusinessInfo,
-  EditHotelInfo,
-  CreateHotel,
+  EditPlaceInfo,
+  CreatePlace,
+  TopHotel,
+  TopDestination,
+  EditHotel,
+  RoomForm,
 };

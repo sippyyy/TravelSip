@@ -1,7 +1,7 @@
 import {View, Image} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {TopBookingRequests, TopBusiness, TopInfoBusiness} from '../screens';
+import {TopBookingRequests, TopInfoBusiness} from '../screens';
 import {COLORS, SIZES, TEXT} from '../constants/theme';
 import {
   AppBar,
@@ -16,6 +16,7 @@ import {useAuth} from '../context/AuthContext';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useIsFocused} from '@react-navigation/native';
 import reusable from '../components/Reusable/reusable.style';
+import TopSmallTab from './TopSmallTab';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -102,11 +103,7 @@ const TopTabBusiness = ({navigation}) => {
           component={TopBookingRequests}
           initialParams={output}
         />
-        <Tab.Screen
-          name="My Business"
-          component={TopBusiness}
-          initialParams={{id: authState.id}}
-        />
+        <Tab.Screen name="My Business" component={TopSmallTab} />
         <Tab.Screen
           name="Info"
           component={TopInfoBusiness}

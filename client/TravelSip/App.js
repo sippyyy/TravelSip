@@ -10,8 +10,9 @@ import {
   BookingDetails,
   BusinessInfo,
   CountryDetails,
-  CreateHotel,
-  EditHotelInfo,
+  CreatePlace,
+  EditHotel,
+  EditPlaceInfo,
   Failed,
   HotelDetails,
   HotelList,
@@ -21,6 +22,7 @@ import {
   Payment,
   PlaceDetails,
   Recommended,
+  RoomForm,
   Search,
   SelectRoom,
   SelectedRoom,
@@ -157,13 +159,23 @@ export const Layout = () => {
               options={{headerShown: false}}
             />
             <Stack.Screen
-              name="EditHotel"
-              component={EditHotelInfo}
+              name="EditPlace"
+              component={EditPlaceInfo}
               options={{headerShown: false}}
             />
             <Stack.Screen
-              name="CreateHotel"
-              component={CreateHotel}
+              name="CreatePlace"
+              component={CreatePlace}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="RoomForm"
+              component={RoomForm}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="EditHotel"
+              component={EditHotel}
               options={{headerShown: false}}
             />
           </>

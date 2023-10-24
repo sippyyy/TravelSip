@@ -17,8 +17,8 @@ import {httpRequest} from '../../api/services';
 import {useAuth} from '../../context/AuthContext';
 import {launchImageLibrary} from 'react-native-image-picker';
 
-const EditHotelInfo = ({navigation, route}) => {
-  const id = route.params;
+const EditPlaceInfo = ({navigation, route}) => {
+  const {id, screen} = route.params;
   const {authState} = useAuth();
   const {output, setLoading, error, refetch} = useFetchData({
     method: 'get',
@@ -59,7 +59,7 @@ const EditHotelInfo = ({navigation, route}) => {
 
         const result = await httpRequest({
           method: 'put',
-          endpoint: `api/v1/hotels/${id}/`,
+          endpoint: `api/v1/${screen}s/${id}/`,
           accessToken: authState.accessToken,
           dataInput: formData,
           formData: true,
@@ -79,7 +79,7 @@ const EditHotelInfo = ({navigation, route}) => {
       }) => (
         <View>
           <AppBar
-            title={'Edit Hotel Information'}
+            title={`Edit ${screen} information`}
             top={10}
             left={20}
             right={20}
@@ -102,7 +102,7 @@ const EditHotelInfo = ({navigation, route}) => {
             <WidthSpacer width={10} />
             <TextInput
               style={styles.input}
-              placeholder="Accommodation's name"
+              placeholder={`Your ${screen} name`}
               value={values.title}
               onChangeText={handleChange('title')}
               onBlur={() => setFieldTouched('title', '')}
@@ -121,7 +121,7 @@ const EditHotelInfo = ({navigation, route}) => {
           />
           <HeightSpacer height={8} />
           <InformationTile
-            field={'Accommodation Contact'}
+            field={`Your ${screen} contact`}
             input={true}
             placeholder="Your contact number"
             valueInput={values.contact}
@@ -132,23 +132,15 @@ const EditHotelInfo = ({navigation, route}) => {
           />
           <HeightSpacer height={8} />
           <InformationTile
-            field={'Accommodation Location'}
+            field={`Your ${screen} location`}
             input={true}
-            placeholder="Accommodation's address"
+            placeholder={`Your ${screen} address`}
             valueInput={values.address}
             fieldname={'address'}
             handleChange={handleChange}
             setFieldTouched={setFieldTouched}
             error={errors.address}
           />
-          <View style={{paddingHorizontal: 20}}>
-            <ReusableText
-              text={'IMAGE'}
-              size={TEXT.medium}
-              color={COLORS.black}
-              family={'medium'}
-            />
-          </View>
           <HeightSpacer height={8} />
 
           <View
@@ -183,7 +175,7 @@ const EditHotelInfo = ({navigation, route}) => {
   ) : null;
 };
 
-export default EditHotelInfo;
+export default EditPlaceInfo;
 
 const styles = StyleSheet.create({
   input: {

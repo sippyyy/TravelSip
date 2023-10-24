@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import useFetchData from '../../hooks/fetchData';
 import {useIsFocused} from '@react-navigation/native';
 
-const TopBusiness = ({navigation, route}) => {
+const TopHotel = ({navigation, route}) => {
   const isFocused = useIsFocused();
   const id = route.params.id;
   const {output, isLoading, error, refetch} = useFetchData({
@@ -49,7 +49,7 @@ const TopBusiness = ({navigation, route}) => {
 
   return (
     <View style={reusable.container}>
-      <HeightSpacer height={10} />
+      {/* <HeightSpacer height={10} /> */}
       {data?.length > 0 ? (
         <FlatList
           data={data}
@@ -81,7 +81,9 @@ const TopBusiness = ({navigation, route}) => {
                   <ReusableBtn
                     flex={1}
                     onPress={() =>
-                      navigation.navigate('EditHotel', item.item.id)
+                      navigation.navigate('EditHotel', {
+                        id: item.item.id,
+                      })
                     }
                     textColor={COLORS.white}
                     borderWidth={1}
@@ -99,7 +101,7 @@ const TopBusiness = ({navigation, route}) => {
       ) : null}
       <Pressable
         onPress={() => {
-          navigation.navigate('CreateHotel');
+          navigation.navigate('CreatePlace', 'hotels');
         }}
         style={styles.addBtn}>
         <Icon name="add" color={COLORS.white} size={SIZES.xxLarge} />
@@ -108,7 +110,7 @@ const TopBusiness = ({navigation, route}) => {
   );
 };
 
-export default TopBusiness;
+export default TopHotel;
 
 const styles = StyleSheet.create({
   bookingContainer: {

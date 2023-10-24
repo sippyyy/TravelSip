@@ -18,6 +18,15 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import useFetchData from '../../hooks/fetchData';
 import {httpRequest} from '../../api/services';
 import {useAuth} from '../../context/AuthContext';
+import {useRoute} from '@react-navigation/native';
+
+const type = data => {
+  if (data === 'hotels') {
+    return 'hotel';
+  } else {
+    return 'destination';
+  }
+};
 
 const validationSchemas = Yup.object().shape({
   title: Yup.string().required('Required'),
@@ -28,12 +37,14 @@ const validationSchemas = Yup.object().shape({
   city: Yup.string().required('Required'),
 });
 
-const CreateHotel = ({navigation}) => {
+const CreatePlace = ({navigation}) => {
   const {authState} = useAuth();
+  const route = useRoute();
+  const screen = route.params;
   return (
     <View>
       <AppBar
-        title={'Create Hotel'}
+        title={`Create ${type(screen)}`}
         top={10}
         left={20}
         right={20}
@@ -59,7 +70,7 @@ const CreateHotel = ({navigation}) => {
           formData.append('city', values.city);
           const result = await httpRequest({
             method: 'post-auth',
-            endpoint: 'api/v1/hotels/',
+            endpoint: `api/v1/${screen}/`,
             accessToken: authState.accessToken,
             dataInput: formData,
             formData: true,
@@ -69,7 +80,7 @@ const CreateHotel = ({navigation}) => {
           }
         }}
         validationSchema={validationSchemas}>
-        {props => <Form {...props} />}
+        {props => <Form {...props} navigation={navigation} screen={screen} />}
       </Formik>
     </View>
   );
@@ -82,6 +93,8 @@ const Form = ({
   handleChange,
   handleSubmit,
   setFieldValue,
+  navigation,
+  screen,
 }) => {
   const {output, isLoading, error, refetch} = useFetchData({
     method: 'get',
@@ -128,7 +141,7 @@ const Form = ({
         <View style={{flex: 1}}>
           <TextInput
             style={styles.input}
-            placeholder="Accommodation's name"
+            placeholder={`Your ${type(screen)} name`}
             value={values.title}
             onChangeText={handleChange('title')}
             onBlur={() => setFieldTouched('title', '')}
@@ -153,7 +166,7 @@ const Form = ({
         setFieldTouched={setFieldTouched}
         error={errors.description}
         valueInput={values.description}
-        placeholder={'Your accommodation description'}
+        placeholder={`Your ${type(screen)} description`}
       />
       <HeightSpacer height={10} />
       <InformationTile
@@ -164,7 +177,7 @@ const Form = ({
         setFieldTouched={setFieldTouched}
         error={errors.contact}
         valueInput={values.contact}
-        placeholder={'Accommodation contact number'}
+        placeholder={`Your ${type(screen)} contact number`}
       />
       <HeightSpacer height={10} />
       <InformationTile
@@ -241,7 +254,7 @@ const Form = ({
   );
 };
 
-export default CreateHotel;
+export default CreatePlace;
 
 const styles = StyleSheet.create({
   input: {
