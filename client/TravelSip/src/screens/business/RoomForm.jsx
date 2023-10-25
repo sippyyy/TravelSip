@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet,View, TextInput} from 'react-native';
+import React from 'react';
 import {
   AppBar,
   HeightSpacer,
@@ -48,7 +48,7 @@ const RoomForm = ({navigation}) => {
       <Formik
         initialValues={{
           name: dataIn?.name ?? '',
-          person: dataIn.person,
+          person: dataIn?.person ?? '',
           bed: dataIn?.bed ?? 0,
           price: dataIn?.price ?? 0,
           imageUrl: dataIn?.imageUrl ?? '',
@@ -82,7 +82,8 @@ const RoomForm = ({navigation}) => {
           });
           if (result.status === 200 || result.status === 201) {
             if (screen === 'Create') {
-              navigation.navigate('AddFacility');
+              const roomId = result.data.id;
+              navigation.navigate('AddFacility', {hotelId: id, roomId});
             } else {
               navigation.goBack();
             }

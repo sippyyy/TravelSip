@@ -4,7 +4,14 @@ import NetworkImage from '../../Reusable/NetworkImage';
 import {COLORS} from '../../../constants/theme';
 import AssetImage from '../../Reusable/AssetImage';
 
-const ImageFieldTile = ({source, onPress}) => {
+const ImageFieldTile = ({
+  source,
+  onPress,
+  width,
+  height,
+  borderWidth,
+  borderColor,
+}) => {
   return (
     <Pressable onPress={onPress} style={styles.container}>
       <NetworkImage
@@ -12,8 +19,8 @@ const ImageFieldTile = ({source, onPress}) => {
         width="100%"
         height="100%"
         radius={100}
-        border={2}
-        borderColor={COLORS.lightRed}
+        border={borderWidth ? borderWidth : 2}
+        borderColor={borderColor ? borderColor : COLORS.lightRed}
       />
       <View style={styles.imageCover}>
         <AssetImage
@@ -30,13 +37,13 @@ const ImageFieldTile = ({source, onPress}) => {
 export default ImageFieldTile;
 
 const styles = StyleSheet.create({
-  container: {
-    width: 80,
-    height: 80,
+  container: (width, height) => ({
+    width: width ? width : 80,
+    height: height ? height : 80,
     borderRadius: 100,
     overflow: 'hidden',
     position: 'relative',
-  },
+  }),
   imageCover: {
     opacity: 0.6,
     position: 'absolute',

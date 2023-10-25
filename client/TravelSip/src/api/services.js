@@ -40,7 +40,6 @@ export const httpRequest = async ({
     case 'del':
       httpMethod = del;
   }
-  // setIsLoading(true);
   let res = '';
   try {
     res = await httpMethod(

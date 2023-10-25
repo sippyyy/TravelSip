@@ -25,6 +25,7 @@ const BusinessInfo = ({navigation, route}) => {
     } else {
       setInfo([]);
     }
+    console.log(dataIn)
   }, [dataIn]);
 
   return info ? (

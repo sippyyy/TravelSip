@@ -38,8 +38,6 @@ const TopTab = ({navigation}) => {
             right={20}
             color={COLORS.white}
             color1={COLORS.white}
-            // icon={'log-out-outline'}
-            // onPress1={()=>{}}
             onPress={() => navigation.goBack()}
           />
           <View style={styles.profile}>

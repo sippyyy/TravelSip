@@ -140,7 +140,11 @@ const EditHotel = ({navigation, route}) => {
             <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
               <Pressable
                 onPress={() =>
-                  navigation.navigate('AddFacility', {id: item.id})
+                  navigation.navigate('AddFacility', {
+                    roomId: item.id,
+                    hotelId: id,
+                    faciId: item.facilities,
+                  })
                 }
                 style={[reusable.rowWithSpace('center'), styles.topTab]}>
                 <Icon

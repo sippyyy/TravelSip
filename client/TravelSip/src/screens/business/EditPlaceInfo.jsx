@@ -22,7 +22,7 @@ const EditPlaceInfo = ({navigation, route}) => {
   const {authState} = useAuth();
   const {output, setLoading, error, refetch} = useFetchData({
     method: 'get',
-    endpoint: `api/v1/hotels/${id}/`,
+    endpoint: `api/v1/${screen}s/${id}/`,
   });
   const [selectedImage, setSelectedImage] = useState(output.imageUrl);
   const handleChooseImage = async () => {

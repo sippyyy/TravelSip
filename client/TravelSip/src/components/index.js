@@ -30,6 +30,7 @@ import InformationTile from './Tiles/Information/InformationTile';
 import ReusableModal from './Reusable/ReusableModal';
 import ImageFieldTile from './Tiles/Information/ImageFieldTile';
 import Dropdown from './Reusable/Dropdown';
+import ReusableCheckbox from './Reusable/ReusableCheckbox';
 
 export {
   Slides,
@@ -64,4 +65,5 @@ export {
   ReusableModal,
   ImageFieldTile,
   Dropdown,
+  ReusableCheckbox,
 };
