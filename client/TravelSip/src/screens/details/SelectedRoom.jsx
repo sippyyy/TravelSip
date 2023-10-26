@@ -1,6 +1,5 @@
 import {Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import jwt_decode from 'jwt-decode';
 import {
   AppBar,
   CalendarPicker,
@@ -19,7 +18,7 @@ import useFetchData from '../../hooks/fetchData';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Modal} from 'react-native-paper';
 import {httpRequest} from '../../api/services';
-import {getSecureValue} from '../../api/secureValue';
+import {useAuth} from '../../context/AuthContext';
 
 const SelectedRoom = ({navigation}) => {
   const route = useRoute();
@@ -31,10 +30,9 @@ const SelectedRoom = ({navigation}) => {
   const [selectedDates, setSelectedDates] = useState({});
   const [totalNights, setTotalNights] = useState(0);
   const [person, setPerson] = useState(1);
+  const {authState} = useAuth();
 
   // temporary
-  const [loading, setLoading] = useState(false);
-  const [error2, setError2] = useState(' ');
 
   const {output, isLoading, error, refetch} = useFetchData({
     method: 'get',
@@ -53,37 +51,28 @@ const SelectedRoom = ({navigation}) => {
       const endDate = new Date(selectedEndDate);
       const timeDifference = endDate - startDate;
       const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-      setTotalNights(daysDifference - 1);
+      setTotalNights(daysDifference);
     } else {
       setTotalNights(0);
     }
   }, [selectedEndDate]);
 
   const handleSubmit = async () => {
-    const token_access = await getSecureValue('access_token');
-    const token_refresh = await getSecureValue('refresh_token');
-    if (token_access) {
-      const decoded = jwt_decode(token_access);
-      const dataInput = {
-        user: decoded.user_id,
-        check_in: selectedStartDate,
-        check_out: selectedEndDate,
-        room: id,
-      };
+    const dataInput = {
+      user: authState.id,
+      check_in: selectedStartDate,
+      check_out: selectedEndDate,
+      room: id,
+    };
 
-      const result = await httpRequest({
-        method: 'post-auth',
-        endpoint: 'api/v1/bookings/',
-        dataInput: dataInput,
-        setIsLoading: setLoading,
-        setError: setError2,
-        navigation: navigation,
-        accessToken: token_access,
-        token_refresh: token_refresh,
-      });
-      if (result.status === 201) {
-        navigation.navigate('Successful', result.data);
-      }
+    const result = await httpRequest({
+      method: 'post-auth',
+      endpoint: 'api/v1/bookings/',
+      dataInput: dataInput,
+      accessToken: authState.accessToken,
+    });
+    if (result.status === 201) {
+      navigation.navigate('Successful', result.data);
     }
   };
 

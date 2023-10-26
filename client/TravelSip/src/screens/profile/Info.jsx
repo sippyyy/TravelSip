@@ -1,8 +1,9 @@
-import {Button, View} from 'react-native';
+import {Button, ScrollView, StyleSheet, TextInput, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   AppBar,
   HeightSpacer,
+  ImageFieldTile,
   InformationTile,
   ReusableBtn,
   ReusableText,
@@ -16,6 +17,7 @@ import {httpRequest} from '../../api/services';
 import {useAuth} from '../../context/AuthContext';
 import reusable from '../../components/Reusable/reusable.style';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const validationSchema = Yup.object().shape({
   // bio: Yup.string().min(8, 'Password must be at least 8 characters'),
@@ -49,8 +51,10 @@ const Info = ({navigation}) => {
         dob: output?.dob ?? '',
         mobile: output?.mobile ?? '',
         gender: output?.gender ?? '',
+        imageUrl: output?.imageUrl ?? '',
+        backgroundUrl: output?.backgroundUrl ?? '',
       }}
-      onSubmit={async value => {
+      onSubmit={async values => {
         let method = '';
         let endpoint = '';
         if (dataIn) {
@@ -60,11 +64,25 @@ const Info = ({navigation}) => {
           method = 'post';
           endpoint = `api/v1/user_profiles/`;
         }
+
+        const formData = new FormData();
+        formData.append('bio', values.bio);
+        formData.append('nickname', values.nickname);
+        formData.append('dob', values.dob);
+        formData.append('mobile', values.mobile);
+        formData.append('gender', values.gender);
+        if (values.imageUrl?.uri) {
+          formData.append('imageUrl', values.imageUrl);
+        }
+        if (values.backgroundUrl?.uri) {
+          formData.append('backgroundUrl', values.backgroundUrl);
+        }
         const result = await httpRequest({
           method,
           endpoint,
-          dataInput: value,
+          dataInput: formData,
           accessToken: authState.accessToken,
+          formData: true,
         });
         if (result.status === 200) {
           if (dataIn) {
@@ -87,6 +105,7 @@ const Form = ({
   handleChange,
   handleSubmit,
   setFieldValue,
+  errors,
 }) => {
   const navigation = useNavigation();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -99,13 +118,33 @@ const Form = ({
   };
 
   const handleConfirm = date => {
-    const date_formatted = date.toISOString().split('T')[0];;
+    const date_formatted = date.toISOString().split('T')[0];
     setFieldValue('dob', date_formatted);
     setDatePickerVisibility(false);
   };
 
+  const handleChooseImage = async type => {
+    const options = {
+      mediaType: 'photo',
+    };
+    const result = await launchImageLibrary(options);
+    if (!result.didCancel) {
+      const data = result.assets[0];
+      const image = {
+        uri: data?.uri,
+        type: data?.type,
+        name: data?.fileName,
+      };
+      if (type === 'bg') {
+        setFieldValue('backgroundUrl', image);
+      } else if (type === 'img') {
+        setFieldValue('imageUrl', image);
+      }
+    }
+  };
+
   return (
-    <View>
+    <View style={{flex: 1}}>
       <AppBar
         onPress={() => navigation.goBack()}
         top={10}
@@ -114,21 +153,50 @@ const Form = ({
         title={'Profile Information'}
       />
       <HeightSpacer height={80} />
-      <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={{paddingHorizontal: 20}}>
             <ReusableText
-              text={'NAME'}
+              text={'NAME & IMAGES'}
               size={TEXT.medium}
               color={COLORS.black}
               family={'medium'}
             />
           </View>
           <HeightSpacer height={8} />
-          <InformationTile
-            field={'Username'}
-            value={output?.user?.username ?? output?.username ?? ''}
-          />
+          <View style={{marginHorizontal: 20}}>
+            <ImageFieldTile
+              source={values?.backgroundUrl?.uri ?? values?.backgroundUrl ?? ''}
+              onPress={() => handleChooseImage('bg')}
+              width={'100%'}
+              height={140}
+              radius={10}
+            />
+          </View>
+          <HeightSpacer height={8} />
+
+          <View
+            style={[
+              reusable.rowWithSpace('flex-start'),
+              {
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                backgroundColor: COLORS.white,
+              },
+            ]}>
+            <ImageFieldTile
+              onPress={() => handleChooseImage('img')}
+              source={values?.imageUrl?.uri ?? values?.imageUrl ?? ''}
+            />
+            <WidthSpacer width={10} />
+            <View style={styles.input}>
+              <ReusableText
+                text={output?.user?.username ?? output?.username ?? ''}
+                size={TEXT.medium}
+                color={COLORS.black}
+              />
+            </View>
+          </View>
           <HeightSpacer height={5} />
           <InformationTile
             field={'Nickname'}
@@ -236,9 +304,20 @@ const Form = ({
             onCancel={hideDatePicker}
           />
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
 
 export default Info;
+
+const styles = StyleSheet.create({
+  input: {
+    fontSize: TEXT.medium,
+    fontFamily: 'medium',
+    borderBottomWidth: 3,
+    borderBottomColor: COLORS.red,
+    paddingVertical: 5,
+    flex: 1,
+  },
+});

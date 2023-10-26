@@ -1,5 +1,5 @@
 import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   HeightSpacer,
   ReusableBtn,
@@ -10,6 +10,7 @@ import {COLORS} from '../../constants/theme';
 import reusable from '../../components/Reusable/reusable.style';
 import useFetchData from '../../hooks/fetchData';
 import {useAuth} from '../../context/AuthContext';
+import {httpRequest} from '../../api/services';
 
 const TopBookings = ({navigation}) => {
   const {authState} = useAuth();
@@ -19,13 +20,31 @@ const TopBookings = ({navigation}) => {
     params: {my_booking: true},
     accessToken: authState.accessToken,
   });
+  const [data, setData] = useState(null);
   useEffect(() => {
     // console.log({error});
   }, [error]);
+
+  useEffect(() => {
+    setData(output);
+  }, [output]);
+
+  const handleCancelBooking = async id => {
+    const result = await httpRequest({
+      method: 'del',
+      endpoint: `api/v1/bookings/${id}/`,
+      accessToken: authState.accessToken,
+    });
+    if (result.status === 200) {
+      const new_data = data.filter(item => item.id === id);
+      setData(new_data);
+    }
+  };
+
   return (
     <View style={{margin: 20}}>
       <FlatList
-        data={output}
+        data={data}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => (
@@ -33,7 +52,9 @@ const TopBookings = ({navigation}) => {
             <View style={styles.bookingContainer}>
               <ReusableTile
                 item={item.hotel}
-                onPress={() => navigation.navigate('HotelDetails', item.hotel)}
+                onPress={() =>
+                  navigation.navigate('HotelDetails', item.hotel.id)
+                }
               />
               <View
                 style={[
@@ -51,7 +72,7 @@ const TopBookings = ({navigation}) => {
                 <WidthSpacer width={5} />
                 <ReusableBtn
                   flex={1}
-                  onPress={() => navigation.navigate('')}
+                  onPress={() => handleCancelBooking(item.id)}
                   textColor={COLORS.white}
                   borderWidth={1}
                   btnText={'Cancel'}
@@ -61,7 +82,7 @@ const TopBookings = ({navigation}) => {
               </View>
               <HeightSpacer height={10} />
             </View>
-            {index + 1 === output.length ? <HeightSpacer height={80} /> : null}
+            {index + 1 === data.length ? <HeightSpacer height={80} /> : null}
           </>
         )}
       />

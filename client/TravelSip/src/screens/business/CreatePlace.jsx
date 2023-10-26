@@ -261,7 +261,6 @@ const styles = StyleSheet.create({
     fontSize: TEXT.medium,
     fontFamily: 'medium',
     borderBottomWidth: 3,
-    // flex: 1,
     borderBottomColor: COLORS.red,
     paddingVertical: 5,
   },

@@ -4,7 +4,6 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {TopBookingRequests, TopInfoBusiness} from '../screens';
 import {COLORS, SIZES, TEXT} from '../constants/theme';
 import {
-  AppBar,
   HeightSpacer,
   NetworkImage,
   ReusableText,
@@ -50,15 +49,6 @@ const TopTabBusiness = ({navigation}) => {
             radius={0}
           />
 
-          <AppBar
-            top={10}
-            left={20}
-            right={20}
-            color={COLORS.white}
-            // icon={'log-out-outline'}
-            // onPress1={()=>{}}
-            onPress={() => navigation.goBack()}
-          />
           <View style={styles.profile}>
             <Image
               style={styles.image}
