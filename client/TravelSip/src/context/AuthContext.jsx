@@ -26,7 +26,7 @@ export const AuthProvider = ({children}) => {
       endpoint: 'login/verify/',
       dataInput: {token},
     });
-    if (result.status === 200) {
+    if (result?.status === 200) {
       const newToken = await httpRequest({
         method: 'post',
         endpoint: 'login/refresh/',
@@ -36,7 +36,10 @@ export const AuthProvider = ({children}) => {
         const {access, refresh} = newToken.data;
         setSecureValue('access_token', access);
         setSecureValue('refresh_token', refresh);
+        loadToken();
       }
+    } else {
+      logOut();
     }
   };
 
@@ -67,7 +70,6 @@ export const AuthProvider = ({children}) => {
 
   useEffect(() => {
     verifyAuthentication();
-    loadToken();
   }, []);
 
   const value = {authState, verifyAuthentication, logOut, loadToken};

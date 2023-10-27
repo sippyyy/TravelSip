@@ -11,18 +11,26 @@ import reusable from '../../components/Reusable/reusable.style';
 import useFetchData from '../../hooks/fetchData';
 import {useAuth} from '../../context/AuthContext';
 import {httpRequest} from '../../api/services';
+import {useIsFocused} from '@react-navigation/native';
 
 const TopBookings = ({navigation}) => {
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
   const {output, isLoading, error, refetch} = useFetchData({
     method: 'get-auth',
     endpoint: 'api/v1/bookings/',
     params: {my_booking: true},
     accessToken: authState.accessToken,
   });
+
   const [data, setData] = useState(null);
   useEffect(() => {
-    // console.log({error});
+    if (error?.status === 403) {
+      const reset = async () => {
+        await verifyAuthentication();
+        refetch();
+      };
+      reset();
+    }
   }, [error]);
 
   useEffect(() => {
@@ -38,6 +46,9 @@ const TopBookings = ({navigation}) => {
     if (result.status === 200) {
       const new_data = data.filter(item => item.id === id);
       setData(new_data);
+    }
+    if (result.status === 403) {
+      verifyAuthentication();
     }
   };
 

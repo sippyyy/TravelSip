@@ -7,7 +7,6 @@ const {
   del,
 } = require('./utils/methods');
 import {BASE_URL} from '@env';
-import {setSecureValue} from './secureValue';
 export const httpRequest = async ({
   method,
   endpoint,
@@ -16,8 +15,6 @@ export const httpRequest = async ({
   accessToken,
   setOutput,
   setError,
-  navigation,
-  token_refresh,
   formData,
 }) => {
   let httpMethod;
@@ -57,37 +54,7 @@ export const httpRequest = async ({
       console.log(message ? message : 'Something went wrong');
     }
   } catch (err) {
-    const {status, data} = err.response;
-    if (status === 403 || status === 401) {
-      const dataIn = {refresh: token_refresh};
-      if (accessToken) {
-        const refreshTokens = async () => {
-          try {
-            const newToken = await postNoneAuthorized(
-              `${BASE_URL}login/refresh/`,
-              '',
-              dataIn,
-            );
-
-            if (newToken.data) {
-              const {access, refresh} = newToken.data; // Destructure the data
-              setSecureValue('access_token', access);
-              setSecureValue('refresh_token', refresh);
-            } else {
-              navigation.navigate('AuthTop');
-            }
-          } catch (error) {
-            navigation.navigate('AuthTop');
-            console.error('Error:', error);
-          }
-        };
-
-        // Call the refreshTokens function
-        refreshTokens();
-      } else {
-        navigation.navigate('AuthTop');
-      }
-    }
-    return data;
+    const {status, data} = err?.response ?? {status: null, data: null};
+    return {status, data};
   }
 };

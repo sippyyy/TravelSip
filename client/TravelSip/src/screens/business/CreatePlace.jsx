@@ -38,7 +38,7 @@ const validationSchemas = Yup.object().shape({
 });
 
 const CreatePlace = ({navigation}) => {
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
   const route = useRoute();
   const screen = route.params;
   return (
@@ -77,6 +77,9 @@ const CreatePlace = ({navigation}) => {
           });
           if (result.status === 200) {
             navigation.goBack();
+          } else if (result.status === 403) {
+            verifyAuthentication();
+            console.log('Please try again');
           }
         }}
         validationSchema={validationSchemas}>

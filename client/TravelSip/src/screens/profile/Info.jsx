@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Info = ({navigation}) => {
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
   const route = useRoute();
   const [output, setOutput] = useState(null);
   const dataIn = route.params;
@@ -84,12 +84,16 @@ const Info = ({navigation}) => {
           accessToken: authState.accessToken,
           formData: true,
         });
-        if (result.status === 200) {
+        const {status} = result;
+        if (status === 200) {
           if (dataIn) {
             navigation.goBack();
           } else {
             navigation.navigate('Profile');
           }
+        } else {
+          verifyAuthentication();
+          console.log('Please try again');
         }
       }}
       validationSchema={validationSchema}>

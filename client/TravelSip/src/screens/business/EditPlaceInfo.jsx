@@ -19,7 +19,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 
 const EditPlaceInfo = ({navigation, route}) => {
   const {id, screen} = route.params;
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
   const {output, setLoading, error, refetch} = useFetchData({
     method: 'get',
     endpoint: `api/v1/${screen}s/${id}/`,
@@ -64,8 +64,12 @@ const EditPlaceInfo = ({navigation, route}) => {
           dataInput: formData,
           formData: true,
         });
-        if (result.status === 200) {
+        const {status, data} = result;
+        if (status === 200) {
           navigation.goBack();
+        } else if (status === 403) {
+          verifyAuthentication();
+          console.log('Please try again');
         }
       }}>
       {({

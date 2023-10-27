@@ -1,16 +1,21 @@
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import React, {useEffect} from 'react';
 import {ProfileTile} from '../../components';
-import useFetchData from '../../hooks/fetchData';
 import {useAuth} from '../../context/AuthContext';
 
 const TopInfo = ({navigation, route}) => {
   const {output} = route.params;
   const {logOut} = useAuth();
+  const {authState} = useAuth();
+
+  useEffect(() => {
+    if (!authState?.accessToken) {
+      navigation.navigate('AuthTop');
+    }
+  });
 
   const handleLogout = () => {
     logOut();
-    navigation.navigate('AuthTop');
   };
 
   return (
@@ -45,5 +50,3 @@ const TopInfo = ({navigation, route}) => {
 };
 
 export default TopInfo;
-
-const styles = StyleSheet.create({});

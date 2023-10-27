@@ -31,16 +31,23 @@ const get_status_img = status => {
 };
 
 const TopBookingRequest = ({navigation}) => {
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
   const {output, isLoading, error, refetch} = useFetchData({
     method: 'get-auth',
     endpoint: 'api/v1/bookings/',
     params: {my_booking_request: true},
     accessToken: authState.accessToken,
   });
+
   const [data, setData] = useState(null);
   useEffect(() => {
-    // console.log({error});
+    if (error?.status === 403) {
+      const reset = async () => {
+        await verifyAuthentication();
+        refetch();
+      };
+      reset();
+    }
   }, [error]);
 
   useEffect(() => {
@@ -57,7 +64,9 @@ const TopBookingRequest = ({navigation}) => {
       dataInput: formData,
     });
     if (result.status === 200) {
-      refetch()
+      refetch();
+    } else if (result.status === 403) {
+      verifyAuthentication();
     }
   };
 

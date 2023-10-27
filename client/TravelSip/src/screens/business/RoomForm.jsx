@@ -1,4 +1,4 @@
-import {StyleSheet,View, TextInput} from 'react-native';
+import {StyleSheet, View, TextInput} from 'react-native';
 import React from 'react';
 import {
   AppBar,
@@ -34,7 +34,7 @@ const validationSchemas = Yup.object().shape({
 const RoomForm = ({navigation}) => {
   const route = useRoute();
   const {id, screen, dataIn} = route.params;
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
   return (
     <View>
       <AppBar
@@ -80,13 +80,17 @@ const RoomForm = ({navigation}) => {
             formData: true,
             dataInput: formData,
           });
-          if (result.status === 200 || result.status === 201) {
+          const {status, data} = result;
+          if (status === 200 || status === 201) {
             if (screen === 'Create') {
-              const roomId = result.data.id;
+              const roomId = data.id;
               navigation.navigate('AddFacility', {hotelId: id, roomId});
             } else {
               navigation.goBack();
             }
+          } else if (status === 403) {
+            verifyAuthentication();
+            console.log('Please try again');
           }
         }}
         validationSchema={validationSchemas}>

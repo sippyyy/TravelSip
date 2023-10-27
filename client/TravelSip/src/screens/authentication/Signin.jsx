@@ -1,7 +1,7 @@
 import {Text, View, TextInput, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './signin.style';
-import {Form, Formik} from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {COLORS, SIZES} from '../../constants/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -9,7 +9,7 @@ import Icon1 from 'react-native-vector-icons/Ionicons';
 
 import {HeightSpacer, ReusableBtn, WidthSpacer} from '../../components';
 import {httpRequest} from '../../api/services';
-import {getSecureValue, setSecureValue} from '../../api/secureValue';
+import {setSecureValue} from '../../api/secureValue';
 import {useAuth} from '../../context/AuthContext';
 
 const validationSchema = Yup.object().shape({
@@ -20,10 +20,13 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signin = ({navigation}) => {
-  const [loader, setLoader] = useState(false);
-  const [responseData, setResponseData] = useState(null);
-  const [obsecureText, setObsecureText] = useState(false);
-  const {loadToken} = useAuth();
+  const [obsecureText, setObsecureText] = useState(true);
+  const {loadToken, authState} = useAuth();
+  useEffect(() => {
+    if (authState?.accessToken) {
+      navigation.navigate('Bottom');
+    }
+  }, [authState]);
   return (
     <View style={styles.container}>
       <Formik
@@ -33,14 +36,11 @@ const Signin = ({navigation}) => {
             method: 'post',
             endpoint: 'login/',
             dataInput: value,
-            navigation: navigation,
-            setIsLoading: setLoader,
           });
           if (result?.data) {
             setSecureValue('access_token', result.data.access);
             setSecureValue('refresh_token', result.data.refresh);
             loadToken();
-            navigation.navigate('Bottom');
           }
         }}
         validationSchema={validationSchema}>
@@ -103,7 +103,7 @@ const Signin = ({navigation}) => {
                     onPress={() => setObsecureText(!obsecureText)}>
                     <Icon1
                       size={20}
-                      name={!obsecureText ? 'eye-off-outline' : 'eye-outline'}
+                      name={obsecureText ? 'eye-off-outline' : 'eye-outline'}
                     />
                   </TouchableOpacity>
                 </View>

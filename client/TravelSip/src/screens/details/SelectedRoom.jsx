@@ -30,7 +30,7 @@ const SelectedRoom = ({navigation}) => {
   const [selectedDates, setSelectedDates] = useState({});
   const [totalNights, setTotalNights] = useState(0);
   const [person, setPerson] = useState(1);
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
 
   // temporary
 
@@ -71,8 +71,12 @@ const SelectedRoom = ({navigation}) => {
       dataInput: dataInput,
       accessToken: authState.accessToken,
     });
-    if (result.status === 201) {
-      navigation.navigate('Successful', result.data);
+    const {status, data} = result;
+    if (status === 201) {
+      navigation.navigate('Successful', data);
+    } else if (status === 403) {
+      verifyAuthentication();
+      console.log('Please try again');
     }
   };
 

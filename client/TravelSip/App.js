@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform} from 'react-native';
+import {Platform, Text} from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen';
 import {useEffect} from 'react';
@@ -33,6 +33,7 @@ import {
 import BottomTabNavigation from './src/navigation/BottomTabNavigation';
 import {AuthProvider, useAuth} from './src/context/AuthContext';
 import TopTabBusiness from './src/navigation/TopTabBusiness';
+import { View } from '@ant-design/react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,7 @@ function App() {
     <AuthProvider>
       <Layout></Layout>
     </AuthProvider>
+
   );
 }
 

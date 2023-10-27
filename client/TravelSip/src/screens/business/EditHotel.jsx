@@ -19,7 +19,7 @@ import {useAuth} from '../../context/AuthContext';
 
 const EditHotel = ({navigation, route}) => {
   const {id} = route.params;
-  const {authState} = useAuth();
+  const {authStat, verifyAuthenticatione} = useAuth();
   const {output, setLoading, error, refetch} = useFetchData({
     method: 'get',
     endpoint: `api/v1/hotels/${id}/`,
@@ -35,6 +35,9 @@ const EditHotel = ({navigation, route}) => {
     if (result.status === 200) {
       console.log(id);
       refetch();
+    } else if (result.status === 403) {
+      verifyAuthentication();
+      console.log('Please try again');
     }
   };
 

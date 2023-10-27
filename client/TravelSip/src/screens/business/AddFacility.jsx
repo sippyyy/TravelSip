@@ -8,7 +8,6 @@ import {
   ReusableText,
   WidthSpacer,
 } from '../../components';
-import CheckBox from '@react-native-community/checkbox';
 import {COLORS, TEXT} from '../../constants/theme';
 import {useRoute} from '@react-navigation/native';
 import reusable from '../../components/Reusable/reusable.style';
@@ -17,7 +16,7 @@ import {useAuth} from '../../context/AuthContext';
 const AddFacility = ({navigation}) => {
   const route = useRoute();
   const {roomId, faciId, hotelId} = route.params;
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
   const [values, setValues] = useState({
     air_conditioner: false,
     wifi: false,
@@ -65,6 +64,9 @@ const AddFacility = ({navigation}) => {
     });
     if (result.status === 200 || result.status === 201) {
       navigation.navigate('EditHotel', hotelId);
+    } else if (result.status === 403) {
+      verifyAuthentication();
+      console.log('please try again');
     }
   };
 

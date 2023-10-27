@@ -22,7 +22,7 @@ const TopHotel = ({navigation, route}) => {
     endpoint: `api/v1/user_organizations/${id}/`,
   });
   const [data, setData] = useState(output?.user_hotel ?? '');
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
 
   useEffect(() => {
     if (isFocused) {
@@ -36,10 +36,14 @@ const TopHotel = ({navigation, route}) => {
       endpoint: `api/v1/hotels/${id}/`,
       accessToken: authState.accessToken,
     });
-    if (result.status === 200) {
+    const {status} = result;
+    if (status === 200) {
       console.log(id);
       const new_data = data.filter(item => item.id !== id);
       setData(new_data);
+    } else if (status === 403) {
+      verifyAuthentication();
+      console.log('Please try again');
     }
   };
 

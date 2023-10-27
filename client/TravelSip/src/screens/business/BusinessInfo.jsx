@@ -18,7 +18,7 @@ import {useAuth} from '../../context/AuthContext';
 import {launchImageLibrary} from 'react-native-image-picker';
 const BusinessInfo = ({navigation, route}) => {
   const [info, setInfo] = useState(null);
-  const {authState} = useAuth();
+  const {authState, verifyAuthentication} = useAuth();
   const dataIn = route.params;
   useEffect(() => {
     if (dataIn) {
@@ -76,6 +76,9 @@ const BusinessInfo = ({navigation, route}) => {
           } else {
             navigation.navigate('TopBusiness');
           }
+        } else if (result.status === 403) {
+          verifyAuthentication();
+          console.log('Please try again');
         }
       }}
       validationSchema={Yup.object().shape({
