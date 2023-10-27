@@ -1,12 +1,20 @@
 import {StyleSheet, Text} from 'react-native';
 import React from 'react';
 
-const ReusableText = ({text, family, size, color, align, lines = 1}) => {
+const ReusableText = ({
+  text,
+  family,
+  size,
+  color,
+  align,
+  lineheight,
+  lines = 1,
+}) => {
   return (
     <Text
       numberOfLines={lines}
       ellipsizeMode="tail"
-      style={styles.textStyle(family, size, color, align)}>
+      style={styles.textStyle(family, size, color, align, lineheight)}>
       {text}
     </Text>
   );
@@ -15,10 +23,11 @@ const ReusableText = ({text, family, size, color, align, lines = 1}) => {
 export default ReusableText;
 
 const styles = StyleSheet.create({
-  textStyle: (family, size, color, align) => ({
+  textStyle: (family, size, color, align, lineheight) => ({
     fontFamily: family,
     fontSize: size,
     color: color,
     textAlign: align,
+    lineHeight: lineheight,
   }),
 });

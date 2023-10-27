@@ -19,15 +19,44 @@ const get_status_img = status => {
   let image;
   switch (status) {
     case 'rejected':
-      image = require('../../assets/images/rejected.png');
+      image = require('../../assets/images/test.png');
       break;
     case 'approved':
-      image = require('../../assets/images/approve.png');
+      image = require('../../assets/images/approved.png');
+      break;
+    case 'completed':
+      image = require('../../assets/images/completed.png');
+      break;
+    case 'expired':
+      image = require('../../assets/images/expired.png');
       break;
     default:
+      image = require('../../assets/images/pending.png');
       break;
   }
   return image;
+};
+
+const get_bg_status = status => {
+  let bg;
+  switch (status) {
+    case 'rejected':
+      bg = COLORS.lightRed;
+      break;
+    case 'approved':
+      bg = COLORS.lightGreen;
+      break;
+    case 'completed':
+      bg = COLORS.green;
+      break;
+    case 'expired':
+      bg = COLORS.gray;
+      break;
+    default:
+      bg = COLORS.blue;
+      break;
+  }
+  return bg;
 };
 
 const TopBookingRequest = ({navigation}) => {
@@ -79,66 +108,83 @@ const TopBookingRequest = ({navigation}) => {
         renderItem={({item, index}) => (
           <>
             <View style={styles.bookingContainer}>
-              {item.status !== 'pending' ? (
+              <Pressable
+                onPress={() => navigation.navigate('BookingDetails', item)}>
                 <View
-                  style={{position: 'absolute', right: 0, top: 0, zIndex: 1}}>
+                  style={[
+                    reusable.rowWithSpace('space-between'),
+                    {
+                      backgroundColor: get_bg_status(item.status),
+                      paddingHorizontal: 15,
+                    },
+                  ]}>
                   <AssetImage
-                    width={60}
-                    height={60}
-                    mode={'contain'}
                     data={get_status_img(item.status)}
+                    width={30}
+                    height={30}
+                  />
+                  <ReusableText
+                    text={item.status.toUpperCase()}
+                    color={COLORS.white}
+                    family={"bold"}
                   />
                 </View>
-              ) : null}
-              <Pressable
-                onPress={() => navigation.navigate('BookingDetails', item)}
-                style={[reusable.rowWithSpace('flex-start'), {padding: 15}]}>
-                <NetworkImage
-                  source={item.room.imageUrl}
-                  width={80}
-                  height={80}
-                  radius={10}
-                />
-                <WidthSpacer width={10} />
-                <View style={{flex: 1}}>
-                  <ReusableText
-                    text={`${item.hotel.title} | ${item.room.name}`}
-                    size={TEXT.medium}
-                    color={COLORS.black}
+                <View
+                  style={[
+                    reusable.rowWithSpace('flex-start'),
+                    {paddingHorizontal: 15},
+                  ]}>
+                  <NetworkImage
+                    source={item.room.imageUrl}
+                    width={80}
+                    height={80}
+                    radius={10}
                   />
-                  <HeightSpacer height={5} />
-                  <View style={reusable.rowWithSpace('flex-start')}>
+                  <WidthSpacer width={10} />
+                  <View style={{flex: 1}}>
+                    <ReusableText
+                      text={`${item.hotel.title} | ${item.room.name}`}
+                      size={TEXT.medium}
+                      color={COLORS.black}
+                    />
+                    <HeightSpacer height={5} />
                     <View style={reusable.rowWithSpace('flex-start')}>
-                      <ReusableText text={'From:'} family={'regular'} />
-                      <WidthSpacer width={5} />
-                      <ReusableText text={item.check_in} color={COLORS.green} />
+                      <View style={reusable.rowWithSpace('flex-start')}>
+                        <ReusableText text={'From:'} family={'regular'} />
+                        <WidthSpacer width={5} />
+                        <ReusableText
+                          text={item.check_in}
+                          color={COLORS.green}
+                        />
+                      </View>
+                      <WidthSpacer width={10} />
+                      <View style={reusable.rowWithSpace('flex-start')}>
+                        <ReusableText text={'To:'} family={'regular'} />
+                        <WidthSpacer width={5} />
+                        <ReusableText
+                          text={item.check_out}
+                          color={COLORS.green}
+                        />
+                      </View>
                     </View>
-                    <WidthSpacer width={10} />
+                    <HeightSpacer height={5} />
                     <View style={reusable.rowWithSpace('flex-start')}>
-                      <ReusableText text={'To:'} family={'regular'} />
-                      <WidthSpacer width={5} />
                       <ReusableText
-                        text={item.check_out}
-                        color={COLORS.green}
+                        text={'Total:'}
+                        size={TEXT.small}
+                        family={'regular'}
+                      />
+                      <WidthSpacer width={5} />
+
+                      <ReusableText
+                        text={`$${item.room.price * item.booking_duration}`}
+                        size={TEXT.small}
+                        family={'regular'}
                       />
                     </View>
                   </View>
-                  <HeightSpacer height={5} />
-                  <View style={reusable.rowWithSpace('flex-start')}>
-                    <ReusableText
-                      text={'Total:'}
-                      size={TEXT.small}
-                      family={'regular'}
-                    />
-                    <WidthSpacer width={5} />
-
-                    <ReusableText
-                      text={`$${item.room.price * item.booking_duration}`}
-                      size={TEXT.small}
-                      family={'regular'}
-                    />
-                  </View>
                 </View>
+                <HeightSpacer height={10} />
               </Pressable>
               {item.status === 'pending' ? (
                 <View
@@ -182,5 +228,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: COLORS.lightWhite,
     borderRadius: 12,
+    overflow: 'hidden',
   },
 });
