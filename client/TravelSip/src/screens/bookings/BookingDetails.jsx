@@ -13,9 +13,79 @@ import {COLORS, SIZES, TEXT} from '../../constants/theme';
 import {Rating} from 'react-native-stock-star-rating';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+const get_bg_status = status => {
+  let bg;
+  switch (status) {
+    case 'rejected':
+      bg = COLORS.lightRed;
+      break;
+    case 'approved':
+      bg = COLORS.lightGreen;
+      break;
+    case 'completed':
+      bg = COLORS.green;
+      break;
+    case 'expired':
+      bg = COLORS.gray;
+      break;
+    default:
+      bg = COLORS.blue;
+      break;
+  }
+  return bg;
+};
+
+const get_status_text_user = status => {
+  let text;
+  switch (status) {
+    case 'rejected':
+      text =
+        'This booking is rejected by the owner for some reasons! Contact the owner for more details.';
+      break;
+    case 'approved':
+      text = 'Congratulations! Booking is approved, have a nice trip!';
+      break;
+    case 'completed':
+      text = 'Booking completed!, thank you for your support.';
+      break;
+    case 'expired':
+      text = 'This booking request is expired!';
+      break;
+    default:
+      text =
+        "You are sending a booking request, please wait the response of hotel's owner";
+      break;
+  }
+  return text;
+};
+
+const get_status_text_bzness = status => {
+  let text;
+  switch (status) {
+    case 'rejected':
+      text = 'You are rejected this booking';
+      break;
+    case 'approved':
+      text =
+        'You are approved this booking request, please prepare to give a warm welcome your client';
+      break;
+    case 'completed':
+      text = 'Booking completed!';
+      break;
+    case 'expired':
+      text = 'This booking request is expired!';
+      break;
+    default:
+      text = 'Client are sending a booking request, please response asap!';
+      break;
+  }
+  return text;
+};
+
 const BookingDetails = ({navigation}) => {
   const route = useRoute();
-  const data = route.params;
+  const {data, screen} = route.params;
+  console.log(data);
   return (
     <View style={reusable.container}>
       <AppBar
@@ -32,12 +102,11 @@ const BookingDetails = ({navigation}) => {
           padding: 10,
           borderRadius: SIZES.small,
           borderTopWidth: SIZES.medium,
-          borderColor: COLORS.lightRed,
+          borderColor: get_bg_status(data.status),
         }}>
         <View>
           <ReusableText
             size={TEXT.xSmall}
-            family={'light'}
             color={COLORS.black}
             text="Booking status: "
           />
@@ -122,10 +191,11 @@ const BookingDetails = ({navigation}) => {
             family={'bold'}
             size={TEXT.medium}
             color={COLORS.black}
+            lines={3}
             text={
-              data.status === 'pending'
-                ? `You are sending a request to book room`
-                : `You booked room successfully`
+              screen === 'user'
+                ? get_status_text_user(data.status)
+                : get_status_text_bzness(data.status)
             }
           />
           <ReusableText
@@ -156,7 +226,7 @@ const BookingDetails = ({navigation}) => {
         onPress={() => navigation.goBack()}
         btnText={'Go back'}
         textColor={COLORS.white}
-        backGroundColor={COLORS.red}
+        backGroundColor={get_bg_status(data.status)}
         height={80}
       />
     </View>

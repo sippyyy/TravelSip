@@ -1,4 +1,4 @@
-import {FlatList, Pressable, ScrollView, StyleSheet, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   AssetImage,
@@ -6,7 +6,6 @@ import {
   NetworkImage,
   ReusableBtn,
   ReusableText,
-  ReusableTile,
   WidthSpacer,
 } from '../../components';
 import {COLORS, TEXT} from '../../constants/theme';
@@ -109,7 +108,12 @@ const TopBookingRequest = ({navigation}) => {
           <>
             <View style={styles.bookingContainer}>
               <Pressable
-                onPress={() => navigation.navigate('BookingDetails', item)}>
+                onPress={() =>
+                  navigation.navigate('BookingDetails', {
+                    data: item,
+                    screen: 'owner',
+                  })
+                }>
                 <View
                   style={[
                     reusable.rowWithSpace('space-between'),
@@ -126,7 +130,7 @@ const TopBookingRequest = ({navigation}) => {
                   <ReusableText
                     text={item.status.toUpperCase()}
                     color={COLORS.white}
-                    family={"bold"}
+                    family={'bold'}
                   />
                 </View>
                 <View
