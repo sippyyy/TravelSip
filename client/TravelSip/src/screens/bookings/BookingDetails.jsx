@@ -85,7 +85,6 @@ const get_status_text_bzness = status => {
 const BookingDetails = ({navigation}) => {
   const route = useRoute();
   const {data, screen} = route.params;
-  console.log(data);
   return (
     <View style={reusable.container}>
       <AppBar
@@ -222,17 +221,33 @@ const BookingDetails = ({navigation}) => {
         </View>
       </View>
       <HeightSpacer height={20} />
-      <ReusableBtn
-        onPress={() => navigation.goBack()}
-        btnText={'Go back'}
-        textColor={COLORS.white}
-        backGroundColor={get_bg_status(data.status)}
-        height={80}
-      />
+      <View style={reusable.rowWithSpace('space-between')}>
+        <ReusableBtn
+          onPress={() => navigation.goBack()}
+          btnText={'Go back'}
+          textColor={get_bg_status(data.status)}
+          backGroundColor={COLORS.white}
+          borderWidth={1}
+          borderColor={get_bg_status(data.status)}
+          height={80}
+          flex={1}
+        />
+        {data.status === 'completed' && screen === 'user' ? (
+          <>
+            <WidthSpacer width={10} />
+            <ReusableBtn
+              onPress={() => navigation.navigate('Review', data.hotel.id)}
+              btnText={'Write review'}
+              textColor={COLORS.white}
+              backGroundColor={get_bg_status(data.status)}
+              height={80}
+              flex={1}
+            />
+          </>
+        ) : null}
+      </View>
     </View>
   );
 };
 
 export default BookingDetails;
-
-const styles = StyleSheet.create({});

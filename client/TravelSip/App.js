@@ -23,6 +23,7 @@ import {
   Payment,
   PlaceDetails,
   Recommended,
+  Review,
   RoomForm,
   Search,
   SelectRoom,
@@ -33,7 +34,7 @@ import {
 import BottomTabNavigation from './src/navigation/BottomTabNavigation';
 import {AuthProvider, useAuth} from './src/context/AuthContext';
 import TopTabBusiness from './src/navigation/TopTabBusiness';
-import { View } from '@ant-design/react-native';
+import {View} from '@ant-design/react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,7 +49,6 @@ function App() {
     <AuthProvider>
       <Layout></Layout>
     </AuthProvider>
-
   );
 }
 
@@ -184,6 +184,11 @@ export const Layout = () => {
             <Stack.Screen
               name="AddFacility"
               component={AddFacility}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Review"
+              component={Review}
               options={{headerShown: false}}
             />
           </>

@@ -27,8 +27,8 @@ const HotelDetails = ({navigation}) => {
     endpoint: `api/v1/hotels/${id}/`,
   });
   return (
-    <ScrollView>
-      <View style={{height: 80}}>
+    <View style={{flex:1}}>
+      <View style={{height: 60}}>
         <AppBar
           top={10}
           left={20}
@@ -41,109 +41,111 @@ const HotelDetails = ({navigation}) => {
           color1={COLORS.white}
         />
       </View>
-      <View style={styles.container}>
-        <NetworkImage
-          source={output.imageUrl}
-          width={'100%'}
-          height={220}
-          radius={25}
-        />
-        <View style={styles.titleContainer}>
-          <View style={styles.titleColumn}>
-            <ReusableText
-              text={output.title}
-              family="medium"
-              size={TEXT.xLarge}
-              color={COLORS.black}
-            />
-            <ReusableText
-              text={output.location}
-              family="medium"
-              size={TEXT.medium}
-              color={COLORS.black}
-            />
-            <View style={reusable.rowWithSpace('space-between')}>
-              <Rating
-                maxStars={5}
-                stars={output.rating}
-                bordered={false}
-                color={'#FD9942'}
+      <ScrollView>
+        <View style={styles.container}>
+          <NetworkImage
+            source={output.imageUrl}
+            width={'100%'}
+            height={220}
+            radius={25}
+          />
+          <View style={styles.titleContainer}>
+            <View style={styles.titleColumn}>
+              <ReusableText
+                text={output.title}
+                family="medium"
+                size={TEXT.xLarge}
+                color={COLORS.black}
               />
               <ReusableText
-                text={`(${output.review} Reviews)`}
+                text={output.location}
                 family="medium"
-                size={SIZES.medium}
-                color={COLORS.gray}
+                size={TEXT.medium}
+                color={COLORS.black}
               />
+              <View style={reusable.rowWithSpace('space-between')}>
+                <Rating
+                  maxStars={5}
+                  stars={output.rating}
+                  bordered={false}
+                  color={'#FD9942'}
+                />
+                <ReusableText
+                  text={`(${output.review} Reviews)`}
+                  family="medium"
+                  size={SIZES.medium}
+                  color={COLORS.gray}
+                />
+              </View>
             </View>
           </View>
-        </View>
-        <View>
-          <ReusableText
-            text="Description"
-            family="medium"
-            size={SIZES.large}
-            color={COLORS.gray}
-          />
-          <HeightSpacer height={10} />
-          <DescriptionText text={output.description} />
-          <HeightSpacer height={10} />
-          <ReusableText
-            text="Location"
-            family="medium"
-            size={SIZES.large}
-            color={COLORS.gray}
-          />
-          <HeightSpacer height={15} />
-          <ReusableText
-            text={output.location}
-            family="regular"
-            size={SIZES.small + 2}
-            color={COLORS.gray}
-          />
-          <HotelMap coordinates={coordinates} />
-          <View style={reusable.rowWithSpace('space-between')}>
+          <View>
             <ReusableText
-              text={'Reviews'}
+              text="Description"
+              family="medium"
+              size={SIZES.large}
+              color={COLORS.gray}
+            />
+            <HeightSpacer height={10} />
+            <DescriptionText text={output.description} />
+            <HeightSpacer height={10} />
+            <ReusableText
+              text="Location"
+              family="medium"
+              size={SIZES.large}
+              color={COLORS.gray}
+            />
+            <HeightSpacer height={15} />
+            <ReusableText
+              text={output.location}
+              family="regular"
+              size={SIZES.small + 2}
+              color={COLORS.gray}
+            />
+            <HotelMap coordinates={coordinates} />
+            <View style={reusable.rowWithSpace('space-between')}>
+              <ReusableText
+                text={'Reviews'}
+                family="medium"
+                size={SIZES.large}
+                color={COLORS.black}
+              />
+              <TouchableOpacity>
+                <Icon name="list" size={20} />
+              </TouchableOpacity>
+            </View>
+            <HeightSpacer height={10} />
+            <ReviewList reviews={output.reviews} />
+          </View>
+        </View>
+        <View style={[reusable.rowWithSpace('space-between'), styles.bottom]}>
+          <View>
+            <ReusableText
+              text={`\$ ${output.price}`}
               family="medium"
               size={SIZES.large}
               color={COLORS.black}
             />
-            <TouchableOpacity>
-              <Icon name="list" size={20} />
-            </TouchableOpacity>
+            <HeightSpacer height={5} />
+            <ReusableText
+              text="(Per night)"
+              family="medium"
+              size={SIZES.medium}
+              color={COLORS.gray}
+            />
           </View>
-          <HeightSpacer height={10} />
-          <ReviewList reviews={output.reviews} />
-        </View>
-      </View>
-      <View style={[reusable.rowWithSpace('space-between'), styles.bottom]}>
-        <View>
-          <ReusableText
-            text={`\$ ${output.price}`}
-            family="medium"
-            size={SIZES.large}
-            color={COLORS.black}
-          />
-          <HeightSpacer height={5} />
-          <ReusableText
-            text="(Per night)"
-            family="medium"
-            size={SIZES.medium}
-            color={COLORS.gray}
+          <ReusableBtn
+            onPress={() => navigation.navigate('SelectRoom', output)}
+            btnText="Select Room"
+            width={(SIZES.width - 50) / 2.2}
+            backGroundColor={COLORS.green}
+            borderColor={COLORS.red}
+            borderWidth={0}
+            textColor={COLORS.white}
           />
         </View>
-        <ReusableBtn
-          onPress={() => navigation.navigate('SelectRoom', output)}
-          btnText="Select Room"
-          width={(SIZES.width - 50) / 2.2}
-          backGroundColor={COLORS.green}
-          borderColor={COLORS.red}
-          borderWidth={0}
-          textColor={COLORS.white}
-        />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

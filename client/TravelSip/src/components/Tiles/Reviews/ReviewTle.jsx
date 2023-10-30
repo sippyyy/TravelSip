@@ -15,31 +15,21 @@ const ReviewTle = ({review}) => {
       <View style={reusable.rowWithSpace('space-between')}>
         <View style={reusable.rowWithSpace('flex-start')}>
           <NetworkImage
-            source={review.user.profile}
+            source={review.user.imageUrl}
             width={54}
             height={54}
             radius={10}
           />
           <WidthSpacer width={20} />
-          <View>
+          <View style={{flex: 1}}>
             <View style={reusable.rowWithSpace('space-between')}>
               <ReusableText
-                text={review.user.username}
+                text={review.user.user.username}
                 family="medium"
                 size={SIZES.small + 2}
                 color={COLORS.gray}
               />
-              <WidthSpacer width="30%" />
-              <View style={reusable.rowWithSpace('space-between')}>
-                <Rating rating={review.rating} />
-                <WidthSpacer width={10} />
-                <ReusableText
-                  text={review.updateAt}
-                  family="medium"
-                  size={SIZES.small + 2}
-                  color={COLORS.gray}
-                />
-              </View>
+              <Rating rating={review.rating} />
             </View>
             <DescriptionText lines={2} text={review.review} />
           </View>
