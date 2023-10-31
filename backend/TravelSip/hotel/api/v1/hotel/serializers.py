@@ -10,7 +10,13 @@ from ..room.serializers import RoomSerializer
 class HotelCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
-        fields = "__all__"
+        exclude = ["user"]
+
+
+class HotelUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Hotel
+        exclude = ["user", "city"]
 
 
 class HotelSerializer(serializers.ModelSerializer):
@@ -50,6 +56,7 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
         fields = [
+            "user",
             "id",
             "title",
             "imageUrl",
@@ -61,6 +68,7 @@ class HotelDetailSerializer(serializers.ModelSerializer):
             "review",
             "price",
             "rating",
+            "contact"
             # "coordinates",
         ]
 

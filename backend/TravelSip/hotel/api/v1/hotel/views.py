@@ -12,6 +12,7 @@ from .serializers import (
     HotelSerializer,
     HotelCreateSerializer,
     HotelDetailSerializer,
+    HotelUpdateSerializer,
 )
 from rest_framework.response import Response
 from user.models import UserOrganization
@@ -35,6 +36,9 @@ class HotelView(
     def get_serializer_class(self):
         if self.action == "create":
             return HotelCreateSerializer
+
+        if self.action == "update":
+            return HotelUpdateSerializer
 
         if self.action == "retrieve":
             return HotelDetailSerializer
@@ -60,16 +64,20 @@ class HotelView(
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user.organization)
+
     def create(self, request, *args, **kwargs):
         user_request = request.user
-        or_group = request.data.get("user")
+        or_group = request.user.organization.id
+        serializer = self.get_serializer(data=request.data)
         owner = UserOrganization.objects.filter(
             Q(user=user_request.id) & Q(id=or_group)
         )
-        if owner.exists():
+        if owner.exists() & serializer.is_valid():
             owner_obj = owner.first()
             if owner_obj.is_verified:
-                super().create(request, *args, **kwargs)
+                self.perform_create(serializer)
                 qs = self.queryset
                 serializer_data = self.serializer_class(qs, many=True).data
                 return Response(serializer_data)
@@ -92,4 +100,9 @@ class HotelView(
             bucket = client.bucket("travelsipapp")
             blob = bucket.blob(obj.imageUrl.name)
             blob.delete()
-        return super().destroy(request, *args, **kwargs)
+        super().destroy(request, *args, **kwargs)
+        return Response({"message": "Deleted successfully!"}, status=200)
+
+    def update(self, request, *args, **kwargs):
+        kwargs["partial"] = True
+        return super().update(request, *args, **kwargs)

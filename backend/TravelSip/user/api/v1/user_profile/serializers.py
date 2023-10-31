@@ -17,4 +17,9 @@ class UserProfileBasicSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ["id", "user", "nickname", "imageUrl"]
-        
+
+
+class UserProfileCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        exclude = ["user"]

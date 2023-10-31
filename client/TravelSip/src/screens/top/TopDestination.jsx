@@ -2,6 +2,7 @@ import {FlatList, Pressable, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import reusable from '../../components/Reusable/reusable.style';
 import {
+  Empty,
   HeightSpacer,
   ReusableBtn,
   ReusableTile,
@@ -52,9 +53,8 @@ const TopDestination = ({navigation, route}) => {
     setData(output.user_destination);
   }, [output]);
 
-  return (
+  return data?.length > 0 ? (
     <View style={reusable.container}>
-      {/* <HeightSpacer height={10} /> */}
       {data?.length > 0 ? (
         <FlatList
           data={data}
@@ -113,6 +113,8 @@ const TopDestination = ({navigation, route}) => {
         <Icon name="add" color={COLORS.white} size={SIZES.xxLarge} />
       </Pressable>
     </View>
+  ) : (
+    <Empty />
   );
 };
 

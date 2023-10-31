@@ -35,6 +35,7 @@ import BottomTabNavigation from './src/navigation/BottomTabNavigation';
 import {AuthProvider, useAuth} from './src/context/AuthContext';
 import TopTabBusiness from './src/navigation/TopTabBusiness';
 import {View} from '@ant-design/react-native';
+import Conversation from './src/screens/chat/Conversation';
 
 const Stack = createNativeStackNavigator();
 
@@ -189,6 +190,11 @@ export const Layout = () => {
             <Stack.Screen
               name="Review"
               component={Review}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Conversation"
+              component={Conversation}
               options={{headerShown: false}}
             />
           </>

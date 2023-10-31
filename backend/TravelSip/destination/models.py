@@ -25,6 +25,7 @@ class Destination(models.Model):
     city = models.ForeignKey(
         City, related_name="destinations", null=True, on_delete=models.CASCADE
     )
+    contact = models.CharField(max_length=12)
     imageUrl = models.ImageField(upload_to="destination_images/", null=True)
     address = models.CharField(max_length=150)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)

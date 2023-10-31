@@ -2,6 +2,7 @@ import {FlatList, Pressable, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   AssetImage,
+  Empty,
   HeightSpacer,
   NetworkImage,
   ReusableBtn,
@@ -97,7 +98,7 @@ const TopBookings = ({navigation}) => {
     }
   };
 
-  return (
+  return data?.length > 0 ? (
     <View style={{margin: 20, flex: 1}}>
       <FlatList
         data={data}
@@ -213,6 +214,8 @@ const TopBookings = ({navigation}) => {
       />
       <HeightSpacer height={80} />
     </View>
+  ) : (
+    <Empty />
   );
 };
 

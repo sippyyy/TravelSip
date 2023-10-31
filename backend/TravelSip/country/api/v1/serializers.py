@@ -10,6 +10,7 @@ class RegionSerializer(serializers.ModelSerializer):
         model = Region
         fields = "__all__"
 
+
 # <------------ IN SENSITIVE CASE(CHANGE ASAP) ------------------>
 # ---------------(CIRCULAR IMPORT ERROR)---------------------->
 class DestinationSerializer(serializers.ModelSerializer):
@@ -34,9 +35,10 @@ class DestinationSerializer(serializers.ModelSerializer):
 
     def get_review(self, obj):
         return obj.reviews.count()
-    
+
+
 # <------------ IN SENSITIVE CASE(CHANGE ASAP) ------------------>
-#---------------------END---------------------------------------
+# ---------------------END---------------------------------------
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -68,7 +70,7 @@ class CountryDetailsSerializer(serializers.ModelSerializer):
 
     def get_region(self, obj):
         return obj.region.name
-    
+
     def get_popular(self, obj):
         qs = Destination.objects.filter(city__country=obj.id)
         serialized_data = DestinationSerializer(qs, many=True)

@@ -69,7 +69,6 @@ class CountryView(
     permission_classes = [IsSuperuserOrReadOnly]
 
     def get_serializer_class(self):
-        print(self.action)
         if self.action == "create":
             return CountryCreateSerializer
         if self.action == "retrieve":

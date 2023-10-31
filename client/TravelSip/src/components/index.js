@@ -31,7 +31,9 @@ import ReusableModal from './Reusable/ReusableModal';
 import ImageFieldTile from './Tiles/Information/ImageFieldTile';
 import Dropdown from './Reusable/Dropdown';
 import ReusableCheckbox from './Reusable/ReusableCheckbox';
+import MessageTile from './Tiles/Chat/MessageTile';
 import ChatTile from './Tiles/Chat/ChatTile';
+import Empty from './Reusable/Empty';
 
 export {
   Slides,
@@ -67,5 +69,7 @@ export {
   ImageFieldTile,
   Dropdown,
   ReusableCheckbox,
+  MessageTile,
   ChatTile,
+  Empty,
 };

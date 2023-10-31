@@ -1,42 +1,37 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import reusable from '../../Reusable/reusable.style';
-import WidthSpacer from '../../Reusable/WidthSpacer';
 import NetworkImage from '../../Reusable/NetworkImage';
+import WidthSpacer from '../../Reusable/WidthSpacer';
+import ReusableText from '../../Reusable/ReusableText';
 import {COLORS, TEXT} from '../../../constants/theme';
 
-const ChatTile = ({right, msg, ava}) => {
+const ChatTile = ({ava, user, msg, onPress}) => {
   return (
-    <View
-      style={[
-        reusable.rowWithSpace(
-          'flex-end',
-          right ? '' : 'row-reverse',
-          'flex-end',
-        ),
-      ]}>
-      <Text
-        numberOfLines={100}
-        style={[styles.chatbuble(right), {maxWidth: '50%'}]}>
-        {msg}
-      </Text>
+    <Pressable
+      onPress={onPress}
+      style={[reusable.rowWithSpace('flex-start'), styles.container]}>
+      <NetworkImage source={ava} width={50} height={50} radius={100} />
       <WidthSpacer width={10} />
-      <NetworkImage source={ava} height={40} width={40} radius={100} />
-    </View>
+      <View style={{flex: 1}}>
+        <ReusableText
+          text={user}
+          size={TEXT.small}
+          color={COLORS.black}
+          family={'bold'}
+        />
+        <ReusableText text={msg} />
+      </View>
+    </Pressable>
   );
 };
 
 export default ChatTile;
 
 const styles = StyleSheet.create({
-  chatbuble: right => ({
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    borderRadius: 10,
-    backgroundColor: right ? COLORS.lightBlue : COLORS.white,
-    color: right ? COLORS.white : COLORS.black,
-    borderWidth: 1,
-    borderColor: COLORS.lightBlue,
-    fontSize: TEXT.xSmall,
-  }),
+  container: {
+    borderBottomWidth: 1,
+    borderBlockColor: COLORS.lightGrey,
+    paddingVertical: 10,
+  },
 });

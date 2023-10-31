@@ -35,13 +35,14 @@ class DestinationSerializer(serializers.ModelSerializer):
 class DestinationCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Destination
-        fields = "__all__"
+        exclude = ["user"]
 
 
 class DestinationDetailsSerializer(serializers.ModelSerializer):
     reviews = DestinationReviewSerializer(many=True, read_only=True)
     # coordinates = serializers.SerializerMethodField(read_only=True)
     popular = serializers.SerializerMethodField(read_only=True)
+    location = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Destination
@@ -54,9 +55,14 @@ class DestinationDetailsSerializer(serializers.ModelSerializer):
             "created_at",
             "edited_at",
             "reviews",
+            "contact",
+            "location",
             # "coordinates",
             "popular",
         ]
+
+    def get_location(self, obj):
+        return obj.address
 
     # def get_coordinates(self, obj):
     #     location = f"{obj.address}, {obj.city}, {obj.city.country}"

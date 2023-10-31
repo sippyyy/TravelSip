@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.medium,
     marginVertical: SIZES.medium,
     height: 50,
+    marginHorizontal:20
   },
   input: {
     fontFamily: 'regular',
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   tile: {
-    marginHorizontal: 12,
+    marginHorizontal: 20,
     marginBottom: 10,
   },
 });

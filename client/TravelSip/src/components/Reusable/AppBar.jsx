@@ -15,13 +15,16 @@ const AppBar = ({
   top,
   left,
   right,
+  noBack,
 }) => {
   return (
     <View style={styles.overlay(top, left, right)}>
-      <View style={reusable.rowWithSpace('space-between')}>
-        <TouchableOpacity style={styles.box(color)} onPress={onPress}>
-          <Icon name="chevron-back" color={COLORS.black} size={26} />
-        </TouchableOpacity>
+      <View style={reusable.rowWithSpace(noBack ? 'center' : 'space-between')}>
+        {!noBack ? (
+          <TouchableOpacity style={styles.box(color)} onPress={onPress}>
+            <Icon name="chevron-back" color={COLORS.black} size={26} />
+          </TouchableOpacity>
+        ) : null}
         <ReusableText
           text={title}
           family="medium"

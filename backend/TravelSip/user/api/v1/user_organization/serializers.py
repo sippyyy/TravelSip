@@ -7,13 +7,13 @@ from destination.api.v1.destination.serializers import DestinationSerializer
 class UserOrganizationSerializer(serializers.ModelSerializer):
     user_hotel = HotelSerializer(read_only=True, many=True)
     user_destination = DestinationSerializer(read_only=True, many=True)
+
     class Meta:
         model = UserOrganization
         fields = "__all__"
 
 
 class UserOrganizationRegisterSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = UserOrganization
-        exclude = ["is_verified"]
+        exclude = ["is_verified", "user"]

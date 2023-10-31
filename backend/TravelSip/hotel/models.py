@@ -17,17 +17,11 @@ class Hotel(models.Model):
     imageUrl = models.ImageField(upload_to="hotel_images/")
     address = models.CharField(max_length=150)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    edited_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
-
-    def delete(self, *args, **kwargs):
-        if self.imageUrl:
-            client = storage.Client()
-            bucket = client.bucket("travelsipapp")
-            blob = bucket.blob(self.imageUrl.name)
-            blob.delete()
-        super(Hotel, self).delete(*args, **kwargs)
 
 
 class Room(models.Model):

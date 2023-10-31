@@ -62,14 +62,18 @@ class DestinationView(
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user.organization)
+
     def create(self, request, *args, **kwargs):
         user_request = request.user
-        or_group = request.data.get("user")
+        or_group = request.user.organization.id
         owner = UserOrganization.objects.filter(Q(user=user_request) & Q(id=or_group))
-        if owner.exists():
+        serializer = self.get_serializer(data=request.data)
+        if owner.exists() & serializer.is_valid():
             owner_obj = owner.first()
             if owner_obj.is_verified:
-                super().create(request, *args, **kwargs)
+                self.perform_create(serializer)
                 qs = self.queryset
                 serializer_data = self.serializer_class(qs, many=True).data
                 return Response(serializer_data)
@@ -92,4 +96,5 @@ class DestinationView(
             bucket = client.bucket("travelsipapp")
             blob = bucket.blob(obj.imageUrl.name)
             blob.delete()
-        return super().destroy(request, *args, **kwargs)
+        super().destroy(request, *args, **kwargs)
+        return Response({"message": "Deleted successfully!"}, status=200)

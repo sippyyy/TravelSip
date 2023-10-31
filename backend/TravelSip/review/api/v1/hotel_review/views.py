@@ -9,7 +9,7 @@ from rest_framework.mixins import (
 from rest_framework.response import Response
 
 from ....models import HotelReview
-from .serializers import HotelReviewSerializer
+from .serializers import HotelReviewSerializer, HotelReviewCreateSerializer
 from authentication.permissions.owner import IsOwnerHotelOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 
@@ -35,11 +35,25 @@ class HotelReviewView(
             return [IsAuthenticated(), IsOwnerHotelOrReadOnly()]
         return super().get_permissions()
 
+    def get_serializer_class(self):
+        if self.action == "create" or self.action == "update":
+            return HotelReviewCreateSerializer
+        return super().get_serializer_class()
+
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
+    def perform_create(self, serializer):
+        user_request = self.request.user.profile
+        return serializer.save(user=user_request)
+
     def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            print(request.data)
+            self.perform_create(serializer)
+            return Response({"message": "review sent"}, status=200)
+        return Response({"message": "error!"}, status=400)
 
     def retrieve(self, request, *args, **kwargs):
         try:
