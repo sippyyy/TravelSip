@@ -1,5 +1,6 @@
 import {StyleSheet, Text} from 'react-native';
 import React from 'react';
+import { COLORS } from '../../constants/theme';
 
 const ReusableText = ({
   text,
