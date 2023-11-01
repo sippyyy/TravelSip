@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+    "algoliasearch_django",
     "country",
     "destination",
     "hotel",
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     "user",
     "review",
     "authentication",
+    "search",
 ]
 
 MIDDLEWARE = [
@@ -177,4 +179,9 @@ SIMPLE_JWT = {
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
+}
+
+ALGOLIA = {
+    "APPLICATION_ID": os.environ.get("ALGOLIA_ID_APP"),
+    "API_KEY": os.environ.get("ALGOLIA_API_KEY"),
 }

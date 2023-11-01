@@ -6,15 +6,28 @@ import styles from './search.style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../../constants/theme';
 import {AppBar, HeightSpacer, HotelCard} from '../../components';
-import useFetchData from '../../hooks/fetchData';
+import {useDebounceEffect} from 'ahooks';
+import {httpRequest} from '../../api/services';
 
 const HotelSearch = ({navigation}) => {
   const [searchKey, setSearchKey] = useState('');
-  const [searchResults, setSearchResults] = useState('');
-  const {output, isLoading, error, refetch} = useFetchData({
-    method: 'get',
-    endpoint: 'api/v1/hotels/',
-  });
+  const [output, setOutput] = useState([]);
+
+  useDebounceEffect(
+    () => {
+      const search = async () => {
+        const result = await httpRequest({
+          method: 'get-none-auth',
+          endpoint: 'api/v1/search/',
+          params: {hotel: true, q: searchKey},
+        });
+        setOutput(result.data);
+      };
+      search();
+    },
+    [searchKey],
+    {wait: 400},
+  );
   return (
     <SafeAreaView style={reusable.container}>
       <AppBar
@@ -47,11 +60,11 @@ const HotelSearch = ({navigation}) => {
           numColumns={2}
           data={output}
           ItemSeparatorComponent={<HeightSpacer height={10} />}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.objectID}
           renderItem={({item}) => (
             <HotelCard
               margin={5}
-              onPress={() => navigation.navigate('PlaceDetails', item.id)}
+              onPress={() => navigation.navigate('HotelDetails', item.objectID)}
               item={item}
             />
           )}

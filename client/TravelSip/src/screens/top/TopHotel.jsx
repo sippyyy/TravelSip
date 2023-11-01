@@ -52,7 +52,7 @@ const TopHotel = ({navigation, route}) => {
     setData(output.user_hotel);
   }, [output]);
 
-  return data?.length > 0 ? (
+  return (
     <View style={reusable.container}>
       {data?.length > 0 ? (
         <FlatList
@@ -102,17 +102,21 @@ const TopHotel = ({navigation, route}) => {
             </>
           )}
         />
-      ) : null}
+      ) : (
+        <Empty />
+      )}
       <Pressable
         onPress={() => {
-          navigation.navigate('CreatePlace', 'hotels');
+          if (output.is_verified) {
+            navigation.navigate('CreatePlace', 'hotels');
+          } else {
+            console.log('Wait for the admin to verify your bzness account');
+          }
         }}
         style={styles.addBtn}>
         <Icon name="add" color={COLORS.white} size={SIZES.xxLarge} />
       </Pressable>
     </View>
-  ) : (
-    <Empty />
   );
 };
 

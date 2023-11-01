@@ -8,8 +8,8 @@ const SelectRoom = ({navigation}) => {
   const route = useRoute();
   const data = route.params;
   return (
-    <View>
-      <View style={{height: 80}}>
+    <View style={{flex:1}}>
+      <View style={{height: 55}}>
         <AppBar
           top={10}
           left={20}

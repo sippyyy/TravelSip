@@ -6,15 +6,28 @@ import styles from './search.style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../../constants/theme';
 import {AppBar, HeightSpacer, ReusableTile} from '../../components';
-import useFetchData from '../../hooks/fetchData';
+import {useDebounceEffect} from 'ahooks';
+import {httpRequest} from '../../api/services';
 
 const Search = ({navigation}) => {
   const [searchKey, setSearchKey] = useState('');
-  const [searchResults, setSearchResults] = useState('');
-  const {output, isLoading, error, refetch} = useFetchData({
-    method: 'get',
-    endpoint: 'api/v1/destinations/',
-  });
+  const [output, setOutput] = useState([]);
+
+  useDebounceEffect(
+    () => {
+      const search = async () => {
+        const result = await httpRequest({
+          method: 'get-none-auth',
+          endpoint: 'api/v1/search/',
+          params: {destination: true, q: searchKey},
+        });
+        setOutput(result.data);
+      };
+      search();
+    },
+    [searchKey],
+    {wait: 400},
+  );
   return (
     <SafeAreaView>
       <View style={reusable.container}>
@@ -48,11 +61,13 @@ const Search = ({navigation}) => {
       {output.length > 0 ? (
         <FlatList
           data={output}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.objectID}
           renderItem={({item}) => (
             <View style={styles.tile}>
               <ReusableTile
-                onPress={() => navigation.navigate('PlaceDetails', item.id)}
+                onPress={() =>
+                  navigation.navigate('PlaceDetails', item.objectID)
+                }
                 item={item}
               />
             </View>

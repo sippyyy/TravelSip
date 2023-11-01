@@ -28,22 +28,33 @@ const ReusableTile = ({item, onPress}) => {
           />
           <HeightSpacer height={8} />
           <ReusableText
-            text={item.location}
+            text={item?.location ?? `${item.address},${item.city}`}
             family="medium"
             size={14}
             color={COLORS.gray}
           />
           <HeightSpacer height={8} />
-          <View style={reusable.rowWithSpace('flex-start')}>
-            <Rating rating={item.rating.toFixed(1)} />
-            <WidthSpacer width={5} />
-            <ReusableText
-              text={`(${item.reviews})`}
-              family="medium"
-              size={14}
-              color={COLORS.gray}
-            />
-          </View>
+          {item?.rating ? (
+            <View style={reusable.rowWithSpace('flex-start')}>
+              <Rating rating={item.rating.toFixed(1)} />
+              <WidthSpacer width={5} />
+              <ReusableText
+                text={`(${item.reviews})`}
+                family="medium"
+                size={14}
+                color={COLORS.gray}
+              />
+            </View>
+          ) : (
+            <View style={reusable.rowWithSpace('flex-start')}>
+              <ReusableText
+                text={`Details: ${item.description}`}
+                family="medium"
+                size={14}
+                color={COLORS.gray}
+              />
+            </View>
+          )}
         </View>
       </View>
     </TouchableOpacity>

@@ -20,3 +20,4 @@ python-dotenv
 pytz
 drf_spectacular
 pillow
+algoliasearch-django

@@ -128,6 +128,7 @@ class BookingApproveView(UpdateModelMixin, GenericViewSet):
         end = obj.check_out
         room_id = obj.room.id
         status = request.data.get("status")
+        print(status)
         if status == "approved":
             room_qs = Booking.objects.filter(
                 Q(check_in__lte=start, check_out__gte=start)
@@ -138,18 +139,17 @@ class BookingApproveView(UpdateModelMixin, GenericViewSet):
             if room_qs.exists():
                 message = "This room is not available, please check again"
                 status = 404
+        if obj.room.hotel.user.user == request.user:
+            decision_handler = BookingDecisionHandler()
+            option_resp = decision_handler.option_decision_message(
+                request.data.get("status").lower(), obj
+            )
+            message = option_resp[0]
+            status = option_resp[1]
+            super().update(request, *args, **kwargs)
         else:
-            if obj.room.hotel.user.user == request.user:
-                decision_handler = BookingDecisionHandler()
-                option_resp = decision_handler.option_decision_message(
-                    request.data.get("status").lower(), obj
-                )
-                message = option_resp[0]
-                status = option_resp[1]
-                super().update(request, *args, **kwargs)
-            else:
-                message = "You are not authorized to approve/reject this booking."
-                status = 403
+            message = "You are not authorized to approve/reject this booking."
+            status = 403
         return Response({"message": message, "status": status}, status=status)
 
 

@@ -53,7 +53,7 @@ const TopDestination = ({navigation, route}) => {
     setData(output.user_destination);
   }, [output]);
 
-  return data?.length > 0 ? (
+  return (
     <View style={reusable.container}>
       {data?.length > 0 ? (
         <FlatList
@@ -104,17 +104,21 @@ const TopDestination = ({navigation, route}) => {
             </>
           )}
         />
-      ) : null}
+      ) : (
+        <Empty />
+      )}
       <Pressable
         onPress={() => {
-          navigation.navigate('CreatePlace', 'destinations');
+          if (output.is_verified) {
+            navigation.navigate('CreatePlace', 'destinations');
+          } else {
+            console.log('Wait for the admin to verify your bzness account');
+          }
         }}
         style={styles.addBtn}>
         <Icon name="add" color={COLORS.white} size={SIZES.xxLarge} />
       </Pressable>
     </View>
-  ) : (
-    <Empty />
   );
 };
 

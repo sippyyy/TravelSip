@@ -7,6 +7,7 @@ import {
   Rating,
   ReusableText,
 } from '../../../components';
+import reusable from '../../Reusable/reusable.style';
 
 const HotelCard = ({item, margin, onPress}) => {
   return (
@@ -29,13 +30,24 @@ const HotelCard = ({item, margin, onPress}) => {
             color={COLORS.black}
           />
           <ReusableText
-            text={item.location}
+            text={item?.location ?? `${item.address},${item.city}`}
             family="medium"
             size={SIZES.medium}
             color={COLORS.gray}
           />
           <HeightSpacer height={5} />
-          <Rating rating={item.rating.toFixed(1)} />
+          {item?.rating ? (
+            <Rating rating={item?.rating?.toFixed?.(1)} />
+          ) : (
+            <View style={reusable.rowWithSpace('flex-start')}>
+              <ReusableText
+                text={`Details: ${item.description}`}
+                family="medium"
+                size={14}
+                color={COLORS.gray}
+              />
+            </View>
+          )}
         </View>
       </View>
     </TouchableOpacity>
