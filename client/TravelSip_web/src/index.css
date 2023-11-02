@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,700;6..12,1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -17,6 +23,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	font-family: 'Nunito Sans', sans-serif;
 }
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
