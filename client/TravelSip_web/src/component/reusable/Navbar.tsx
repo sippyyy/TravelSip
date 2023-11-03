@@ -8,27 +8,29 @@ const Navbar: React.FC = () => {
     { nav: "Profile", link: "/" },
   ];
   return (
-    <div className="px-8 bg-red py-16">
-      <header className="flex justify-between items-center">
-        <h1 className="text-white font-xBold text-xLarge">Logo</h1>
-        <div className="flex">
-          <ul className="flex items-center">
-            {nav_items.map((item) => (
-              <li className="ml-12 text-white font-bold" key={item.nav}>
-                {item.nav}
-              </li>
-            ))}
-          </ul>
-          <div className="ml-12">
-            <ReusableButton
-              textColor="text-white"
-              bg="bg-green"
-              width="w-32"
-              btnText="Login"
-            />
+    <div className="bg-red flex justify-center">
+      <div className="px-12 container py-16">
+        <header className="flex justify-between items-center">
+          <h1 className="text-white font-xBold text-xLarge">Logo</h1>
+          <div className="flex">
+            <ul className="flex items-center">
+              {nav_items.map((item) => (
+                <li className="ml-12 text-white font-bold" key={item.nav}>
+                  {item.nav}
+                </li>
+              ))}
+            </ul>
+            <div className="ml-12">
+              <ReusableButton
+                textColor="text-white"
+                bg="bg-green"
+                width="w-32"
+                btnText="Login"
+              />
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
     </div>
   );
 };
