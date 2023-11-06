@@ -8,17 +8,19 @@ interface Props {
   borderColor?: string;
   width: string;
   flex1?: boolean;
+  size: string;
 }
 
 const ReusableButton: React.FC<Props> = (props) => {
-  const { btnText, bg, textColor, border, borderColor, width, flex1 } = props;
+  const { btnText, bg, textColor, border, borderColor, width, size, flex1 } =
+    props;
   return (
     <button
       className={`${bg} ${textColor} ${
         border ? "border" : ""
       } ${borderColor} font-bold ${width} ${
         flex1 ? "flex-1" : ""
-      } p-12 rounded-lg `}
+      } p-12 rounded-lg ${size}`}
     >
       {btnText}
     </button>

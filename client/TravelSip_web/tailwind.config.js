@@ -51,6 +51,7 @@ export default {
         12: "12px",
         16: "16px",
         20: "20px",
+        40: "40px"
       },
       fontWeight: {
         light: 300,
@@ -59,10 +60,18 @@ export default {
         bold: 700,
         xBold: 1000,
       },
-      height:{
+      height: {
         wallBig: "600px",
-        wallSmall:"400px"
-      }
+        wallSmall: "400px",
+      },
+      screens: {
+        none: "100%",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1025px",
+        "2xl": "1201px",
+      },
     },
   },
   plugins: [],
