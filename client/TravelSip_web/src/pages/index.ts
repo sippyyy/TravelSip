@@ -1,3 +1,4 @@
-import Home from "./Home";
+import Home from "./Home/Home";
+import MyBooking from "./Booking/MyBooking";
 
-export { Home };
+export { Home, MyBooking };

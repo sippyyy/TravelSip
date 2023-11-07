@@ -1,10 +1,11 @@
 import React from "react";
 import { ReusableButton } from "..";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const nav_items = [
     { nav: "Home", link: "/" },
-    { nav: "My Booking", link: "/" },
+    { nav: "My Booking", link: "/bookings" },
     { nav: "Profile", link: "/" },
   ];
   return (
@@ -16,12 +17,13 @@ const Navbar: React.FC = () => {
             <ul className="flex items-center">
               {nav_items.map((item) => (
                 <li className="ml-12 text-white font-bold" key={item.nav}>
-                  {item.nav}
+                  <Link to={item.link}>{item.nav}</Link>
                 </li>
               ))}
             </ul>
             <div className="ml-12">
               <ReusableButton
+                onClick={() => {}}
                 textColor="text-white"
                 bg="bg-green"
                 width="w-32"

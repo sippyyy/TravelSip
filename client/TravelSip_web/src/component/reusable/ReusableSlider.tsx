@@ -18,7 +18,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-const Slider: React.FC<Props> = (props) => {
+const ReusableSlider: React.FC<Props> = (props) => {
   const { space, slides, autoplay, children } = props;
   return (
     <>
@@ -38,4 +38,4 @@ const Slider: React.FC<Props> = (props) => {
   );
 };
 
-export default Slider;
+export default ReusableSlider;

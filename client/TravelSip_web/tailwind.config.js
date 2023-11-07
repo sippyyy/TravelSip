@@ -17,6 +17,7 @@ export default {
         dark: "#3D3A45",
         gray: "#8c8896",
         lightGrey: "#d1cfd5",
+        yellow: "#f5d837",
       },
       fontSize: {
         xxSmall: "11px",
@@ -51,7 +52,7 @@ export default {
         12: "12px",
         16: "16px",
         20: "20px",
-        40: "40px"
+        40: "40px",
       },
       fontWeight: {
         light: 300,

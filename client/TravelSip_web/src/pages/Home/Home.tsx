@@ -1,7 +1,7 @@
 import React from "react";
 import { BsSearch } from "react-icons/bs";
 import { register } from "swiper/element/bundle";
-import { Card, Slider } from "../component";
+import { Card, Country, Hotels, Places, ReusableSlider } from "../../component";
 import { SwiperSlide } from "swiper/react";
 register();
 const Home: React.FC = () => {
@@ -36,7 +36,7 @@ const Home: React.FC = () => {
               </div>
             </section>
             <section className="container mt-20">
-              <Slider slides={2} space={20}>
+              <ReusableSlider slides={2} space={20}>
                 <SwiperSlide className="bg-transparent">
                   <Card
                     bg="bg-white"
@@ -63,24 +63,29 @@ const Home: React.FC = () => {
                     btnBg="bg-blue"
                   />
                 </SwiperSlide>
-              </Slider>
+              </ReusableSlider>
             </section>
           </div>
         </div>
       </div>
-      <section className="mt-40 flex aligns-center justify-center">
+      <div className="mt-40 flex aligns-center justify-center">
         <div className="container">
           <h3 className="text-large font-medium mb-20">
             Explore Countries Around The Word!
           </h3>
-          <Slider slides={4} space={20}>
-            <SwiperSlide className="bg-transparent">
-              <div className="w-full flex flex-col items-center justify-center">
-                <img className="rounded-full w-[160px] h-[160px] object-cover" src="https://d2bgjx2gb489de.cloudfront.net/gbb-blogs/wp-content/uploads/2023/07/13164158/Asian-woman-wearing-Vietnam-culture-traditional-at-Trang-An-Vietnam.-1.jpg"/>
-                <p className="mt-12">Vietnam</p>
-              </div>
-            </SwiperSlide>
-          </Slider>
+          <Country />
+        </div>
+      </div>
+      <section className="flex aligns-center justify-center mt-40">
+        <div className="container">
+          <h3 className="text-large font-medium mb-20">Recommendations</h3>
+          <Places />
+        </div>
+      </section>
+      <section className="flex aligns-center justify-center mt-40">
+        <div className="container">
+          <h3 className="text-large font-medium mb-20">Hotels Near You</h3>
+          <Hotels />
         </div>
       </section>
     </>

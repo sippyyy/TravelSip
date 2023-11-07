@@ -6,16 +6,27 @@ interface Props {
   textColor?: string;
   border?: boolean;
   borderColor?: string;
-  width: string;
+  width?: string;
   flex1?: boolean;
-  size: string;
+  size?: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>; 
 }
 
 const ReusableButton: React.FC<Props> = (props) => {
-  const { btnText, bg, textColor, border, borderColor, width, size, flex1 } =
-    props;
+  const {
+    btnText,
+    bg,
+    textColor,
+    border,
+    borderColor,
+    width,
+    size,
+    flex1,
+    onClick,
+  } = props;
   return (
     <button
+      onClick={onClick}
       className={`${bg} ${textColor} ${
         border ? "border" : ""
       } ${borderColor} font-bold ${width} ${
