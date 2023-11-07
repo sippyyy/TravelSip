@@ -9,6 +9,7 @@ import CountryTile from "./tiles/country/CountryTile";
 import Hotels from "./home/Hotels";
 import Places from "./home/Places";
 import ReusableSlider from "./reusable/ReusableSlider";
+import ReusableDrawer from "./reusable/ReusableDrawer";
 export {
   Navbar,
   ReusableButton,
@@ -21,4 +22,5 @@ export {
   CountryTile,
   Hotels,
   Places,
+  ReusableDrawer,
 };

@@ -7,6 +7,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { NormalLayout } from "./layout";
+import { ReusableDrawer } from "./component";
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './constant/theme';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +23,12 @@ const router = createBrowserRouter(
 );
 
 const App: React.FC = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+      <ReusableDrawer />
+    </ThemeProvider>
+  );
 };
 
 export default App;

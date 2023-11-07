@@ -1,6 +1,12 @@
 import React from "react";
-const MyBooking: React.FC = () => {
+import { Button } from "@mui/material";
 
+const MyBooking: React.FC = () => {
+  return (
+    <Button variant="contained" color="red">
+      Red Button
+    </Button>
+  );
 };
 
 export default MyBooking;

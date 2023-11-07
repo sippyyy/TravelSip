@@ -3,6 +3,7 @@ import { SwiperSlide } from "swiper/react";
 import hotels from "../../api/mock_api/hotels.list";
 import ReusableCard from "../reusable/ReusableCard";
 import { ReusableSlider } from "..";
+import { showDrawer } from "../reusable/ReusableDrawer";
 
 interface Hotel {
   id: string;
@@ -14,6 +15,13 @@ interface Hotel {
 }
 
 const Hotels: React.FC = () => {
+  const handleBookNow: (id: number) => void = (id) => {
+    if (id) {
+      console.log(id)
+      // showDrawer();
+    }
+  };
+
   return (
     <ReusableSlider slides={4} space={20}>
       {hotels?.map((hotel: Hotel) => (
@@ -27,7 +35,9 @@ const Hotels: React.FC = () => {
             btnText="Book Now!"
             btnTextColor="text-white"
             btnBg="bg-green"
-            onClick={() => {}}
+            onClick={() => {
+              handleBookNow(hotel.id);
+            }}
           />
         </SwiperSlide>
       ))}
