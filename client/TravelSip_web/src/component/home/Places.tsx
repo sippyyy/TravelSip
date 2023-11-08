@@ -27,6 +27,7 @@ const Places: React.FC = () => {
             btnText="View details"
             btnTextColor="text-green"
             btnBg="bg-white"
+            link={`destination/${destination.id}`}
             btnBorder={true}
             btnBorderColor="border-green"
             onClick={() => {}}

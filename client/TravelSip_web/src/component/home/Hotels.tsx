@@ -15,12 +15,12 @@ interface Hotel {
 }
 
 const Hotels: React.FC = () => {
-  const handleBookNow: (id: number) => void = (id) => {
-    if (id) {
-      console.log(id)
-      // showDrawer();
-    }
-  };
+  // const handleBookNow: (id: number) => void = (id) => {
+  //   if (id) {
+  //     console.log(id);
+  //     // showDrawer();
+  //   }
+  // };
 
   return (
     <ReusableSlider slides={4} space={20}>
@@ -35,8 +35,9 @@ const Hotels: React.FC = () => {
             btnText="Book Now!"
             btnTextColor="text-white"
             btnBg="bg-green"
+            link={`/hotel/${hotel.id}`}
             onClick={() => {
-              handleBookNow(hotel.id);
+              // handleBookNow(hotel.id);
             }}
           />
         </SwiperSlide>

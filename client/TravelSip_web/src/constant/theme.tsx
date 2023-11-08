@@ -47,15 +47,15 @@ declare module '@mui/material/Button' {
   }
 }
 
-const blueBase = '#4267b2';
-const redBase = '#eb6A58';
-const greenBase = '#339282';
-const whiteBase = '#fbfbfb';
-const orangeBase = '#ffe7c8';
-const blackBase = '#121212';
-const darkBase = '#3D3A45';
-const grayBase = '#8c8896';
-const yellowBase = '#f5d837';
+export const blueBase = '#4267b2';
+export const redBase = '#eb6A58';
+export const greenBase = '#339282';
+export const whiteBase = '#fbfbfb';
+export const orangeBase = '#ffe7c8';
+export const blackBase = '#121212';
+export const darkBase = '#3D3A45';
+export const grayBase = '#8c8896';
+export const yellowBase = '#f5d837';
 
 const blueMain = alpha(blueBase, 1);
 const redMain = alpha(redBase, 1);
@@ -72,25 +72,23 @@ export const theme = createTheme({
   palette: {
     blue: {
       main: blueMain,
-      light: alpha(blueBase, 0.5),
-      dark: alpha(blueBase, 0.9),
-      contrastText: getContrastRatio(blueMain, '#fff') > 4.5 ? '#fff' : '#111',
+      light: "#6885c1",
     },
     red: {
       main: redMain,
-      light: alpha(redBase, 0.5),
+      light: "#eb9c98",
       dark: alpha(redBase, 0.9),
       contrastText: getContrastRatio(redMain, '#fff') > 4.5 ? '#fff' : '#111',
     },
     green: {
       main: greenMain,
-      light: alpha(greenBase, 0.5),
+      light: "#73ada1",
       dark: alpha(greenBase, 0.9),
       contrastText: getContrastRatio(greenMain, '#fff') > 4.5 ? '#fff' : '#111',
     },
     white: {
       main: whiteMain,
-      light: alpha(whiteBase, 0.5),
+      light: "#fff",
       dark: alpha(whiteBase, 0.9),
       contrastText: getContrastRatio(whiteMain, '#fff') > 4.5 ? '#fff' : '#111',
     },
@@ -114,7 +112,7 @@ export const theme = createTheme({
     },
     gray: {
       main: grayMain,
-      light: alpha(grayBase, 0.5),
+      light: "#d1cfd5",
       dark: alpha(grayBase, 0.9),
       contrastText: getContrastRatio(grayMain, '#fff') > 4.5 ? '#fff' : '#111',
     },

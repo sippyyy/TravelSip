@@ -1,11 +1,13 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { ReusableTextField } from "../../component";
+import { blueBase } from "../../constant/theme";
+import { useTheme } from "@mui/material";
+
 
 const MyBooking: React.FC = () => {
+  const theme = useTheme()
   return (
-    <Button variant="contained" color="red">
-      Red Button
-    </Button>
+    <ReusableTextField name="haha" color={theme.palette.blue.main} label="test" borderColor={blueBase}/>
   );
 };
 

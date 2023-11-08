@@ -10,6 +10,10 @@ import Hotels from "./home/Hotels";
 import Places from "./home/Places";
 import ReusableSlider from "./reusable/ReusableSlider";
 import ReusableDrawer from "./reusable/ReusableDrawer";
+import ReusableTextField from "./reusable/ReusableTextField";
+import ContentTile from "./tiles/details/ContentTile";
+import Reviews from "./hotel_destination/Reviews";
+import ReviewTile from "./tiles/review/ReviewTile";
 export {
   Navbar,
   ReusableButton,
@@ -23,4 +27,8 @@ export {
   Hotels,
   Places,
   ReusableDrawer,
+  ReusableTextField,
+  ContentTile,
+  Reviews,
+  ReviewTile,
 };
