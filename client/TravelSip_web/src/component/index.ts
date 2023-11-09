@@ -11,9 +11,16 @@ import Places from "./home/Places";
 import ReusableSlider from "./reusable/ReusableSlider";
 import ReusableDrawer from "./reusable/ReusableDrawer";
 import ReusableTextField from "./reusable/ReusableTextField";
-import ContentTile from "./tiles/details/ContentTile";
+import ContentTile from "./tiles/hotel/ContentTile";
 import Reviews from "./hotel_destination/Reviews";
-import ReviewTile from "./tiles/review/ReviewTile";
+import ReviewTile from "./tiles/hotel/ReviewTile";
+import RoomTile from "./tiles/hotel/RoomTile";
+import ReusableInfoDetails from "./reusable/ReusableInfoDetails";
+import Rooms from "./hotel_destination/Rooms";
+import RoomDetails from "./hotel_destination/RoomDetails";
+import FormBooking from "./form/booking/FormBooking";
+import FormBookingContent from "./form/booking/FormBookingContent";
+import ReusableCalendar from "./reusable/ReusableCalendar";
 export {
   Navbar,
   ReusableButton,
@@ -31,4 +38,11 @@ export {
   ContentTile,
   Reviews,
   ReviewTile,
+  RoomTile,
+  ReusableInfoDetails,
+  Rooms,
+  RoomDetails,
+  FormBooking,
+  FormBookingContent,
+  ReusableCalendar,
 };

@@ -1,49 +1,37 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import { styled } from "@mui/system";
+import { useField } from "formik";
 
 interface Props {
-  label: string;
   name: string;
-  color?: string;
+  label: string;
+  color?: "green" | "red" | "blue" | "gray";
   borderColor?: string;
-  type?: string;
   width?: string;
   flex1?: boolean;
 }
 
-const ReusableTextField: React.FC<Props> = (props) => {
-  const { label, name, color, borderColor, type, width, flex1 } = props;
-  const CssTextField = styled(TextField)({
-    "& label.Mui-focused": {
-      color: color ? color : "#000",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: borderColor ? borderColor : "#000",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: borderColor ? borderColor : "#000",
-      },
-      "&:hover fieldset": {
-        borderColor: borderColor ? borderColor : "#000",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: borderColor ? borderColor : "#000",
-      },
-    },
-  });
+const ReusableTextField: React.FC<Props> = ({
+  name,
+  label,
+  color,
+  width,
+  flex1,
+  ...props
+}) => {
+  const [field] = useField({ ...props, name });
 
   return (
-    <CssTextField
+    <TextField
       id="custom-css-standard-input"
+      color={color ? color : "green"}
       sx={{
         width: width,
         flex: flex1 ? 1 : "",
       }}
+      {...field}
+      {...props}
       label={label}
-      name={name}
-      type={type}
     />
   );
 };

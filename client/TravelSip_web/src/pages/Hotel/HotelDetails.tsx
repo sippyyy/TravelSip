@@ -36,6 +36,7 @@ const HotelDetails = () => {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quae eum
         nulla. Ullam molestiae aperiam repudiandae eum culpa earum ex suscipit
         repellat error hic. Officia qui velit aspernatur quisquam error."
+          section2="Rooms:"
         />
       </div>
     </div>
