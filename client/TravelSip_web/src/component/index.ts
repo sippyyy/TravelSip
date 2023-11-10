@@ -21,6 +21,7 @@ import RoomDetails from "./hotel_destination/RoomDetails";
 import FormBooking from "./form/booking/FormBooking";
 import FormBookingContent from "./form/booking/FormBookingContent";
 import ReusableCalendar from "./reusable/ReusableCalendar";
+import BookingTile from "./tiles/hotel/BookingTile";
 export {
   Navbar,
   ReusableButton,
@@ -45,4 +46,5 @@ export {
   FormBooking,
   FormBookingContent,
   ReusableCalendar,
+  BookingTile,
 };

@@ -43,10 +43,10 @@ const ReusableCard: React.FC<Props> = (props) => {
             </h4>
             <Star rating={rating} />
           </div>
-          <p className="mt-4 text-left text-xSmall text-gray line-clamp-4">
+          <p className="my-8 text-left text-xSmall text-gray line-clamp-1">
             {address}
           </p>
-          <p className="text-small mb-12 text-left text-gray">{reviews} Reviews</p>
+          <p className="text-small my-8 text-left text-gray">{reviews} Reviews</p>
         </div>
       </Link>
       <div className="flex mt-12">

@@ -3,7 +3,6 @@ import { SwiperSlide } from "swiper/react";
 import hotels from "../../api/mock_api/hotels.list";
 import ReusableCard from "../reusable/ReusableCard";
 import { ReusableSlider } from "..";
-import { showDrawer } from "../reusable/ReusableDrawer";
 
 interface Hotel {
   id: string;

@@ -13,7 +13,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { NormalLayout } from "./layout";
-import { ReusableDrawer } from "./component";
+import { Country, ReusableDrawer } from "./component";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./constant/theme";
 
@@ -23,6 +23,7 @@ const router = createBrowserRouter(
       <Route element={<NormalLayout />}>
         <Route index element={<Home />} />
         <Route path="bookings" element={<MyBooking />} />
+        <Route path="country" element={<Country />} />
         <Route path="hotel/:id" element={<HotelDetails />} />
         <Route path="destination/:id" element={<DestinationDetails />} />
       </Route>

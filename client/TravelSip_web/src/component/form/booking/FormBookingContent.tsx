@@ -1,10 +1,12 @@
 import { Form, useFormikContext } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { ReusableButton, ReusableCalendar, ReusableInfoDetails } from "../..";
 import { useSafeState, useUpdateEffect } from "ahooks";
 import { now, tomorrow } from "../../../constant/time";
 import { BiSolidUser, BiSolidBed } from "react-icons/bi";
 import { AiOutlineClockCircle } from "react-icons/ai";
+import dayjs from "dayjs";
+import { Divider } from "@mui/material";
 
 interface ValuesProps {
   check_in: string;
@@ -12,7 +14,17 @@ interface ValuesProps {
   room: number;
 }
 
-const FormBookingContent = () => {
+interface FormProps {
+  data: {
+    bed: number;
+    person: number;
+    price: string;
+  };
+}
+
+const FormBookingContent: React.FC<FormProps> = (props) => {
+  const { data } = props;
+  const { bed, person, price } = data;
   const { values, setFieldValue, errors } = useFormikContext<ValuesProps>();
   const [checkin, setCheckin] = useSafeState<string>(now);
   const [checkout, setCheckout] = useSafeState<string>(tomorrow);
@@ -24,6 +36,15 @@ const FormBookingContent = () => {
     if (values.check_out !== checkout) {
       setFieldValue("check_out", checkout);
     }
+  }, [checkin, checkout]);
+
+  const duration = useMemo(() => {
+    const start = dayjs(checkin);
+    const end = dayjs(checkout);
+
+    const daysDifference = end.diff(start, "day");
+
+    return daysDifference;
   }, [checkin, checkout]);
 
   return (
@@ -47,17 +68,31 @@ const FormBookingContent = () => {
         </div>
       </div>
       <div className="mt-12">
-        <ReusableInfoDetails
-          icon={<BiSolidUser />}
-          label="Person number allowed:"
-          value="under 2 persons"
-        />
-        <ReusableInfoDetails icon={<BiSolidBed />} label="Bed(s):" value="1" />
-        <ReusableInfoDetails
-          icon={<AiOutlineClockCircle />}
-          label="Booking duration:"
-          value="2 night(s)"
-        />
+        <div className="my-20">
+          <ReusableInfoDetails
+            icon={<BiSolidUser />}
+            label="Person number allowed:"
+            value={`under ${person} persons`}
+          />
+          <ReusableInfoDetails
+            icon={<BiSolidBed />}
+            label="Bed(s):"
+            value={`${bed}`}
+          />
+          <ReusableInfoDetails
+            icon={<AiOutlineClockCircle />}
+            label="Booking duration:"
+            value={`${duration} night(s)`}
+          />
+        </div>
+        <Divider />
+        <div className="flex justify-between items-center mt-20">
+          <p className="text-large">Total Price:</p>
+          <div className="flex items-end">
+            <p className="text-xLarge text-green font-bold">$123</p>
+            <p className="text-gray text-xSmall">(for {duration} night(s))</p>
+          </div>
+        </div>
         <div className="absolute bottom-[12px] flex left-[12px] right-[12px]">
           <ReusableButton
             onClick={() => {}}
