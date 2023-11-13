@@ -13,7 +13,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { NormalLayout } from "./layout";
-import { Country, ReusableDrawer } from "./component";
+import { Country, ReusableDrawer, ReusableModal } from "./component";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./constant/theme";
 
@@ -36,6 +36,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
       <ReusableDrawer />
+      <ReusableModal />
     </ThemeProvider>
   );
 };

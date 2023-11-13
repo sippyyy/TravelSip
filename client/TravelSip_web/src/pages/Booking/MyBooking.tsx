@@ -1,5 +1,4 @@
 import React from "react";
-import { useTheme } from "@mui/material";
 import { BookingTile } from "../../component";
 
 const MyBooking: React.FC = () => {

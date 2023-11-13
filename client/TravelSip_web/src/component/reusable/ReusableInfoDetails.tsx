@@ -5,15 +5,20 @@ interface Props {
   label: string;
   value?: string;
   bold?: boolean;
+  textColor?: string;
 }
 
 const ReusableInfoDetails: React.FC<Props> = (props) => {
-  const { icon, label, value } = props;
+  const { icon, label, value, textColor, bold } = props;
   return (
-    <div className="flex mt-12">
+    <div
+      className={`flex mt-12 items-center ${
+        textColor ? textColor : "text-dark"
+      } ${bold ? "font-bold" : ""}`}
+    >
       {icon ? <span className="mr-8">{icon}</span> : ""}
-      <p className="text-dark">{label}</p>
-      <p className="text-dark ml-8">{value}</p>
+      <p className="">{label}</p>
+      <p className="ml-8">{value}</p>
     </div>
   );
 };
