@@ -5,6 +5,8 @@ import DestinationDetails from "./Destination/DestinationDetails";
 import Country from "../component/home/Country";
 import BookingDetails from "./Booking/BookingDetails";
 import InformationUser from "./Profile/InformationUser";
+import Settings from "./Profile/Settings";
+import TermOfPayment from "./Profile/TermOfPayment";
 
 export {
   Home,
@@ -14,4 +16,6 @@ export {
   Country,
   BookingDetails,
   InformationUser,
+  Settings,
+  TermOfPayment,
 };

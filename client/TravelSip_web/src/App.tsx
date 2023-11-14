@@ -6,6 +6,8 @@ import {
   HotelDetails,
   InformationUser,
   MyBooking,
+  Settings,
+  TermOfPayment,
 } from "./pages";
 import {
   createBrowserRouter,
@@ -32,6 +34,8 @@ const router = createBrowserRouter(
       </Route>
       <Route element={<ProfileLayout />}>
         <Route path="profile/" element={<InformationUser />} />
+        <Route path="settings/" element={<Settings />} />
+        <Route path="terms/" element={<TermOfPayment />} />
       </Route>
     </Route>
   )

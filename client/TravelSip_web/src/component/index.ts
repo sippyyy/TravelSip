@@ -33,6 +33,7 @@ import SideBarProfile from "./reusable/SideBarProfile";
 import FormProfile from "./form/profile/FormProfile";
 import FormProfileContent from "./form/profile/FormProfileContent";
 import ImageCovered from "./reusable/ImageCovered";
+import CollapseMenu from "./profile/CollapseMenu";
 export {
   Navbar,
   ReusableButton,
@@ -69,4 +70,5 @@ export {
   FormProfile,
   FormProfileContent,
   ImageCovered,
+  CollapseMenu,
 };

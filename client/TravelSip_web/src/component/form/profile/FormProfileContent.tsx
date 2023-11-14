@@ -1,6 +1,6 @@
 import { Tooltip } from "@mui/material";
 import { Form, useFormikContext } from "formik";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ImageCovered,
   ReusableButton,
@@ -12,8 +12,19 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import { useSafeState, useUpdateEffect } from "ahooks";
+
+type ValuesFormProfile = {
+  imageUrl: string;
+  backgroundUrl: string;
+  bio: string;
+  nickname: string;
+  dob: string;
+  mobile: string;
+  gender: string;
+};
+
 const FormProfileContent = () => {
-  const { values, setFieldValue } = useFormikContext();
+  const { values, setFieldValue } = useFormikContext<ValuesFormProfile>();
   const [dob, setDob] = useSafeState(values?.dob ?? "");
   const handleChange = (event: SelectChangeEvent) => {
     setFieldValue("gender", event.target.value as string);
@@ -22,7 +33,6 @@ const FormProfileContent = () => {
   useUpdateEffect(() => {
     setFieldValue("dob", dob);
   }, [dob]);
-
 
   return (
     <Form
@@ -83,7 +93,7 @@ const FormProfileContent = () => {
               </div>
               <div className="my-12 flex ">
                 <ReusableCalendar
-                size="14px"
+                  size="14px"
                   label="Date of Birth"
                   flex1={true}
                   day={values.dob}

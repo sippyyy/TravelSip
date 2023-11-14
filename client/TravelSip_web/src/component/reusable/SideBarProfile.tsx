@@ -46,7 +46,7 @@ const SideBarProfile = () => {
       <div className="h-[20px]"></div>
       <Divider />
       <div className="p-12">
-        <Link to="/" className="pb-12 block">
+        <Link to="/profile" className="pb-12 block">
           <ReusableInfoDetails
             size="text-medium"
             icon={<FaUser />}
@@ -55,7 +55,7 @@ const SideBarProfile = () => {
             bold={true}
           />
         </Link>
-        <Link to="/" className="pb-12 block">
+        <Link to="/settings" className="pb-12 block">
           <ReusableInfoDetails
             size="text-medium"
             icon={<IoSettings />}
@@ -64,7 +64,7 @@ const SideBarProfile = () => {
             bold={true}
           />
         </Link>
-        <Link to="/" className="pb-12 block">
+        <Link to="/terms" className="pb-12 block">
           <ReusableInfoDetails
             size="text-medium"
             icon={<MdOutlinePayment />}
