@@ -1,9 +1,10 @@
 import React from "react";
 import {
+  BookingDetails,
   DestinationDetails,
   Home,
   HotelDetails,
-  HotelRooms,
+  InformationUser,
   MyBooking,
 } from "./pages";
 import {
@@ -16,6 +17,7 @@ import { NormalLayout } from "./layout";
 import { Country, ReusableDrawer, ReusableModal } from "./component";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./constant/theme";
+import ProfileLayout from "./layout/ProfileLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,9 +25,13 @@ const router = createBrowserRouter(
       <Route element={<NormalLayout />}>
         <Route index element={<Home />} />
         <Route path="bookings" element={<MyBooking />} />
+        <Route path="booking/:id" element={<BookingDetails />} />
         <Route path="country" element={<Country />} />
         <Route path="hotel/:id" element={<HotelDetails />} />
         <Route path="destination/:id" element={<DestinationDetails />} />
+      </Route>
+      <Route element={<ProfileLayout />}>
+        <Route path="profile/" element={<InformationUser />} />
       </Route>
     </Route>
   )

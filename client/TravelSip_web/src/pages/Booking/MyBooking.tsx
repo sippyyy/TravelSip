@@ -1,5 +1,5 @@
 import React from "react";
-import { BookingTile } from "../../component";
+import { BookingList } from "../../component";
 
 const MyBooking: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const MyBooking: React.FC = () => {
           Bookings
         </h2>
         <div className="my-20">
-          <BookingTile />
+          <BookingList />
         </div>
       </div>
     </div>

@@ -24,6 +24,15 @@ import ReusableCalendar from "./reusable/ReusableCalendar";
 import BookingTile from "./tiles/hotel/BookingTile";
 import ReusablePopOver from "./reusable/ReusablePopOver";
 import ReusableModal from "./reusable/ReusableModal";
+import BookingList from "./booking/BookingList";
+import BookingModalCancel from "./booking/BookingModalCancel";
+import FormReview from "./form/review/FormReview";
+import FormReviewContent from "./form/review/FormReviewContent";
+import NavBarProfile from "./profile/NavBarProfile";
+import SideBarProfile from "./reusable/SideBarProfile";
+import FormProfile from "./form/profile/FormProfile";
+import FormProfileContent from "./form/profile/FormProfileContent";
+import ImageCovered from "./reusable/ImageCovered";
 export {
   Navbar,
   ReusableButton,
@@ -51,4 +60,13 @@ export {
   BookingTile,
   ReusablePopOver,
   ReusableModal,
+  BookingList,
+  BookingModalCancel,
+  FormReview,
+  FormReviewContent,
+  NavBarProfile,
+  SideBarProfile,
+  FormProfile,
+  FormProfileContent,
+  ImageCovered,
 };

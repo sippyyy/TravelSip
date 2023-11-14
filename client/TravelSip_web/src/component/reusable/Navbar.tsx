@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
   const nav_items = [
     { nav: "Home", link: "/" },
     { nav: "My Booking", link: "/bookings" },
-    { nav: "Profile", link: "/" },
+    { nav: "Profile", link: "/profile" },
   ];
   return (
     <div className="bg-red flex justify-center">

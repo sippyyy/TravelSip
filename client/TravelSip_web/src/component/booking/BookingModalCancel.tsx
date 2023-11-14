@@ -1,18 +1,21 @@
 import React from "react";
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { FaRegMoneyBillAlt, FaHotel } from "react-icons/fa";
-import { closeModal } from "../../component/reusable/ReusableModal";
-import { ReusableButton, ReusableInfoDetails } from "../../component";
+import { closeModal } from "../reusable/ReusableModal";
+import { ReusableButton, ReusableInfoDetails } from "..";
+import { day_format } from "../../utils/get_day";
 
 interface BookingModelCancelProps {
   id: number;
-  name: string;
-  checkin: string;
-  checkout: string;
-  price: number;
+  title: string;
+  check_in: string;
+  check_out: string;
+  price: string;
+  booking_duration: number;
 }
 
-const BookingModalCancel = () => {
+const BookingModalCancel: React.FC<BookingModelCancelProps> = (props) => {
+  const { id, title, check_in, check_out, price, booking_duration } = props;
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement>,
     option: "yes" | "no"
@@ -21,7 +24,7 @@ const BookingModalCancel = () => {
     if (option === "no") {
       closeModal();
     } else {
-      console.log("Yes");
+      console.log(id);
     }
   };
 
@@ -30,20 +33,16 @@ const BookingModalCancel = () => {
       <p className="text-medium mb-20">
         You really want to cancel this booking below ?
       </p>
-      <ReusableInfoDetails
-        icon={<FaHotel />}
-        label={"Hotel Name"}
-        bold={true}
-      />
+      <ReusableInfoDetails icon={<FaHotel />} label={title} bold={true} />
       <ReusableInfoDetails
         icon={<BsCalendar2DateFill />}
         label="Booking dates:"
-        value={"Sep 28 - Oct 1"}
+        value={`${day_format(check_in)} - ${day_format(check_out)}`}
       />
       <ReusableInfoDetails
         icon={<FaRegMoneyBillAlt />}
         label="Price:"
-        value={"$300,00"}
+        value={`$${+price * booking_duration}`}
       />
       <div className="flex mt-16">
         <ReusableButton

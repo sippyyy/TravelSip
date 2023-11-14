@@ -6,13 +6,14 @@ interface Props {
   value?: string;
   bold?: boolean;
   textColor?: string;
+  size?:string
 }
 
 const ReusableInfoDetails: React.FC<Props> = (props) => {
-  const { icon, label, value, textColor, bold } = props;
+  const { icon, label, value, textColor, bold,size } = props;
   return (
     <div
-      className={`flex mt-12 items-center ${
+      className={`flex mt-12 items-center ${size ? size : ''} ${
         textColor ? textColor : "text-dark"
       } ${bold ? "font-bold" : ""}`}
     >

@@ -1,35 +1,8 @@
 import React from "react";
 import { FormBooking, ReusableInfoDetails } from "..";
-import { BsSnow, BsWifi } from "react-icons/bs";
-import {
-  MdBalcony,
-  MdBathtub,
-  MdOutlineLocalLaundryService,
-  MdDryCleaning,
-} from "react-icons/md";
-import { GiWindow, GiMeal } from "react-icons/gi";
-import { BiLandscape } from "react-icons/bi";
 import { room_details } from "../../api/mock_api/room.details";
+import { getIconForFacility } from "../../utils/get_icon_facility";
 
-type FacilityIcons = {
-  [key: string]: JSX.Element | null;
-};
-
-function getIconForFacility(facilityKey: string): JSX.Element | null {
-  const icons: FacilityIcons = {
-    air_conditioner: <BsSnow />,
-    wifi: <BsWifi />,
-    balcony: <MdBalcony />,
-    window: <GiWindow />,
-    private_bathroom: <MdBathtub />,
-    breakfast: <GiMeal />,
-    view: <BiLandscape />,
-    laundry: <MdOutlineLocalLaundryService />,
-    cleaning_room: <MdDryCleaning />,
-  };
-
-  return icons[facilityKey] || null;
-}
 
 const RoomDetails: React.FC = () => {
   const { id, facilities, name, person, bed, price, imageUrl } = room_details;

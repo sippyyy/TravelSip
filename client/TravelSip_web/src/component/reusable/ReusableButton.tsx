@@ -9,7 +9,8 @@ interface Props {
   width?: string;
   flex1?: boolean;
   size?: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>; 
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  type?: "button" | "submit";
 }
 
 const ReusableButton: React.FC<Props> = (props) => {
@@ -23,10 +24,12 @@ const ReusableButton: React.FC<Props> = (props) => {
     size,
     flex1,
     onClick,
+    type,
   } = props;
   return (
     <button
       onClick={onClick}
+      type={type ? type : "button"}
       className={`${bg} ${textColor} ${
         border ? "border" : ""
       } ${borderColor} font-bold ${width} ${

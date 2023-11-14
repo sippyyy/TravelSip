@@ -3,7 +3,8 @@ import MyBooking from "./Booking/MyBooking";
 import HotelDetails from "./Hotel/HotelDetails";
 import DestinationDetails from "./Destination/DestinationDetails";
 import Country from "../component/home/Country";
-import BookingModalCancel from "./Booking/BookingModalCancel";
+import BookingDetails from "./Booking/BookingDetails";
+import InformationUser from "./Profile/InformationUser";
 
 export {
   Home,
@@ -11,5 +12,6 @@ export {
   HotelDetails,
   DestinationDetails,
   Country,
-  BookingModalCancel,
+  BookingDetails,
+  InformationUser,
 };

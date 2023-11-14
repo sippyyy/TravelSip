@@ -9,6 +9,8 @@ interface Props {
   borderColor?: string;
   width?: string;
   flex1?: boolean;
+  id?: string;
+  value?: string;
 }
 
 const ReusableTextField: React.FC<Props> = ({
@@ -17,13 +19,15 @@ const ReusableTextField: React.FC<Props> = ({
   color,
   width,
   flex1,
+  id,
+  value,
   ...props
 }) => {
-  const [field] = useField({ ...props, name });
+  const [field] = useField({ ...props, name, value });
 
   return (
     <TextField
-      id="custom-css-standard-input"
+      id={id ? id : "custom-css-standard-input"}
       color={color ? color : "green"}
       sx={{
         width: width,

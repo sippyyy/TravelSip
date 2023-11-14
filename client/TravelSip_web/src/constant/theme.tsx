@@ -68,6 +68,19 @@ declare module "@mui/material/TextField" {
     yellow: true;
   }
 }
+declare module "@mui/material/InputBase" {
+  interface InputBasePropsColorOverrides {
+    blue: true;
+    red: true;
+    green: true;
+    white: true;
+    orange: true;
+    black: true;
+    dark: true;
+    gray: true;
+    yellow: true;
+  }
+}
 
 export const blueBase = "#4267b2";
 export const redBase = "#eb6A58";
