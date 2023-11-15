@@ -34,6 +34,16 @@ import FormProfile from "./form/profile/FormProfile";
 import FormProfileContent from "./form/profile/FormProfileContent";
 import ImageCovered from "./reusable/ImageCovered";
 import CollapseMenu from "./profile/CollapseMenu";
+import TabBarBusiness from "./profile/TabBarBusiness";
+import BookingRequest from "./profile/business/BookingRequest";
+import BusinessInformation from "./profile/business/BusinessInformation";
+import BookingRequestTile from "./tiles/hotel/BookingRequestTile";
+import FormBusinessInfo from "./form/profile/business/FormBusinessInfo";
+import FormBusinessInfoContent from "./form/profile/business/FormBusinessInfoContent";
+import MyPlaces from "./profile/business/MyPlaces";
+import MyHotels from "./profile/business/Places/MyHotels";
+import MyDestinations from "./profile/business/Places/MyDestinations";
+import TabBarPlaces from "./profile/TabBarPlaces";
 export {
   Navbar,
   ReusableButton,
@@ -71,4 +81,14 @@ export {
   FormProfileContent,
   ImageCovered,
   CollapseMenu,
+  TabBarBusiness,
+  BookingRequest,
+  BusinessInformation,
+  BookingRequestTile,
+  FormBusinessInfo,
+  FormBusinessInfoContent,
+  MyPlaces,
+  MyHotels,
+  MyDestinations,
+  TabBarPlaces,
 };

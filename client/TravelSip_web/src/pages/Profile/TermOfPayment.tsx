@@ -1,7 +1,4 @@
-import React from "react";
 import { CollapseMenu } from "../../component";
-import { MdCurrencyExchange, MdOutlineRateReview } from "react-icons/md";
-import { IoIosHelpCircleOutline } from "react-icons/io";
 
 const TermOfPayment = () => {
   return (

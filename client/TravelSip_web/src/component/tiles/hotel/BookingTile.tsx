@@ -8,6 +8,7 @@ import { day_format } from "../../../utils/get_day";
 import { BookingModalCancel } from "../..";
 import { Link } from "react-router-dom";
 import { get_color_status } from "../../../utils/get_text_color";
+import { BookingTileProps } from "../../../interface/BookingsType";
 
 // const Options = () => {
 //   return (
@@ -21,22 +22,6 @@ import { get_color_status } from "../../../utils/get_text_color";
 //     </ul>
 //   );
 // };
-
-interface BookingTileProps {
-  id: number;
-  hotel: {
-    title: string;
-    imageUrl: string;
-    location: string;
-  };
-  room: {
-    price: string;
-  };
-  check_in: string;
-  check_out: string;
-  booking_duration: number;
-  status: "rejected" | "approved" | "completed" | "expired" | "pending";
-}
 
 const BookingTile: React.FC<BookingTileProps> = (props) => {
   const { id, hotel, room, check_in, check_out, booking_duration, status } =

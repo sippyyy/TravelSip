@@ -7,6 +7,7 @@ import BookingDetails from "./Booking/BookingDetails";
 import InformationUser from "./Profile/InformationUser";
 import Settings from "./Profile/Settings";
 import TermOfPayment from "./Profile/TermOfPayment";
+import MyBusiness from "./Profile/MyBusiness";
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   InformationUser,
   Settings,
   TermOfPayment,
+  MyBusiness,
 };

@@ -6,6 +6,7 @@ import {
   HotelDetails,
   InformationUser,
   MyBooking,
+  MyBusiness,
   Settings,
   TermOfPayment,
 } from "./pages";
@@ -36,6 +37,7 @@ const router = createBrowserRouter(
         <Route path="profile/" element={<InformationUser />} />
         <Route path="settings/" element={<Settings />} />
         <Route path="terms/" element={<TermOfPayment />} />
+        <Route path="my_business/" element={<MyBusiness />} />
       </Route>
     </Route>
   )

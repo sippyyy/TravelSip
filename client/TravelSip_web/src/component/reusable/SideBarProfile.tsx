@@ -73,7 +73,7 @@ const SideBarProfile = () => {
             bold={true}
           />
         </Link>
-        <Link to="/" className="pb-12 block">
+        <Link to="/my_business" className="pb-12 block">
           <ReusableInfoDetails
             size="text-medium"
             icon={<IoMdBusiness />}
