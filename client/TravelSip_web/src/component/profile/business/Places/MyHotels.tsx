@@ -1,21 +1,38 @@
 import React from "react";
-import { PlaceTile, ReusableButton, ReusableInfoDetails, ReusablePopOver } from "../../..";
-import { FaHotel } from "react-icons/fa";
-import { FaLocationPin } from "react-icons/fa6";
-import { GiPodiumWinner } from "react-icons/gi";
-import { HiDotsVertical } from "react-icons/hi";
-import { Tooltip } from "@mui/material";
-import { MdDelete, MdEdit } from "react-icons/md";
-import { closeModal, showModal } from "../../../reusable/ReusableModal";
-import { showDrawer } from "../../../reusable/ReusableDrawer";
+import { PlaceTile } from "../../..";
+import hotels from "../../../../api/mock_api/hotels.list";
 
+// type HotelType = {
+//   id: string,
+//   country_id: string,
+//   title: string,
+//   imageUrl:string,
+//   rating: number,
+//   reviews: number,
+//   location: string,
+// }[]
 
 const MyHotels = () => {
-  return(
-    <div>
-      <PlaceTile />
-    </div>
-  )
+  return hotels.map(
+    (hotel: {
+      id: string;
+      title: string;
+      imageUrl: string;
+      rating: number;
+      reviews: number;
+      location: string;
+    }) => (
+      <PlaceTile
+        key={hotel.id}
+        link={`/hotel/${hotel.id}`}
+        title={hotel.title}
+        img={hotel.imageUrl}
+        rating={hotel.rating}
+        reviews={hotel.reviews}
+        address={hotel.location}
+      />
+    )
+  );
 };
 
 export default MyHotels;

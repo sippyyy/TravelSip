@@ -7,14 +7,19 @@ import {
   ReusablePopupMessage,
 } from "../..";
 import { FaHotel } from "react-icons/fa";
+import { MdOutlineCastle } from "react-icons/md";
 import { FaLocationPin } from "react-icons/fa6";
 import { GiPodiumWinner } from "react-icons/gi";
 import { HiDotsVertical } from "react-icons/hi";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { showDrawer } from "../../reusable/ReusableDrawer";
 import { showModal } from "../../reusable/ReusableModal";
+import { Link } from "react-router-dom";
+import { PlaceProps } from "../../../interface/PlaceType";
+import {hotel} from '../../../api/mock_api/hotel.js'
 
-const PlaceTile = () => {
+const PlaceTile:React.FC<PlaceProps> = (props) => {
+  const {img,title,rating,link,address,reviews,destination} = props
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -28,6 +33,7 @@ const PlaceTile = () => {
   };
 
   const handleDelete = () => {
+    setAnchorEl(null)
     console.log("delete");
   };
 
@@ -44,38 +50,42 @@ const PlaceTile = () => {
   };
 
   const handleEdit = () => {
-    showDrawer(<FormPlace />, "right");
+    showDrawer(<FormPlace data={hotel} />, "right");
+    setAnchorEl(null)
   };
 
+
   return (
-    <div className="flex justify-between items-start">
-      <Tooltip arrow title="View details">
-        <div className="flex cursor-pointer flex-1">
-          <img
-            src="https://img.freepik.com/premium-photo/colorful-landscape-with-mountains-river-foreground_849761-2647.jpg"
-            className="w-[100px] h-[100px] rounded-lg"
-            alt="hotels"
-          />
-          <div className="ml-12">
-            <ReusableInfoDetails
-              icon={<FaHotel />}
-              label="Hotel:"
-              value={"Hotel Name"}
-              bold
-              size="text-medium"
+    <div className="flex justify-between items-start my-12">
+      <Tooltip arrow title="View details flex">
+        <Link to={link?link:''} className="flex-1">
+          <div className="flex cursor-pointer flex-1">
+            <img
+              src={img}
+              className="object-cover w-[100px] h-[100px] rounded-lg"
+              alt="places"
             />
-            <ReusableInfoDetails
-              icon={<FaLocationPin />}
-              label="Address:"
-              value={"Adasdas"}
-            />
-            <ReusableInfoDetails
-              icon={<GiPodiumWinner />}
-              label="Rating:"
-              value={"5/5 (1234 reviews)"}
-            />
+            <div className="ml-12">
+              <ReusableInfoDetails
+                icon={destination ? <MdOutlineCastle /> : <FaHotel />}
+                label={destination ? "Destination:" : "Hotel:"}
+                value={title}
+                bold
+                size="text-medium"
+              />
+              <ReusableInfoDetails
+                icon={<FaLocationPin />}
+                label="Address:"
+                value={address}
+              />
+              <ReusableInfoDetails
+                icon={<GiPodiumWinner />}
+                label="Rating:"
+                value={`${rating}/5 (${reviews} reviews)`}
+              />
+            </div>
           </div>
-        </div>
+        </Link>
       </Tooltip>
       <Tooltip arrow title="Settings">
         <button
