@@ -44,6 +44,11 @@ import MyPlaces from "./profile/business/MyPlaces";
 import MyHotels from "./profile/business/Places/MyHotels";
 import MyDestinations from "./profile/business/Places/MyDestinations";
 import TabBarPlaces from "./profile/TabBarPlaces";
+import ReusablePopupMessage from "./reusable/ReusablePopupMessage";
+import PlaceTile from "./tiles/hotel/PlaceTile";
+import FormPlace from "./form/place/FormPlace";
+import FormPlaceContent from "./form/place/FormPlaceContent";
+import ReusableSelectInput from "./reusable/ReusableSelectInput";
 export {
   Navbar,
   ReusableButton,
@@ -91,4 +96,9 @@ export {
   MyHotels,
   MyDestinations,
   TabBarPlaces,
+  ReusablePopupMessage,
+  PlaceTile,
+  FormPlace,
+  FormPlaceContent,
+  ReusableSelectInput,
 };

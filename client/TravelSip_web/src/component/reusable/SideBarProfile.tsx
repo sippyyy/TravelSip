@@ -1,14 +1,29 @@
 import { Divider } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
-import { ReusableInfoDetails } from "..";
+import { Link, useNavigate } from "react-router-dom";
+import { ReusableInfoDetails, ReusablePopupMessage } from "..";
 import { FaUser } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 import { MdOutlinePayment } from "react-icons/md";
 import { IoMdBusiness } from "react-icons/io";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { closeModal, showModal } from "./ReusableModal";
 
 const SideBarProfile = () => {
+  const navigate = useNavigate()
+
+  const logOut = ()=>{
+    closeModal()
+    navigate('/login')
+  }
+
+  const handleLogOut = () =>{
+    showModal("Are you sure?",<ReusablePopupMessage 
+    message="You are going to sign out this account?" 
+    redButton="Cancel" greenButton="Log out" 
+    greenFunc={()=>logOut()} />)
+  }
+
   return (
     <div className="bg-red">
       <div className="relative w-full">
@@ -82,7 +97,7 @@ const SideBarProfile = () => {
             bold={true}
           />
         </Link>
-        <Link to="/" className="pb-12 block">
+        <div className="pb-12 cursor-pointer" onClick={()=>{handleLogOut()}}>
           <ReusableInfoDetails
             size="text-medium"
             icon={<RiLogoutBoxLine />}
@@ -90,7 +105,7 @@ const SideBarProfile = () => {
             textColor="text-white"
             bold={true}
           />
-        </Link>
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import {
   Home,
   HotelDetails,
   InformationUser,
+  Login,
   MyBooking,
   MyBusiness,
   Settings,
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
         <Route path="terms/" element={<TermOfPayment />} />
         <Route path="my_business/" element={<MyBusiness />} />
       </Route>
+      <Route path="login/" element={<Login />} />
     </Route>
   )
 );

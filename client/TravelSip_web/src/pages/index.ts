@@ -8,6 +8,7 @@ import InformationUser from "./Profile/InformationUser";
 import Settings from "./Profile/Settings";
 import TermOfPayment from "./Profile/TermOfPayment";
 import MyBusiness from "./Profile/MyBusiness";
+import Login from "./Login/Login";
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Settings,
   TermOfPayment,
   MyBusiness,
+  Login,
 };
