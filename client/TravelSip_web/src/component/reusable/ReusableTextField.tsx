@@ -11,6 +11,7 @@ interface Props {
   flex1?: boolean;
   id?: string;
   value?: string;
+  type?: string;
 }
 
 const ReusableTextField: React.FC<Props> = ({
@@ -21,14 +22,16 @@ const ReusableTextField: React.FC<Props> = ({
   flex1,
   id,
   value,
+  type,
   ...props
 }) => {
-  const [field] = useField({ ...props, name, value });
+  const [field] = useField({ ...props, name, value, type });
 
   return (
     <TextField
       id={id ? id : "custom-css-standard-input"}
       color={color ? color : "green"}
+      type={type ? type : "text"}
       sx={{
         width: width,
         flex: flex1 ? 1 : "",

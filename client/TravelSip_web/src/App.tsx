@@ -8,6 +8,7 @@ import {
   Login,
   MyBooking,
   MyBusiness,
+  Register,
   Settings,
   TermOfPayment,
 } from "./pages";
@@ -17,11 +18,10 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { NormalLayout } from "./layout";
+import { LoginLayout, NormalLayout, ProfileLayout } from "./layout";
 import { Country, ReusableDrawer, ReusableModal } from "./component";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./constant/theme";
-import ProfileLayout from "./layout/ProfileLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,7 +40,10 @@ const router = createBrowserRouter(
         <Route path="terms/" element={<TermOfPayment />} />
         <Route path="my_business/" element={<MyBusiness />} />
       </Route>
-      <Route path="login/" element={<Login />} />
+      <Route element={<LoginLayout />}>
+        <Route path="login/" element={<Login />} />
+        <Route path="register/" element={<Register />} />
+      </Route>
     </Route>
   )
 );

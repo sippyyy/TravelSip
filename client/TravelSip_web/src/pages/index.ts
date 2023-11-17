@@ -9,6 +9,7 @@ import Settings from "./Profile/Settings";
 import TermOfPayment from "./Profile/TermOfPayment";
 import MyBusiness from "./Profile/MyBusiness";
 import Login from "./Login/Login";
+import Register from "./Login/Register";
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   TermOfPayment,
   MyBusiness,
   Login,
+  Register,
 };

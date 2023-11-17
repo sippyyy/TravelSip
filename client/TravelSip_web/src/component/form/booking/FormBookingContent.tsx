@@ -51,16 +51,18 @@ const FormBookingContent: React.FC<FormProps> = (props) => {
     <Form>
       <div className="flex">
         <div className="flex items-center mr-12">
-          <p className="mr-8 text-small w-1/2">Check in:</p>
+          <p className="mr-8 text-small">Check in:</p>
           <ReusableCalendar
+            flex1
             day={checkin}
             setDay={setCheckin}
             defaultValue={now}
           />
         </div>
         <div className="flex items-center">
-          <p className="mr- text-small w-1/2">Check out:</p>
+          <p className="mr- text-small">Check out:</p>
           <ReusableCalendar
+            flex1
             day={checkout}
             setDay={setCheckout}
             defaultValue={tomorrow}

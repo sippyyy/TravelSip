@@ -49,6 +49,10 @@ import PlaceTile from "./tiles/hotel/PlaceTile";
 import FormPlace from "./form/place/FormPlace";
 import FormPlaceContent from "./form/place/FormPlaceContent";
 import ReusableSelectInput from "./reusable/ReusableSelectInput";
+import FormLogin from "./form/login/FormLogin";
+import FormLoginContent from "./form/login/FormLoginContent";
+import FormRegister from "./form/login/FormRegister";
+import FormRegisterContent from "./form/login/FormRegisterContent";
 export {
   Navbar,
   ReusableButton,
@@ -101,4 +105,8 @@ export {
   FormPlace,
   FormPlaceContent,
   ReusableSelectInput,
+  FormLogin,
+  FormLoginContent,
+  FormRegister,
+  FormRegisterContent,
 };
