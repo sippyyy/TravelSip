@@ -18,7 +18,12 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { LoginLayout, NormalLayout, ProfileLayout } from "./layout";
+import {
+  LoginLayout,
+  NormalLayout,
+  NormalLayoutChild,
+  ProfileLayout,
+} from "./layout";
 import { Country, ReusableDrawer, ReusableModal } from "./component";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./constant/theme";
@@ -29,6 +34,8 @@ const router = createBrowserRouter(
       <Route element={<NormalLayout />}>
         <Route index element={<Home />} />
         <Route path="bookings" element={<MyBooking />} />
+      </Route>
+      <Route element={<NormalLayoutChild />}>
         <Route path="booking/:id" element={<BookingDetails />} />
         <Route path="country" element={<Country />} />
         <Route path="hotel/:id" element={<HotelDetails />} />

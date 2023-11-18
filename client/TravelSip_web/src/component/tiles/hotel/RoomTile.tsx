@@ -31,20 +31,20 @@ const RoomTile: React.FC<Props> = (props) => {
         <Divider />
         <div className="mt-8">
           <p className="text-small">Room details:</p>
-          <ReusableInfoDetails
+          <ReusableInfoDetails size="text-xSmall md:text-small "
             label="People number allowed:"
             value={`Under ${person} person(s)`}
           />
-          <ReusableInfoDetails label="Bed(s):" value={`${bed}`} />{" "}
-          <ReusableInfoDetails
+          <ReusableInfoDetails size="text-xSmall md:text-small " label="Bed(s):" value={`${bed}`} />{" "}
+          <ReusableInfoDetails size="text-xSmall md:text-small "
             label="Facility:"
             value={`Under ${facility} person(s)`}
           />
-          <div className="flex justify-between mt-16">
-            <p className="text-dark text-large">Price</p>
-            <div className="flex items-end">
-              <p className="text-green text-large font-bold ml-8">${price}</p>
-              <p className="text-gray text-xSmall">/per night</p>
+          <div className="flex justify-between mt-16 text-medium md:text-large">
+            <p className="text-dark">Price</p>
+            <div className="flex items-end flex-1 justify-end">
+              <p className="text-green font-bold ml-8">${price}</p>
+              <p className="text-gray text-xxSmall">/per night</p>
             </div>
           </div>
         </div>

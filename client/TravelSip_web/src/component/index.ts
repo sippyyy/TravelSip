@@ -53,7 +53,8 @@ import FormLogin from "./form/login/FormLogin";
 import FormLoginContent from "./form/login/FormLoginContent";
 import FormRegister from "./form/login/FormRegister";
 import FormRegisterContent from "./form/login/FormRegisterContent";
-import NavBarMobile from './reusable/NavBarMobile';
+import NavBarMobile from "./reusable/NavBarMobile";
+import TopNavMobile from "./reusable/TopNavMobile";
 export {
   Navbar,
   ReusableButton,
@@ -110,5 +111,6 @@ export {
   FormLoginContent,
   FormRegister,
   FormRegisterContent,
-  NavBarMobile
+  NavBarMobile,
+  TopNavMobile,
 };

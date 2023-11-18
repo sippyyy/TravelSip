@@ -7,6 +7,7 @@ const NormalLayout: React.FC = () => {
     <div>
       <Navbar />
       <Outlet />
+      <div className="h-[70px] block  md:hidden"></div>
       <Footer />
       <NavBarMobile />
     </div>

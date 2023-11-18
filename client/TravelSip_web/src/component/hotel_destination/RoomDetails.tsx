@@ -7,7 +7,7 @@ import { getIconForFacility } from "../../utils/get_icon_facility";
 const RoomDetails: React.FC = () => {
   const { id, facilities, name, person, bed, price, imageUrl } = room_details;
   return (
-    <div className="w-[450px]">
+    <div className="md:w-[450px] w-full">
       <div className="p-12">
         <p className="text-xLarge text-green font-bold text-center mb-12">
           Booking Room : {name}

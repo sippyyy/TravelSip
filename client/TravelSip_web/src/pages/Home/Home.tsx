@@ -31,7 +31,7 @@ const Home: React.FC = () => {
                     className="p-16 flex-1"
                     placeholder="Search place..."
                   />
-                  <div className="w-[100px] justify-center flex">
+                  <div className="w-[10%] md:w-[100px] justify-center flex">
                     <BsSearch className="text-red text-xxLarge" />
                   </div>
                 </div>

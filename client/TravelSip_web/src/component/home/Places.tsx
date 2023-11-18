@@ -15,7 +15,7 @@ interface Destination {
 
 const Places: React.FC = () => {
   return (
-    <ReusableSlider xSmall={1} small={2}  md={3} lg={4} space={20}>
+    <ReusableSlider xSmall={1.5} small={2.5}  md={3} lg={4} space={20}>
       {recommendations?.map((destination: Destination) => (
         <SwiperSlide key={destination.id} className="bg-transparent">
           <ReusableCard

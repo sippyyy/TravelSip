@@ -1,5 +1,5 @@
 import { Form, useFormikContext } from "formik";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { ReusableButton, ReusableCalendar, ReusableInfoDetails } from "../..";
 import { useSafeState, useUpdateEffect } from "ahooks";
 import { now, tomorrow } from "../../../constant/time";
@@ -7,6 +7,7 @@ import { BiSolidUser, BiSolidBed } from "react-icons/bi";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import dayjs from "dayjs";
 import { Divider } from "@mui/material";
+import { closeDrawer } from "../../reusable/ReusableDrawer";
 
 interface ValuesProps {
   check_in: string;
@@ -96,12 +97,25 @@ const FormBookingContent: React.FC<FormProps> = (props) => {
           </div>
         </div>
         <div className="absolute bottom-[12px] flex left-[12px] right-[12px]">
+          <div className="flex-1 md:hidden mr-12">
+            <ReusableButton
+              onClick={() => {
+                closeDrawer();
+              }}
+              textColor="text-red"
+              btnText="Cancel"
+              border
+              borderColor="color-red"
+              width="w-full"
+            />
+          </div>
           <ReusableButton
             onClick={() => {}}
             textColor="text-white"
-            btnText="Book This Room Now!"
+            btnText="Book Room!"
             bg="bg-green"
             flex1={true}
+            type="submit"
           />
         </div>
       </div>
