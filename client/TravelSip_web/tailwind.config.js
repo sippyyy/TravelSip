@@ -67,6 +67,7 @@ export default {
       },
       screens: {
         none: "100%",
+        xsm: "368px",
         sm: "640px",
         md: "768px",
         lg: "1024px",

@@ -1,6 +1,6 @@
 import React from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
@@ -13,20 +13,44 @@ import { Pagination } from "swiper/modules";
 
 interface Props {
   space: number;
-  slides?: number;
   autoplay?: boolean;
   children?: React.ReactNode;
+  xSmall:number,
+  small: number;
+  md: number;
+  lg: number;
 }
 
 const ReusableSlider: React.FC<Props> = (props) => {
-  const { space, slides, autoplay, children } = props;
+  const { space, small, md, lg,xSmall, autoplay, children } = props;
   return (
     <>
       <Swiper
         className="mySwiper swiper-h"
         spaceBetween={space ? space : 50}
-        slidesPerView={slides ? slides : 1}
+        slidesPerView={1}
         autoplay={autoplay}
+        breakpoints={{
+          // when window width is >= 320px
+          320: {
+            slidesPerView: xSmall,
+            spaceBetween: 20,
+          },
+          // when window width is >= 480px
+          480: {
+            slidesPerView: small,
+            spaceBetween: 30,
+          },
+          // when window width is >= 640px
+          640: {
+            slidesPerView: md,
+            spaceBetween: 40,
+          },
+          1240: {
+            slidesPerView: lg,
+            spaceBetween: 40,
+          },
+        }}
         pagination={{
           clickable: true,
         }}

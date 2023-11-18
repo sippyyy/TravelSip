@@ -11,7 +11,7 @@ interface Country {
 
 const Country: React.FC = () => {
   return (
-    <ReusableSlider slides={5} space={20}>
+    <ReusableSlider xSmall={2} small={2} lg={5} md={3}  space={20}>
       {countries?.map((country: Country) => (
         <SwiperSlide key={country.id} className="bg-transparent">
           <CountryTile

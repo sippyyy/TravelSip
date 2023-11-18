@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
     { nav: "Profile", link: "/profile" },
   ];
   return (
-    <div className="bg-red flex justify-center">
+    <div className="bg-red justify-center hidden md:flex">
       <div className="px-12 container py-16">
         <header className="flex justify-between items-center">
           <h1 className="text-white font-xBold text-xLarge">Logo</h1>

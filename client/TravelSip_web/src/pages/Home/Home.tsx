@@ -8,15 +8,17 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="relative">
-        <img
-          className="max-h-[600px] w-full"
-          src="https://i0.wp.com/picjumbo.com/wp-content/uploads/sunset-over-los-angeles-painting-free-photo.jpg?w=2210&quality=70"
-        />
-        <div className="absolute bottom-0 left-0 w-full h-2/5 bg-gradient-to-b from-transparent to-orange"></div>
-        <div className="absolute left-0 right-0 bottom-0 top-[25%]">
+        <div className="relative max-h-[600px]">
+          <img
+            className="max-h-[600px] w-full"
+            src="https://i0.wp.com/picjumbo.com/wp-content/uploads/sunset-over-los-angeles-painting-free-photo.jpg?w=2210&quality=70"
+          />
+          <div className="absolute top-0 bottom-0 left-0 w-full bg-gradient-to-b from-transparent to-orange"></div>
+        </div>
+        <div className="lg:absolute left-0 right-0 top-[50%] translate-y-[-35%]">
           <div className="w-full h-full flex-col flex justify-end items-center">
             <section className="container">
-              <p className="font-xBold text-center text-3xLarge text-white mb-20">
+              <p className="font-xBold text-center text-3xLarge xsm:text-xxLarge text-white mb-20">
                 Welcome to TravelSip
               </p>
               <p className="font-xBold text-center text-xxLarge text-green">
@@ -24,7 +26,7 @@ const Home: React.FC = () => {
               </p>
               <div className="h-10"></div>
               <div className="flex items-center justify-center">
-                <div className="flex items-center justify-center bg-white w-[60%] border-x-[16px] border-solid border-l-red  border-r-white rounded-full overflow-hidden">
+                <div className="flex items-center justify-center bg-white md:w-[60%] xsm:w-[100%] border-x-[16px] border-solid border-l-red  border-r-white rounded-full overflow-hidden">
                   <input
                     className="p-16 flex-1"
                     placeholder="Search place..."
@@ -36,7 +38,7 @@ const Home: React.FC = () => {
               </div>
             </section>
             <section className="container mt-20">
-              <ReusableSlider slides={2} space={20}>
+              <ReusableSlider xSmall={1} small={1} md={1} lg={2} space={20}>
                 <SwiperSlide className="bg-transparent">
                   <Card
                     bg="bg-white"
@@ -57,7 +59,7 @@ const Home: React.FC = () => {
                     height="h-[200px]"
                     title="Take your longest vacation yet?"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione error deleniti magni quia quo distinctio, recusandae illo nesciunt est eum debitis eaque omnis sed praesentium cum animi perspiciatis odio optio."
-                    btnText="Find late excape details"
+                    btnText="Find late escape details"
                     btnColor="text-white"
                     btnWidth="w-[200px]"
                     btnBg="bg-blue"
@@ -68,7 +70,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="mt-40 flex aligns-center justify-center">
+      <div className="mt-[-20%] sm:mt-[-10%] lg:mt-20 flex aligns-center justify-center">
         <div className="container">
           <h3 className="text-large font-medium mb-20">
             Explore Countries Around The Word!

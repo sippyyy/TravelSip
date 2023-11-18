@@ -18,9 +18,9 @@ const DestinationDetails = () => {
       <div className="flex justify-center">
         <div className="container">
           <img src={imageUrl} className="max-h-[600px] w-full rounded-3xl" />
-          <div className="flex justify-center text-red bg-white rounded-3xl px-12 my-12 items-center">
-            <h2 className="text-xxLarge font-bold my-12 mr-12">{title}</h2>
-            <p className="text-medium text-red">- {location}</p>
+          <div className="md:flex justify-center text-red bg-white rounded-3xl p-8 md:px-12 my-12 items-center">
+            <h2 className="md:text-xxLarge text-large text-center font-bold my-8 md:my-12 mr-12">{title}</h2>
+            <p className="md:text-medium md:text-left text-center text-red">- {location}</p>
           </div>
           <div className="my-20">
             <ContentTile content={description} />

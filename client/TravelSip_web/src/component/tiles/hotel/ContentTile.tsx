@@ -10,23 +10,23 @@ interface Props {
 const ContentTile: React.FC<Props> = (props) => {
   const { content, section2} = props;
   return (
-    <div className="flex flex-start">
-      <div className="mr-12 flex-1">
-        <div className="w-[100%] mb-12">
+    <div className="md:flex md:flex-start">
+      <div className="md:mr-12 md:flex-1">
+        <div className="w-full mb-12">
           <h4 className="text-large font-medium mb-12">Details</h4>
-          <p className="text-medium text-gray mr-20">{content}</p>
+          <p className="text-medium text-gray md:mr-20">{content}</p>
         </div>
         {section2 ? (
           <>
             <Divider color="green" />
-            <div className="w-[100%] mt-12">
+            <div className="w-[100%] my-12">
               <h4 className="text-large font-medium mb-12">{section2}</h4>
               <Rooms />
             </div>
           </>
         ) : null}
       </div>
-      <div className="w-1/2 ">
+      <div className="md:w-1/2 w-full ">
         <div className="h-[400px] rounded-xl overflow-hidden">
           <ReusableMap
             width="w-full"
