@@ -11,10 +11,10 @@ interface PopupMessageProps {
 
 const ReusablePopupMessage: React.FC<PopupMessageProps> = (props) => {
   const { message, redButton, greenButton, greenFunc } = props;
-  console.log(greenButton)
+  console.log(greenButton);
   return (
     <div>
-      <p>{message}</p>
+      <p className="text-small md:text-medium">{message}</p>
       <div className="flex justify-center mt-20">
         {redButton ? (
           <ReusableButton
@@ -31,7 +31,7 @@ const ReusablePopupMessage: React.FC<PopupMessageProps> = (props) => {
             <div className="w-[12px]"></div>
             <ReusableButton
               onClick={() => greenFunc?.()}
-              btnText="Yes, Delete!"
+              btnText={greenButton}
               textColor="text-white"
               bg="bg-green"
               flex1

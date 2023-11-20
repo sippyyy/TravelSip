@@ -27,13 +27,13 @@ const CollapseMenu: React.FC<CollapseMenuProps> = (props) => {
         <ReusableInfoDetails
           icon={icon}
           label={label}
-          size={"text-medium"}
+          size={"text-small md:text-medium"}
           bold
           noneMargin
         />
         <div className="flex items-center">
           {img ? <img className="w-[30px] mr-8" src={img} /> : null}
-          <p className="text-medium mr-12">{value}</p>
+          <p className="text-small md:text-medium mr-12">{value}</p>
           <FaChevronDown />
         </div>
       </div>
@@ -42,7 +42,7 @@ const CollapseMenu: React.FC<CollapseMenuProps> = (props) => {
           {list.map((item) => (
             <React.Fragment key={item}>
               <li className="p-12 flex justify-between">
-                <p>{item}</p>
+                <p className="text-small md:text-medium">{item}</p>
                 {img2 ? <img className="w-[30px] mr-8" src={img2} /> : null}
               </li>
               <Divider />

@@ -9,6 +9,9 @@ interface StyledTabsProps {
   children?: React.ReactNode;
   value: number;
   onChange: (event: React.SyntheticEvent, newValue: number) => void;
+  variant?: "scrollable";
+  scrollButtons?: boolean;
+  allowScrollButtonsMobile?: boolean;
 }
 
 const AntTabs = styled((props: StyledTabsProps) => (
@@ -65,7 +68,13 @@ const TabBarBusiness: React.FC<TabBarBusinessProps> = (props) => {
   return (
     <Box sx={{ width: "100%" }}>
       <Box>
-        <AntTabs value={value} onChange={handleChange} centered>
+        <AntTabs
+          value={value}
+          onChange={handleChange}
+          variant="scrollable"
+          scrollButtons
+          allowScrollButtonsMobile
+        >
           <AntTab label="Booking Requests" />
           <AntTab label="Hotel(s)/Destination(s)" />
           <AntTab label="Information" />

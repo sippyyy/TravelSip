@@ -38,16 +38,16 @@ const Home: React.FC = () => {
               </div>
             </section>
             <section className="container mt-20">
-              <ReusableSlider xSmall={1} small={1} md={1} lg={2} space={20}>
+              <ReusableSlider xSmall={1} small={1} md={2} lg={2} space={20} autoplay>
                 <SwiperSlide className="bg-transparent">
                   <Card
-                    bg="bg-white"
                     height="h-[200px]"
+                    bg="bg-white"
                     title="Take your longest vacation yet?"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione error deleniti magni quia quo distinctio, recusandae illo nesciunt est eum debitis eaque omnis sed praesentium cum animi perspiciatis odio optio."
                     btnText="Find a stay"
                     btnColor="text-white"
-                    btnWidth="w-[150px]"
+                    btnWidth="w-[180px]"
                     btnBg="bg-blue"
                     img="https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698105600&semt=ais"
                     imgWidth="w-[160px]"
@@ -61,7 +61,6 @@ const Home: React.FC = () => {
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione error deleniti magni quia quo distinctio, recusandae illo nesciunt est eum debitis eaque omnis sed praesentium cum animi perspiciatis odio optio."
                     btnText="Find late escape details"
                     btnColor="text-white"
-                    btnWidth="w-[200px]"
                     btnBg="bg-blue"
                   />
                 </SwiperSlide>
@@ -72,7 +71,7 @@ const Home: React.FC = () => {
       </div>
       <div className="mt-[-20%] sm:mt-[-10%] lg:mt-20 flex aligns-center justify-center">
         <div className="container">
-          <h3 className="text-large font-medium mb-20">
+          <h3 className="md:text-large text-medium font-bold mb-20">
             Explore Countries Around The Word!
           </h3>
           <Country />
@@ -80,13 +79,17 @@ const Home: React.FC = () => {
       </div>
       <section className="flex aligns-center justify-center mt-40">
         <div className="container">
-          <h3 className="text-large font-medium mb-20">Recommendations</h3>
+          <h3 className="md:text-large text-medium font-bold mb-20">
+            Recommendations
+          </h3>
           <Places />
         </div>
       </section>
       <section className="flex aligns-center justify-center mt-40">
         <div className="container">
-          <h3 className="text-large font-medium mb-20">Hotels Near You</h3>
+          <h3 className="md:text-large text-medium font-bold mb-20">
+            Hotels Near You
+          </h3>
           <Hotels />
         </div>
       </section>

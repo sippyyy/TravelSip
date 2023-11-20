@@ -34,7 +34,7 @@ const ReusableButton: React.FC<Props> = (props) => {
         border ? "border" : ""
       } ${borderColor} font-bold ${width} ${
         flex1 ? "flex-1" : ""
-      } p-12 rounded-lg ${size}`}
+      } p-12 rounded-lg ${size} md:text-medium text-small`}
     >
       {btnText}
     </button>

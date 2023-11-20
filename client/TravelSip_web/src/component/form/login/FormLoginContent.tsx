@@ -12,8 +12,8 @@ const FormLoginContent = () => {
     }
 
   return (
-    <Form className=" flex flex-1 justify-end min-h-[70%]">
-      <div className="bg-white rounded-2xl w-[400px] shadow-2xl overflow-hidden ">
+    <Form className=" flex flex-1 justify-center md:justify-end min-h-[70%]">
+      <div className="bg-white rounded-2xl w-full md:w-[400px] shadow-2xl overflow-hidden ">
         <h1 className="font-xBold text-center text-[40px] text-white tw-[130%] py-20 bg-red">
             T r a v e l S i p
           </h1>

@@ -75,9 +75,13 @@ const ReusableModal = () => {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <h3 className="text-center font-bold text-large mb-12">{title}</h3>
-            {content}
-            {messageShow ? <p className="m-12">{messageShow}</p> : null}
+            <div className="min-w-[300px]">
+              <h3 className="text-center font-bold text-medium md:text-large mb-12">
+                {title}
+              </h3>
+              {content}
+              {messageShow ? <p className="m-12">{messageShow}</p> : null}
+            </div>
           </Box>
         </Fade>
       </Modal>

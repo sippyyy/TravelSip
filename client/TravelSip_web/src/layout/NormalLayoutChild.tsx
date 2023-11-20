@@ -1,14 +1,15 @@
 import React from "react";
-import { Footer, Navbar, TopNavMobile } from "../component";
+import { Footer, Navbar, ReusableDrawer, TopNavMobile } from "../component";
 import { Outlet } from "react-router-dom";
 
 const NormalLayoutChild: React.FC = () => {
   return (
-    <div>
+    <div className="h-full">
       <TopNavMobile />
       <Navbar />
       <Outlet />
       <Footer />
+      <ReusableDrawer />
     </div>
   );
 };

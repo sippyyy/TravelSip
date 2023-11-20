@@ -8,25 +8,31 @@ import { MdOutlinePayment } from "react-icons/md";
 import { IoMdBusiness } from "react-icons/io";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { closeModal, showModal } from "./ReusableModal";
+import { closeDrawer } from "./ReusableDrawer";
 
 const SideBarProfile = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const logOut = ()=>{
-    closeModal()
-    navigate('/login')
-  }
+  const logOut = () => {
+    closeModal();
+    navigate("/login");
+  };
 
-  const handleLogOut = () =>{
-    showModal("Are you sure?",<ReusablePopupMessage 
-    message="You are going to sign out this account?" 
-    redButton="Cancel" greenButton="Log out" 
-    greenFunc={()=>logOut()} />)
-  }
+  const handleLogOut = () => {
+    showModal(
+      "Are you sure?",
+      <ReusablePopupMessage
+        message="You are going to sign out this account?"
+        redButton="Cancel"
+        greenButton="Log out"
+        greenFunc={() => logOut()}
+      />
+    );
+  };
 
   return (
-    <div className="bg-red">
-      <div className="relative w-full">
+    <div className="h-full bg-red w-[250px] md:w-full">
+      <div className="relative md:w-full ">
         <img
           className="w-full"
           src={
@@ -49,9 +55,9 @@ const SideBarProfile = () => {
       </div>
       <div className="h-[60px]"></div>
       <Divider />
-      <div className="mt-12  p-12">
+      <div className="mt-12  p-12 w-full">
         <p className="text-white mb-8 font-bold">Bio:</p>
-        <p className=" bg-lightRed rounded-2xl p-12">
+        <p className="text-xSmall md:text-medium bg-lightRed rounded-2xl p-12">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita,
           aut! Maiores dolorum sint eveniet doloremque pariatur dolorem cum?
           Modi cumque est ab rerum. Explicabo temporibus quibusdam suscipit
@@ -61,45 +67,63 @@ const SideBarProfile = () => {
       <div className="h-[20px]"></div>
       <Divider />
       <div className="p-12">
-        <Link to="/profile" className="pb-12 block">
+        <Link
+          onClick={() => closeDrawer()}
+          to="/profile"
+          className="pb-12 block"
+        >
           <ReusableInfoDetails
-            size="text-medium"
+            size="text-small md:text-medium"
             icon={<FaUser />}
             label="Edit Information"
             textColor="text-white"
             bold={true}
           />
         </Link>
-        <Link to="/settings" className="pb-12 block">
+        <Link
+          onClick={() => closeDrawer()}
+          to="/settings"
+          className="pb-12 block"
+        >
           <ReusableInfoDetails
-            size="text-medium"
+            size="text-small md:text-medium"
             icon={<IoSettings />}
             label="Settings"
             textColor="text-white"
             bold={true}
           />
         </Link>
-        <Link to="/terms" className="pb-12 block">
+        <Link onClick={() => closeDrawer()} to="/terms" className="pb-12 block">
           <ReusableInfoDetails
-            size="text-medium"
+            size="text-small md:text-medium"
             icon={<MdOutlinePayment />}
             label="Terms of Payment"
             textColor="text-white"
             bold={true}
           />
         </Link>
-        <Link to="/my_business" className="pb-12 block">
+        <Link
+          onClick={() => closeDrawer()}
+          to="/my_business"
+          className="pb-12 block"
+        >
           <ReusableInfoDetails
-            size="text-medium"
+            size="text-small md:text-medium"
             icon={<IoMdBusiness />}
             label="My Business"
             textColor="text-white"
             bold={true}
           />
         </Link>
-        <div className="pb-12 cursor-pointer" onClick={()=>{handleLogOut()}}>
+        <div
+          className="pb-12 cursor-pointer"
+          onClick={() => {
+            closeDrawer();
+            handleLogOut();
+          }}
+        >
           <ReusableInfoDetails
-            size="text-medium"
+            size="text-small md:text-medium"
             icon={<RiLogoutBoxLine />}
             label="Log out"
             textColor="text-white"

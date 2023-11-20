@@ -34,21 +34,21 @@ const ReusableSlider: React.FC<Props> = (props) => {
           // when window width is >= 320px
           320: {
             slidesPerView: xSmall,
-            spaceBetween: 20,
+            spaceBetween: 8,
           },
           // when window width is >= 480px
           480: {
             slidesPerView: small,
-            spaceBetween: 30,
+            spaceBetween: 8,
           },
           // when window width is >= 640px
           640: {
             slidesPerView: md,
-            spaceBetween: 40,
+            spaceBetween: 12,
           },
           1240: {
             slidesPerView: lg,
-            spaceBetween: 40,
+            spaceBetween: 12,
           },
         }}
         pagination={{

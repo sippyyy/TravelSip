@@ -5,23 +5,21 @@ import {
   ImageCovered,
   ReusableButton,
   ReusableInfoDetails,
-  ReusableTextField} from "../../.."
-
+  ReusableTextField,
+} from "../../..";
 
 type ValuesFormBusiness = {
-    imageUrl: string,
-    backgroundUrl: string,
-    bio: string,
-    name: string,
-    email: string,
-    phone: string,
-    tax: string,
+  imageUrl: string;
+  backgroundUrl: string;
+  bio: string;
+  name: string;
+  email: string;
+  phone: string;
+  tax: string;
 };
 
 const FormBusinessInfoContent = () => {
   const { values } = useFormikContext<ValuesFormBusiness>();
-
-
 
   return (
     <Form
@@ -35,16 +33,16 @@ const FormBusinessInfoContent = () => {
           Business Information
         </h2>
         <section className="my-20">
-          <h4 className="text-medium font-bold my-12">
+          <h4 className="text-small md:text-medium font-bold my-12">
             Images(Avatar/background):
           </h4>
           <Tooltip arrow title="Change Background Image">
             <>
               <ImageCovered
                 width="w-full"
-                height="h-[300px]"
-                width2="w-[150px]"
-                height2="h-[150px]"
+                height=" h-[150px] md:h-[300px]"
+                width2="md:w-[150px] w-[80px]"
+                height2="md:h-[150px] h-[80px]"
                 src="https://img.freepik.com/premium-photo/colorful-landscape-with-mountains-river-foreground_849761-2647.jpg"
                 radius="rounded-2xl"
               />
@@ -54,17 +52,17 @@ const FormBusinessInfoContent = () => {
             <Tooltip arrow title="Change Avatar">
               <>
                 <ImageCovered
-                  width="w-[150px]"
-                  height="h-[150px]"
-                  width2="w-[40px]"
-                  height2="h-[40px]"
+                  width="w-[100px] md:w-[150px]"
+                  height="h-[100px] md:h-[150px]"
+                  width2="w-[30px] md:w-[40px]"
+                  height2="h-[30px] md:h-[40px]"
                   src="https://img.freepik.com/premium-photo/colorful-landscape-with-mountains-river-foreground_849761-2647.jpg"
                   radius="rounded-full"
                 />
               </>
             </Tooltip>
             <section className="ml-20 flex-1">
-              <h4 className="text-medium font-bold my-12">
+              <h4 className="text-small md:text-medium font-bold my-12">
                 Basic Business Information:
               </h4>
               <div className="my-12 flex ">

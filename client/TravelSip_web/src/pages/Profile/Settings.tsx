@@ -9,7 +9,7 @@ import { MdCurrencyExchange,MdOutlineRateReview } from "react-icons/md";
 const Settings = () => {
   return (
     <div className="mx-12 p-12 rounded-2xl bg-white">
-      <h2 className="text-xLarge font-bold border-l-[10px] border-solid border-blue pl-8 ">
+      <h2 className="text-medium md:text-xLarge font-bold border-l-[10px] border-solid border-blue pl-8 ">
         Account Settings
       </h2>
       <section className="my-20">
@@ -33,7 +33,7 @@ const Settings = () => {
           list={["VND(Vietnam dong)", "USD (United States Dollar)"]}
         />
       </section>
-      <h2 className="text-xLarge my-20 font-bold border-l-[10px] border-solid border-green pl-8 ">
+      <h2 className="text-medium md:text-xLarge my-20 font-bold border-l-[10px] border-solid border-green pl-8 ">
         Help Center
       </h2>
       <section className="my-20">

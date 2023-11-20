@@ -27,8 +27,8 @@ const FormReviewContent = () => {
         />
       </div>
       <p className="text-red">{errors.review}</p>
-      <div className="flex items-center my-20">
-        <p className="text-medium mr-12">Rating point:</p>
+      <div className="md:flex items-center my-20">
+        <p className="text-small md:text-medium mr-12 mb-8 md:none">Rating point:</p>
         <ReactStars
           count={5}
           value={values.rating}
@@ -36,7 +36,7 @@ const FormReviewContent = () => {
           size={30}
           onChange={handleRatingChange}
         />
-        <p className="text-gray ml-12">{values.rating}/5 stars</p>
+        <p className="text-gray md:ml-12 md:text-medium text-xSmall">{values.rating}/5 stars</p>
       </div>
       <p className="text-red">{errors.rating}</p>
       <div className="flex w-full justify-center">

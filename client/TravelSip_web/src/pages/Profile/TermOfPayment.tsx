@@ -3,7 +3,7 @@ import { CollapseMenu } from "../../component";
 const TermOfPayment = () => {
   return (
     <div className="mx-12 p-12 rounded-2xl bg-white">
-      <h2 className="text-xLarge font-bold border-l-[10px] border-solid border-blue pl-8 ">
+      <h2 className="text-medium md:text-xLarge font-bold border-l-[10px] border-solid border-blue pl-8 ">
         Terms Of Payment
       </h2>
       <section className="my-20">

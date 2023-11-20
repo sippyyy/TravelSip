@@ -28,8 +28,6 @@ export const bookings = [
         },
       ],
       name: "Changed",
-      person: 1,
-      bed: 1,
       price: "1.00",
       imageUrl:
         "https://storage.googleapis.com/travelsipapp/room_images/1000000034.jpg?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=travelsipp%40travelsip.iam.gserviceaccount.com%2F20231110%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20231110T102900Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=82feb7aea7af70724b026d5cbc3fc0d4a124d7373c9972b3ff6daee617f2faee4994dc6296949088e0d7aae5b1047a3afa01c4f1c74c35148aa5accdb574b8f2d552b940c995a7e7b8feac28b48db736170f58c2d4b8743eb7019056b3d55b291e4060ebb42ab3dd4f2744992bb4e63084fb2be201fa9e6ca94218ec8ca1252242ea3a0ec82837f33aea2769385e17a3ec9ce7b14fa8d780fc075f4359db333e57033182b7fc2026426512a8365c3ee9eb6059d69885e1e4a4880fa1bd31849b1620c0a8f1ad542c72245da819a1ad807c171b8fde7be3c8b90474336a04ba43e423288d06bd7f86a8f9908eec0bc37dc82e3411a32851f5c8626d6c00ae7e25",

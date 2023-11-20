@@ -42,20 +42,21 @@ const Card: React.FC<Props> = (props) => {
         </div>
         <div className="text-left px-12 py-20">
           <h5
-            className={`text-medium font-bold mb-12 ${
+            className={`text-small md:text-medium font-bold mb-12 ${
               bgImg ? "text-white" : ""
             }`}
           >
             {title}
           </h5>
           <p
-            className={`text-small font-medium mb-12 ${
+            className={`text-xSmall md:text-small font-medium mb-12 line-clamp-5 ${
               bgImg ? "text-white" : ""
             }`}
           >
             {content}
           </p>
           <ReusableButton
+            onClick={() => {}}
             btnText={btnText ? btnText : ""}
             width={btnWidth ? btnWidth : ""}
             bg={btnBg}

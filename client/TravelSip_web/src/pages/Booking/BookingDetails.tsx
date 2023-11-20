@@ -35,40 +35,39 @@ export const get_message_status: (
   return text;
 };
 
-const BookingDetails = () => {
+const BookingDetails: React.FC = () => {
   return (
     <div className="flex justify-center">
       <div
-        className={`container p-20 rounded-2xl my-20 bg-white border-y-[20px] border-solid ${get_color_status(
+        className={`container md:p-20 p-12 rounded-2xl my-20 bg-white border-y-[20px] border-solid ${get_color_status(
           booking.status,
           "border"
         )}`}
       >
-        <h3 className="text-center font-bold text-xLarge">
+        <h3 className="text-center font-bold text-large md:text-xLarge">
           Booking Details ID #{booking.id}
         </h3>
-        <div className="my-16 px-12">
+        <div className="my-16 md:px-12 md:text-large text-medium">
           <div className="flex my-16">
-            <p className="text-large font-medium mr-12">Booking's status:</p>
-            <p
-              className={`${get_color_status(
-                booking.status
-              )} text-large font-bold`}
-            >
+            <p className=" font-medium mr-12">Booking's status:</p>
+            <p className={`${get_color_status(booking.status)}  font-bold`}>
               {booking?.status?.toUpperCase()}
             </p>
           </div>
-          <div className="flex my-16">
-            <p className="text-large font-medium mr-12">Booking Duration:</p>
-            <p className={`text-large`}>{booking.booking_duration} night(s)</p>
+          <div className="flex my-16 md:text-large text-medium">
+            <p className=" font-medium mr-12">Booking Duration:</p>
+            <p className={``}>{booking.booking_duration} night(s)</p>
           </div>
-          <div className="flex p-12 border border-lightGrey border-solid rounded-2xl">
-            <img src={booking.room.imageUrl} className="w-[180px] rounded-xl" />
-            <div className="ml-20">
-              <p className="text-medium font-medium my-12">
+          <div className="md:flex p-12 border border-lightGrey border-solid rounded-2xl">
+            <img
+              src={booking.room.imageUrl}
+              className="w-full md:w-[180px] h-[180px] rounded-xl object-cover"
+            />
+            <div className="ml-20 flex-1 text-xSmall md:text-small">
+              <p className="text-small md:text-medium font-medium my-12">
                 {booking.room.name} - Room ID #{booking.room.id}
               </p>
-              <p className="text-medium font-medium my-12">
+              <p className="text-small md:text-medium font-medium my-12">
                 Room's Facility and Benefits:
               </p>
               <div className="mt-12">
@@ -89,33 +88,33 @@ const BookingDetails = () => {
                     }
                   )}
               </div>
-              <p className="text-medium font-medium my-12">
+              <p className="text-small md:text-medium font-medium my-12">
                 Reservation day: {day_format(booking.check_in)} -{" "}
                 {day_format(booking.check_out)}
               </p>
               <div className="flex items-start">
-                <p className="text-medium font-medium mr-12">
+                <p className="text-xSmall md:text-medium font-medium mr-12">
                   Check-in and Check-out policy(must be noticed):
                 </p>
-                <ul>
-                  <li className="text-medium font-medium mb-12">
+                <ul >
+                  <li className="text-xSmall md:text-medium font-medium mb-12">
                     Check-in : After 2:00 PM
                   </li>
-                  <li className="text-medium font-medium">
+                  <li className="text-xSmall md:text-medium font-medium">
                     Check-out : Before 11:00 AM
                   </li>
                 </ul>
               </div>
-              <p className="text-medium font-medium my-12">
+              <p className="text-xSmall md:text-medium font-medium my-12">
                 {get_message_status(booking.status)}
               </p>
             </div>
           </div>
           <div className="flex my-16">
-            <p className="text-large font-medium mr-12">
+            <p className=" text-medium md:text-large font-medium mr-12">
               Total Price for {booking.booking_duration} night(s):
             </p>
-            <p className={`text-large`}>
+            <p className="text-medium md:text-large text-red font-bold">
               ${+booking.room.price * booking.booking_duration}
             </p>
           </div>

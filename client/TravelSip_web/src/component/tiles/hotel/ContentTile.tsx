@@ -27,7 +27,7 @@ const ContentTile: React.FC<Props> = (props) => {
         ) : null}
       </div>
       <div className="md:w-1/2 w-full ">
-        <div className="h-[400px] rounded-xl overflow-hidden">
+        <div className="md:h-[400px] h-[180px] rounded-xl overflow-hidden">
           <ReusableMap
             width="w-full"
             height="h-full"

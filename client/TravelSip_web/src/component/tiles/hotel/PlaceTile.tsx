@@ -16,10 +16,10 @@ import { showDrawer } from "../../reusable/ReusableDrawer";
 import { showModal } from "../../reusable/ReusableModal";
 import { Link } from "react-router-dom";
 import { PlaceProps } from "../../../interface/PlaceType";
-import {hotel} from '../../../api/mock_api/hotel.js'
+import { hotel } from "../../../api/mock_api/hotel.js";
 
-const PlaceTile:React.FC<PlaceProps> = (props) => {
-  const {img,title,rating,link,address,reviews,destination} = props
+const PlaceTile: React.FC<PlaceProps> = (props) => {
+  const { img, title, rating, link, address, reviews, destination } = props;
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -33,7 +33,7 @@ const PlaceTile:React.FC<PlaceProps> = (props) => {
   };
 
   const handleDelete = () => {
-    setAnchorEl(null)
+    setAnchorEl(null);
     console.log("delete");
   };
 
@@ -51,14 +51,13 @@ const PlaceTile:React.FC<PlaceProps> = (props) => {
 
   const handleEdit = () => {
     showDrawer(<FormPlace data={hotel} />, "right");
-    setAnchorEl(null)
+    setAnchorEl(null);
   };
-
 
   return (
     <div className="flex justify-between items-start my-12">
       <Tooltip arrow title="View details flex">
-        <Link to={link?link:''} className="flex-1">
+        <Link to={link ? link : ""} className="flex-1">
           <div className="flex cursor-pointer flex-1">
             <img
               src={img}
@@ -71,17 +70,19 @@ const PlaceTile:React.FC<PlaceProps> = (props) => {
                 label={destination ? "Destination:" : "Hotel:"}
                 value={title}
                 bold
-                size="text-medium"
+                size="text-small md:text-medium"
               />
               <ReusableInfoDetails
                 icon={<FaLocationPin />}
                 label="Address:"
                 value={address}
+                size="text-xSmall md:text-small"
               />
               <ReusableInfoDetails
                 icon={<GiPodiumWinner />}
                 label="Rating:"
                 value={`${rating}/5 (${reviews} reviews)`}
+                size="text-xSmall md:text-small"
               />
             </div>
           </div>
@@ -90,7 +91,7 @@ const PlaceTile:React.FC<PlaceProps> = (props) => {
       <Tooltip arrow title="Settings">
         <button
           onClick={(e) => handleClick(e)}
-          className="p-12 text-xLarge cursor-pointer hover:text-green"
+          className="p-12 text-large md:text-xLarge cursor-pointer hover:text-green"
         >
           <HiDotsVertical />
         </button>

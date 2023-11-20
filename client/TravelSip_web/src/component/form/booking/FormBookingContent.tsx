@@ -25,8 +25,8 @@ interface FormProps {
 
 const FormBookingContent: React.FC<FormProps> = (props) => {
   const { data } = props;
-  const { bed, person, price } = data;
-  const { values, setFieldValue, errors } = useFormikContext<ValuesProps>();
+  const { bed, person } = data;
+  const { values, setFieldValue } = useFormikContext<ValuesProps>();
   const [checkin, setCheckin] = useSafeState<string>(now);
   const [checkout, setCheckout] = useSafeState<string>(tomorrow);
 

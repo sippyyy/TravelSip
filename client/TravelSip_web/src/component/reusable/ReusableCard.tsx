@@ -33,20 +33,22 @@ const ReusableCard: React.FC<Props> = (props) => {
     reviews,
   } = props;
   return (
-    <div className="bg-white w-full rounded-3xl overflow-hidden p-12 cursor-pointer">
+    <div className="bg-white w-full rounded-3xl overflow-hidden p-8 md:p-12 cursor-pointer">
       <Link to={link ? link : ""}>
         <img className="h-[230px] rounded-3xl object-cover w-full" src={img} />
         <div className="mt-12">
-          <div className="flex justify-between items-center w-full">
-            <h4 className="text-left text-regular font-medium line-clamp-1">
-              {title}
-            </h4>
-            <Star rating={rating} />
-          </div>
+          <h4 className="text-left text-small md:text-regular font-medium line-clamp-1 flex-1">
+            {title}
+          </h4>
           <p className="my-8 text-left text-xSmall text-gray line-clamp-1">
             {address}
           </p>
-          <p className="text-small my-8 text-left text-gray">{reviews} Reviews</p>
+          <div className="flex justify-between">
+            <p className="text-xxSmall my-8 text-left text-gray">
+              ({reviews} Reviews)
+            </p>
+            <Star rating={rating} />
+          </div>
         </div>
       </Link>
       <div className="flex mt-12">

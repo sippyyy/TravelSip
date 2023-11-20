@@ -24,7 +24,7 @@ import {
   NormalLayoutChild,
   ProfileLayout,
 } from "./layout";
-import { Country, ReusableDrawer, ReusableModal } from "./component";
+import { Country, ReusableModal } from "./component";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./constant/theme";
 
@@ -59,7 +59,6 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
-      <ReusableDrawer />
       <ReusableModal />
     </ThemeProvider>
   );

@@ -20,54 +20,64 @@ const BookingRequestTile: React.FC<BookingTileProps> = (props) => {
   return (
     <Link to={`/booking/${id}`}>
       <Tooltip arrow title="View Details">
-        <div className="p-12 flex justify-between">
+        <div className="my-4">
           <div className="flex items-center">
-            <p className="mr-12 text-medium">{index ? index + 1 : 0 + 1}</p>
+            <p className="mr-12 text-small md:text-medium">
+              {index ? index + 1 : 0 + 1}
+            </p>
             <img
-              className="w-[80px] h-[80px] rounded-lg"
+              className="w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg"
               src={hotel?.imageUrl ?? ""}
             />
-            <div className="ml-12 h-full">
-              <p className="font-bold text-medium mb-8">{hotel?.title ?? ""}</p>
-              <ReusableInfoDetails
-                label="Check-in date:"
-                value={day_format(check_in)}
-              />
-              <ReusableInfoDetails
-                label="Check-out date:"
-                value={day_format(check_out)}
-              />
-            </div>
-          </div>
-          <p className={`font-bold ${get_color_status(status, "text")}`}>
-            {status.toUpperCase()}
-          </p>
-          <div className="flex flex-col justify-between items-end">
-            <div className="flex">
-              <p>{room?.name ?? ""}</p>
-              <p className="mx-20 text-large font-bold">
-                ${+room?.price ?? 0 * booking_duration}
-              </p>
-            </div>
-            {status === "pending" ? (
-              <div className="flex">
-                <ReusableButton
-                  width="w-[100px]"
-                  btnText="Reject"
-                  bg="bg-red"
-                  textColor="text-white"
-                  onClick={() => {}}
+            <div className="flex flex-1 md:flex-0 ml-12 flex-col md:flex-row justify-between">
+              <div className="h-full">
+                <p className="font-bold text-small md:text-medium mb-8">
+                  {hotel?.title ?? ""} - Room : {room?.name ?? ""}
+                </p>
+                <ReusableInfoDetails
+                  size="text-xSmall md:text-small"
+                  label="Check-in date:"
+                  value={day_format(check_in)}
                 />
-                <div className="w-[8px]"></div>
-                <ReusableButton
-                  width="w-[100px]"
-                  btnText="Approve"
-                  bg="bg-green"
-                  textColor="text-white"
-                  onClick={() => {}}
+                <ReusableInfoDetails
+                  size="text-xSmall md:text-small"
+                  label="Check-out date:"
+                  value={day_format(check_out)}
                 />
               </div>
-            ) : null}
+              <p
+                className={`font-bold text-xSmall my-4 md:text-medium ${get_color_status(
+                  status,
+                  "text"
+                )}`}
+              >
+                {status.toUpperCase()}
+              </p>
+              <div className="md:flex md:flex-col justify-between md:items-end">
+                <p className="mx-20 text-medium md:text-large text-right font-bold">
+                  ${+room?.price ?? 0 * booking_duration}
+                </p>
+                {status === "pending" ? (
+                  <div className="flex">
+                    <ReusableButton
+                      width="w-[100px]"
+                      btnText="Reject"
+                      bg="bg-red"
+                      textColor="text-white"
+                      onClick={() => {}}
+                    />
+                    <div className="w-[8px]"></div>
+                    <ReusableButton
+                      width="w-[100px]"
+                      btnText="Approve"
+                      bg="bg-green"
+                      textColor="text-white"
+                      onClick={() => {}}
+                    />
+                  </div>
+                ) : null}
+              </div>
+            </div>
           </div>
         </div>
       </Tooltip>

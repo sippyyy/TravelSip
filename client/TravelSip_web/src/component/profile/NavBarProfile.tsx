@@ -1,14 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { TiThMenuOutline } from "react-icons/ti";
+import { showDrawer } from "../reusable/ReusableDrawer";
+import { SideBarProfile } from "..";
 
-const NavBarProfile = () => {
+const NavBarProfile: React.FC = () => {
   const nav_items = [
     { nav: "Home", link: "/" },
     { nav: "My Booking", link: "/bookings" },
   ];
+
+  const handleOpenMenu = () => {
+    showDrawer(<SideBarProfile />, "left");
+  };
+
   return (
-    <div className="flex justify-center">
-      <div className="px-12 container py-16">
+    <div className="flex justify-center px-12 justify-between py-16 items-center">
+      <button className="text-xLarge text-red" onClick={() => handleOpenMenu()}>
+        <TiThMenuOutline />
+      </button>
+      <div className="container ">
         <header className="flex justify-end items-center">
           <ul className="flex items-center">
             {nav_items.map((item) => (

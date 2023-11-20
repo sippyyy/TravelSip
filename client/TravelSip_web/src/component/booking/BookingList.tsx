@@ -1,25 +1,10 @@
 import React from "react";
 import { bookings } from "../../api/mock_api/booking";
 import { BookingTile } from "..";
+import { BookingTileProps } from "../../interface/BookingsType";
 
-type Booking = {
-  id: number;
-  hotel: {
-    title: string;
-    imageUrl: string;
-    location: string;
-  };
-  room: {
-    price: string;
-  };
-  check_in: string;
-  check_out: string;
-  booking_duration: number;
-  status: "rejected" | "approved" | "completed" | "expired" | "pending";
-};
-
-const BookingList = () => {
-  return bookings.map((booking: Booking) => (
+const BookingList: React.FC = () => {
+  return bookings.map((booking: BookingTileProps) => (
     <BookingTile
       status={booking.status}
       key={booking.id}
