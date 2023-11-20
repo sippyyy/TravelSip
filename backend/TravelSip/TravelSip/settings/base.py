@@ -137,6 +137,9 @@ MEDIA_URL = "https://storage.googleapis.com/{}/".format(GS_BUCKET_NAME)
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 CORS_ALLOW_ALL_ORIGINS: True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
 
 CORS_ALLOW_METHODS = (
     "DELETE",
