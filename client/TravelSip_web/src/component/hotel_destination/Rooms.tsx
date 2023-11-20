@@ -1,20 +1,16 @@
-import { rooms } from "../../api/mock_api/rooms";
 import { RoomTile } from "..";
+import { Room, Rooms } from "../../interface/room.type";
+import React from "react";
 
-interface RoomProps {
-  id: number;
-  facilities: number;
-  name: string;
-  person: number;
-  imageUrl: string;
-  bed: number;
-  price: string;
+interface RoomsProps {
+  rooms:Rooms
 }
 
-const Rooms = () => {
+const Rooms: React.FC<RoomsProps> = (props) => {
+  const { rooms } = props;
   return (
     <div className="max-h-[600px] overflow-y-auto">
-      {rooms.map((room: RoomProps) => (
+      {rooms?.map((room: Room) => (
         <RoomTile
           key={room.id}
           id={room.id}

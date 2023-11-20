@@ -57,10 +57,10 @@ const router = createBrowserRouter(
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-      <ReusableModal />
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+        <ReusableModal />
+      </ThemeProvider>
   );
 };
 

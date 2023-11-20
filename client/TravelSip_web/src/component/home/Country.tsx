@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import countries from "../../api/mock_api/places";
 import { CountryTile, ReusableSlider } from "..";
 import { SwiperSlide } from "swiper/react";
+import { useQuery } from "react-query";
+import { useSafeState } from "ahooks";
+import { Countries } from "../../interface/country.type";
+import { getCountries } from "../../api/apis/getCountries";
 
 interface Country {
   id: number;
@@ -10,9 +14,17 @@ interface Country {
 }
 
 const Country: React.FC = () => {
+  const { data } = useQuery({
+    queryKey: ["countries"],
+    queryFn: () => getCountries(),
+    staleTime: 2 * 1000,
+    cacheTime: 10 * 1000,
+    keepPreviousData: true,
+  });
+
   return (
-    <ReusableSlider xSmall={2} small={2} lg={5} md={3}  space={20}>
-      {countries?.map((country: Country) => (
+    <ReusableSlider xSmall={2} small={2} lg={5} md={3} space={20}>
+      {data?.data?.map((country: Country) => (
         <SwiperSlide key={country.id} className="bg-transparent">
           <CountryTile
             key={country.country}

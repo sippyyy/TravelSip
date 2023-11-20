@@ -1,17 +1,10 @@
 import React from "react";
 import { SwiperSlide } from "swiper/react";
-import hotels from "../../api/mock_api/hotels.list";
 import ReusableCard from "../reusable/ReusableCard";
 import { ReusableSlider } from "..";
-
-interface Hotel {
-  id: string;
-  imageUrl: string;
-  title: string;
-  rating: number;
-  reviews: number;
-  location: string;
-}
+import { Hotel } from "../../interface/hotel.type";
+import {getHotels} from "../../api/apis/getHotels";
+import { useQuery } from "react-query";
 
 const Hotels: React.FC = () => {
   // const handleBookNow: (id: number) => void = (id) => {
@@ -20,10 +13,17 @@ const Hotels: React.FC = () => {
   //     // showDrawer();
   //   }
   // };
+  const { data } = useQuery({
+    queryKey: ["hotels"],
+    queryFn: () => getHotels(),
+    staleTime: 2 * 1000,
+    cacheTime: 10 * 1000,
+    keepPreviousData: true,
+  });
 
   return (
-    <ReusableSlider xSmall={1.5} small={1.5}  md={3} lg={4} space={20}>
-      {hotels?.map((hotel: Hotel) => (
+    <ReusableSlider xSmall={1.5} small={1.5} md={3} lg={4} space={20}>
+      {data?.data?.map((hotel: Hotel) => (
         <SwiperSlide key={hotel.id} className="bg-transparent">
           <ReusableCard
             img={hotel.imageUrl}

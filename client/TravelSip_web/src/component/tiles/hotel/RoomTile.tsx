@@ -8,7 +8,7 @@ interface Props {
   roomName: string;
   person: number;
   bed: number;
-  facility: number;
+  facility: number | string;
   price: string;
   id: number;
 }
@@ -31,12 +31,18 @@ const RoomTile: React.FC<Props> = (props) => {
         <Divider />
         <div className="mt-8">
           <p className="text-small">Room details:</p>
-          <ReusableInfoDetails size="text-xSmall md:text-small "
+          <ReusableInfoDetails
+            size="text-xSmall md:text-small "
             label="People number allowed:"
             value={`Under ${person} person(s)`}
           />
-          <ReusableInfoDetails size="text-xSmall md:text-small " label="Bed(s):" value={`${bed}`} />{" "}
-          <ReusableInfoDetails size="text-xSmall md:text-small "
+          <ReusableInfoDetails
+            size="text-xSmall md:text-small "
+            label="Bed(s):"
+            value={`${bed}`}
+          />{" "}
+          <ReusableInfoDetails
+            size="text-xSmall md:text-small "
             label="Facility:"
             value={`Under ${facility} person(s)`}
           />
