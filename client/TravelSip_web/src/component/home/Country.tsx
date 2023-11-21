@@ -20,7 +20,7 @@ const Country: React.FC = () => {
   });
 
   return (
-    <ReusableSlider xSmall={2} small={2} lg={5} md={3.8} space={20}>
+    <ReusableSlider xSmall={2.8} small={2.8} lg={6.5} md={4.4} space={20}>
       {data?.data?.map((country: Country) => (
         <SwiperSlide key={country.id} className="bg-transparent">
           <CountryTile

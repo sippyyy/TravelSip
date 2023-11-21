@@ -24,11 +24,11 @@ const RoomTile: React.FC<Props> = (props) => {
     showDrawer(<RoomDetails id={id} />, "right");
   };
   return (
-    <div className="flex bg-white p-12 rounded-xl mb-12">
+    <div className="flex bg-white p-8 md:p-12 rounded-xl mb-12">
       <img
         src={imageUrl}
         alt="rooms"
-        className="rounded-xl w-[150px] h-auto object-cover"
+        className="rounded-xl w-[100px] md:w-[150px] h-auto object-cover"
       />
       <div className="ml-8 flex-1">
         <p className="font-medium text-medium mb-12">{roomName}</p>
@@ -53,7 +53,7 @@ const RoomTile: React.FC<Props> = (props) => {
             </div>
           </div>
         </div>
-        <div className="text-right my-12">
+        <div className="text-right my-8 md:my-12">
           <ReusableButton
             btnText="Book Now!"
             bg="bg-green"

@@ -13,7 +13,7 @@ const CountryTile: React.FC<Props> = (props) => {
     <Link to={`country/${id}`}>
       <div className="w-full flex flex-col items-center justify-center">
         <img
-          className="rounded-full w-[170px] h-[170px] object-cover"
+          className="rounded-full w-[120px] md:w-[170px] h-[120px] md:h-[170px] object-cover"
           src={img}
         />
         <p className="mt-12 font-bold">{text}</p>

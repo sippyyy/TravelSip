@@ -3,20 +3,24 @@ import { ReusableSlider } from "..";
 import { SwiperSlide } from "swiper/react";
 import ReusableCard from "../reusable/ReusableCard";
 import { Destination } from "../../interface/destination.type";
-import { useQuery } from "react-query";
-import {getDestinations} from "../../api/apis/getDestinations";
 
-const Places: React.FC = () => {
-  const { data } = useQuery({
-    queryKey: ["destinations"],
-    queryFn: () => getDestinations(),
-    staleTime: 2 * 1000,
-    cacheTime: 10 * 1000,
-    keepPreviousData: true,
-  });
+interface PlaceProps {
+  data: Destination[];
+  autoPlay?: boolean;
+}
+
+const Places: React.FC<PlaceProps> = (props) => {
+  const { data, autoPlay } = props;
   return (
-    <ReusableSlider xSmall={1.5} small={2.5} md={3} lg={4} space={20}>
-      {data?.data?.map((destination: Destination) => (
+    <ReusableSlider
+      autoplay={autoPlay}
+      xSmall={2}
+      small={2.5}
+      md={3}
+      lg={4}
+      space={20}
+    >
+      {data?.map((destination: Destination) => (
         <SwiperSlide key={destination.id} className="bg-transparent">
           <ReusableCard
             img={destination.imageUrl}

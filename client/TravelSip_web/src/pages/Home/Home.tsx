@@ -3,8 +3,17 @@ import { BsSearch } from "react-icons/bs";
 import { register } from "swiper/element/bundle";
 import { Card, Country, Hotels, Places, ReusableSlider } from "../../component";
 import { SwiperSlide } from "swiper/react";
+import { useQuery } from "react-query";
+import { getDestinations } from "../../api/apis/getDestinations";
 register();
 const Home: React.FC = () => {
+  const { data } = useQuery({
+    queryKey: ["destinations"],
+    queryFn: () => getDestinations(),
+    staleTime: 2 * 1000,
+    cacheTime: 10 * 1000,
+    keepPreviousData: true,
+  });
   return (
     <>
       <div className="relative">
@@ -38,7 +47,14 @@ const Home: React.FC = () => {
               </div>
             </section>
             <section className="container mt-20">
-              <ReusableSlider xSmall={1} small={1} md={2} lg={2} space={20} autoplay>
+              <ReusableSlider
+                xSmall={1}
+                small={1}
+                md={2}
+                lg={2}
+                space={20}
+                autoplay
+              >
                 <SwiperSlide className="bg-transparent">
                   <Card
                     height="h-[200px]"
@@ -82,7 +98,7 @@ const Home: React.FC = () => {
           <h3 className="md:text-large text-medium font-bold mb-20">
             Recommendations
           </h3>
-          <Places />
+          <Places data={data?.data ?? []} />
         </div>
       </section>
       <section className="flex aligns-center justify-center mt-40">

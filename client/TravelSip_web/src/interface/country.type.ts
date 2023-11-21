@@ -1,3 +1,5 @@
+import { Destination } from "./destination.type";
+
 export interface Country {
   id: number;
   country: string;
@@ -7,3 +9,6 @@ export interface Country {
 }
 
 export type Countries = Pick<Country, "id" | "imageUrl" | "country">[];
+export interface CountryDetails extends Country {
+  popular: Destination[];
+}
