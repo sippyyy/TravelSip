@@ -14,10 +14,14 @@ interface Props {
 }
 
 const RoomTile: React.FC<Props> = (props) => {
-  const { imageUrl, roomName, person, bed, facility, price, id } = props;
+  const { imageUrl, roomName, person, bed, price, id } = props;
 
-  const handleBookNow = () => {
-    showDrawer(<RoomDetails />, "right");
+  const handleBookNow = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
+    e.preventDefault()
+    showDrawer(<RoomDetails id={id} />, "right");
   };
   return (
     <div className="flex bg-white p-12 rounded-xl mb-12">
@@ -40,11 +44,6 @@ const RoomTile: React.FC<Props> = (props) => {
             size="text-xSmall md:text-small "
             label="Bed(s):"
             value={`${bed}`}
-          />{" "}
-          <ReusableInfoDetails
-            size="text-xSmall md:text-small "
-            label="Facility:"
-            value={`Under ${facility} person(s)`}
           />
           <div className="flex justify-between mt-16 text-medium md:text-large">
             <p className="text-dark">Price</p>
@@ -59,8 +58,8 @@ const RoomTile: React.FC<Props> = (props) => {
             btnText="Book Now!"
             bg="bg-green"
             textColor="text-white"
-            onClick={() => {
-              handleBookNow();
+            onClick={(e) => {
+              handleBookNow(e, id);
             }}
           />
         </div>

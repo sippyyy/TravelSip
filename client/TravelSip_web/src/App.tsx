@@ -11,6 +11,7 @@ import {
   Register,
   Settings,
   TermOfPayment,
+  Country,
 } from "./pages";
 import {
   createBrowserRouter,
@@ -24,7 +25,7 @@ import {
   NormalLayoutChild,
   ProfileLayout,
 } from "./layout";
-import { Country, ReusableModal } from "./component";
+import { ReusableModal } from "./component";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./constant/theme";
 
@@ -37,7 +38,7 @@ const router = createBrowserRouter(
       </Route>
       <Route element={<NormalLayoutChild />}>
         <Route path="booking/:id" element={<BookingDetails />} />
-        <Route path="country" element={<Country />} />
+        <Route path="country/:id" element={<Country />} />
         <Route path="hotel/:id" element={<HotelDetails />} />
         <Route path="destination/:id" element={<DestinationDetails />} />
       </Route>
@@ -57,10 +58,10 @@ const router = createBrowserRouter(
 
 const App: React.FC = () => {
   return (
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
-        <ReusableModal />
-      </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+      <ReusableModal />
+    </ThemeProvider>
   );
 };
 

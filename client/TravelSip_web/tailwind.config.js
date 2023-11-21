@@ -72,7 +72,7 @@ export default {
         md: "768px",
         lg: "1024px",
         xl: "1025px",
-        "2xl": "1201px",
+        "2xl": "1270px",
       },
       boxShadow: {
         "3xl": "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",

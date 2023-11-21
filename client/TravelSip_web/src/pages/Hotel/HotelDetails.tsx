@@ -5,14 +5,17 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getHotel } from "../../api/apis/getHotels";
 
-type Params = { id: string };
+export type Params = { id: string };
 
-const HotelDetails = () => {
+const HotelDetails: React.FC = () => {
   const params = useParams<Params>();
 
   const { data } = useQuery({
     queryKey: [`hotel ${params.id}`],
     queryFn: () => getHotel(params?.id ?? 0),
+    staleTime: 2 * 1000,
+    cacheTime: 10 * 1000,
+    keepPreviousData: true,
   });
 
   return (

@@ -25,7 +25,7 @@ interface FormProps {
 
 const FormBookingContent: React.FC<FormProps> = (props) => {
   const { data } = props;
-  const { bed, person } = data;
+  const { bed, person, price } = data;
   const { values, setFieldValue } = useFormikContext<ValuesProps>();
   const [checkin, setCheckin] = useSafeState<string>(now);
   const [checkout, setCheckout] = useSafeState<string>(tomorrow);
@@ -92,7 +92,9 @@ const FormBookingContent: React.FC<FormProps> = (props) => {
         <div className="flex justify-between items-center mt-20">
           <p className="text-large">Total Price:</p>
           <div className="flex items-end">
-            <p className="text-xLarge text-green font-bold">$123</p>
+            <p className="text-xLarge text-green font-bold">
+              ${+price * duration}
+            </p>
             <p className="text-gray text-xSmall">(for {duration} night(s))</p>
           </div>
         </div>

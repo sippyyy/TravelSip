@@ -10,6 +10,8 @@ export interface Hotel {
   reviews: number;
 }
 
+export type Hotels = Hotel[];
+
 export interface HotelDetails extends Omit<Hotel, "reviews"> {
   user: number;
   description: string;

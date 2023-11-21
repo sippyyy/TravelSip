@@ -1,5 +1,9 @@
-import { Destination } from "../../interface/destination.type";
+import {
+  Destination,
+  DestinationDetail,
+} from "../../interface/destination.type";
 import http from "../../utils/http";
 
 export const getDestinations = () => http.get<Destination[]>("destinations/");
-export const getDestination = (id:number) => http.get(`destinations/${id}`)
+export const getDestination = (id: number | string) =>
+  http.get<DestinationDetail>(`destinations/${id}`);
