@@ -1,6 +1,6 @@
 import React from "react";
 import { ReusableButton } from "..";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const nav_items = [
@@ -8,6 +8,7 @@ const Navbar: React.FC = () => {
     { nav: "My Booking", link: "/bookings" },
     { nav: "Profile", link: "/profile" },
   ];
+  const navigate = useNavigate();
   return (
     <div className="bg-red justify-center hidden md:flex">
       <div className="px-12 container py-16">
@@ -23,7 +24,7 @@ const Navbar: React.FC = () => {
             </ul>
             <div className="ml-12">
               <ReusableButton
-                onClick={() => {}}
+                onClick={() => {navigate('/login')}}
                 textColor="text-white"
                 bg="bg-green"
                 width="w-32"

@@ -17,7 +17,7 @@ const Places: React.FC<PlaceProps> = (props) => {
       xSmall={2}
       small={2.5}
       md={3}
-      lg={4}
+      lg={5}
       space={20}
     >
       {data?.map((destination: Destination) => (
