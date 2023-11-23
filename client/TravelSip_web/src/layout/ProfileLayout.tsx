@@ -13,7 +13,9 @@ const ProfileLayout = () => {
         <NavBarProfile />
         <Outlet />
       </div>
-      <ReusableDrawer />
+      <div className="md:hidden">
+        <ReusableDrawer />
+      </div>
     </div>
   );
 };

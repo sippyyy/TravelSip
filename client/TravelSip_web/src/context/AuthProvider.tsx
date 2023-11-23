@@ -29,7 +29,7 @@ interface Values {
   loadToken: () => void;
   verifyToken: () => void;
 }
-const AuthContext = createContext<StateAuth | undefined>(undefined);
+const AuthContext = createContext<Values>();
 
 const AuthProvider: React.FC<AuthProvideProps> = (props) => {
   const { children } = props;
@@ -103,8 +103,13 @@ const AuthProvider: React.FC<AuthProvideProps> = (props) => {
     });
   };
 
-  const values:Values = { authState, logout, loadToken, verifyToken };
-  console.log(values)
+  const values: Values = {
+    authState,
+    logout,
+    loadToken,
+    verifyToken,
+  };
+
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 

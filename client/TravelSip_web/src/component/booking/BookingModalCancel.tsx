@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { FaRegMoneyBillAlt, FaHotel } from "react-icons/fa";
-import { closeModal } from "../reusable/ReusableModal";
-import { ReusableButton, ReusableInfoDetails } from "..";
+import { closeModal, showModal } from "../reusable/ReusableModal";
+import { ReusableButton, ReusableInfoDetails, ReusablePopupMessage } from "..";
 import { day_format } from "../../utils/get_day";
+import { useMutation } from "react-query";
+import { useAuth } from "../../context/AuthProvider";
+import { deleteBooking } from "../../api/apis/booking";
 
 interface BookingModelCancelProps {
   id: number;
@@ -16,6 +19,14 @@ interface BookingModelCancelProps {
 
 const BookingModalCancel: React.FC<BookingModelCancelProps> = (props) => {
   const { id, title, check_in, check_out, price, booking_duration } = props;
+  const { authState } = useAuth();
+
+  const { mutate, status, data } = useMutation({
+    mutationFn: () => {
+      const token = authState.accessToken;
+      return deleteBooking(token, id);
+    },
+  });
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement>,
     option: "yes" | "no"
@@ -24,9 +35,26 @@ const BookingModalCancel: React.FC<BookingModelCancelProps> = (props) => {
     if (option === "no") {
       closeModal();
     } else {
-      console.log(id);
+      mutate();
     }
   };
+
+  useEffect(() => {
+    if (status === "success") {
+      closeModal();
+      if (data?.data?.message) {
+        showModal(
+          "Completed",
+          <ReusablePopupMessage
+            success
+            message={data?.data?.message}
+            greenButton="Close"
+            greenFunc={() => closeModal()}
+          />
+        );
+      }
+    }
+  }, [data, status]);
 
   return (
     <div>

@@ -8,6 +8,12 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import dayjs from "dayjs";
 import { Divider } from "@mui/material";
 import { closeDrawer } from "../../reusable/ReusableDrawer";
+import { useMutation } from "react-query";
+import { bookRoom } from "../../../api/apis/booking";
+import { useAuth } from "../../../context/AuthProvider";
+import { BookingRoomForm } from "../../../interface/BookingsType";
+import { day_be_format } from "../../../utils/get_day";
+import { showModal } from "../../reusable/ReusableModal";
 
 interface ValuesProps {
   check_in: string;
@@ -16,7 +22,7 @@ interface ValuesProps {
 }
 
 interface FormProps {
-  data: {
+  dataIn: {
     bed: number;
     person: number;
     price: string;
@@ -24,8 +30,9 @@ interface FormProps {
 }
 
 const FormBookingContent: React.FC<FormProps> = (props) => {
-  const { data } = props;
-  const { bed, person, price } = data;
+  const { dataIn } = props;
+  const { bed, person, price } = dataIn;
+  const { authState } = useAuth();
   const { values, setFieldValue } = useFormikContext<ValuesProps>();
   const [checkin, setCheckin] = useSafeState<string>(now);
   const [checkout, setCheckout] = useSafeState<string>(tomorrow);
@@ -38,6 +45,32 @@ const FormBookingContent: React.FC<FormProps> = (props) => {
       setFieldValue("check_out", checkout);
     }
   }, [checkin, checkout]);
+
+  const { mutate,status } = useMutation({
+    mutationFn: async (data: BookingRoomForm) => {
+      const token = authState.accessToken;
+      return await bookRoom(token, data);
+    },
+  });
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const checkin = day_be_format(values.check_in);
+    const checkout = day_be_format(values.check_out);
+    const valuesSubmit = {
+      check_in: checkin,
+      check_out: checkout,
+      room: values.room,
+    };
+    mutate(valuesSubmit);
+  };
+
+  useUpdateEffect(() => {
+    if(status === "success"){
+      closeDrawer()
+      showModal("Booking room successfully!",undefined,`You just request to book room id #${values.room} from ${values.check_in} to ${values.check_out}. Please wait for the hotel's owner to accept your booking request. See more about the booking details/process at Booking Tab`)
+    }
+  }, [status]);
 
   const duration = useMemo(() => {
     const start = dayjs(checkin);
@@ -112,7 +145,9 @@ const FormBookingContent: React.FC<FormProps> = (props) => {
             />
           </div>
           <ReusableButton
-            onClick={() => {}}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
             textColor="text-white"
             btnText="Book Room!"
             bg="bg-green"

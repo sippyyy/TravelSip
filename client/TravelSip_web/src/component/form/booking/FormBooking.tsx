@@ -20,7 +20,7 @@ const FormBooking: React.FC<ValueProps> = (props) => {
         console.log(values);
       }}
     >
-      <FormBookingContent data={{ person, bed, price }} />
+      <FormBookingContent dataIn={{ person, bed, price }} />
     </Formik>
   ) : null;
 };

@@ -1,20 +1,27 @@
 import React from "react";
 import { ReusableButton } from "..";
 import { closeModal } from "./ReusableModal";
+import successImg from "../../assets/images/checked.png";
 
 interface PopupMessageProps {
   message: string;
   redButton?: string;
   greenButton?: string;
+  success?: boolean;
   greenFunc?: () => void;
 }
 
 const ReusablePopupMessage: React.FC<PopupMessageProps> = (props) => {
-  const { message, redButton, greenButton, greenFunc } = props;
+  const { message, redButton, greenButton, greenFunc, success } = props;
   console.log(greenButton);
   return (
     <div>
-      <p className="text-small md:text-medium">{message}</p>
+      {success ? (
+        <div className="flex justify-center my-20">
+          <img src={successImg} className="w-[100px] h-[100px] object-cover" />
+        </div>
+      ) : null}
+      <p className="text-small text-center my-16 md:text-medium">{message}</p>
       <div className="flex justify-center mt-20">
         {redButton ? (
           <ReusableButton

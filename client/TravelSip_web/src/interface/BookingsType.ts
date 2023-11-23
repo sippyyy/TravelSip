@@ -15,3 +15,11 @@ export interface BookingTileProps {
   booking_duration: number;
   status: "rejected" | "approved" | "completed" | "expired" | "pending";
 }
+
+
+export interface BookingRoomForm{
+  check_in:string,
+  check_out:string,
+  room:number
+  
+}

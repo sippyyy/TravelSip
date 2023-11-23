@@ -12,6 +12,9 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import { useSafeState, useUpdateEffect } from "ahooks";
+import { useMutation } from "react-query";
+import { useAuth } from "../../../context/AuthProvider";
+import { createProfile } from "../../../api/apis/profile";
 
 type ValuesFormProfile = {
   imageUrl: string;
@@ -26,6 +29,10 @@ type ValuesFormProfile = {
 const FormProfileContent = () => {
   const { values, setFieldValue } = useFormikContext<ValuesFormProfile>();
   const [dob, setDob] = useSafeState(values?.dob ?? "");
+  const [imgBg, setImgBg] = useSafeState<File | undefined>(undefined);
+  const [ava, setAva] = useSafeState<File | undefined>(undefined);
+  const { authState } = useAuth();
+
   const handleChange = (event: SelectChangeEvent) => {
     setFieldValue("gender", event.target.value as string);
   };
@@ -34,13 +41,32 @@ const FormProfileContent = () => {
     setFieldValue("dob", dob);
   }, [dob]);
 
+  const { mutate, status, data } = useMutation({
+    mutationFn: (data: FormData) => {
+      const token = authState.accessToken;
+      return createProfile(token, data);
+    },
+  });
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("bio", values.bio);
+    formData.append("nickname", values.nickname);
+    formData.append("dob", values.dob);
+    formData.append("mobile", values.mobile);
+    formData.append("gender", values.gender);
+    if (imgBg) {
+      formData.append("backgroundUrl", imgBg);
+    }
+    if (ava) {
+      formData.append("imageUrl", ava);
+    }
+    mutate(formData);
+  };
+
   return (
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log(values);
-      }}
-    >
+    <Form>
       <div className="mx-12 p-12 rounded-2xl bg-white">
         <h2 className=" text-large md:text-xLarge font-bold border-l-[10px] border-solid border-blue pl-8 ">
           Edit Information
@@ -52,6 +78,9 @@ const FormProfileContent = () => {
           <Tooltip arrow title="Change Background Image">
             <>
               <ImageCovered
+                id="bg_profile"
+                img={imgBg}
+                setValue={setImgBg}
                 width="w-full"
                 height="md:h-[300px] h-[150px] "
                 width2="md:w-[150px] w-[80px]"
@@ -65,6 +94,9 @@ const FormProfileContent = () => {
             <Tooltip arrow title="Change Avatar">
               <>
                 <ImageCovered
+                  id="ava_profile"
+                  img={ava}
+                  setValue={setAva}
                   width="w-[100px] md:w-[150px]"
                   height="h-[100px] md:h-[150px]"
                   width2="w-[30px] md:w-[40px]"
@@ -152,7 +184,9 @@ const FormProfileContent = () => {
             bg="bg-green"
             textColor="text-white"
             width="w-[180px]"
-            onClick={() => {}}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
             type="submit"
           />
         </div>

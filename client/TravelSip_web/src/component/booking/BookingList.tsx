@@ -1,10 +1,24 @@
 import React from "react";
-import { bookings } from "../../api/mock_api/booking";
 import { BookingTile } from "..";
 import { BookingTileProps } from "../../interface/BookingsType";
+import { useQuery } from "react-query";
+import { useAuth } from "../../context/AuthProvider";
+import { getMyBookings } from "../../api/apis/booking";
 
 const BookingList: React.FC = () => {
-  return bookings.map((booking: BookingTileProps) => (
+  const { authState } = useAuth();
+  const { data } = useQuery({
+    queryKey: ["booking list"],
+    queryFn: () => {
+      const token = authState.accessToken;
+      return getMyBookings(token, true);
+    },
+    staleTime: 2 * 1000,
+    cacheTime: 10 * 1000,
+    keepPreviousData: true,
+  });
+
+  return data?.data?.map((booking: BookingTileProps) => (
     <BookingTile
       status={booking.status}
       key={booking.id}

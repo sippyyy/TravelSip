@@ -10,19 +10,6 @@ import { Link } from "react-router-dom";
 import { get_color_status } from "../../../utils/get_text_color";
 import { BookingTileProps } from "../../../interface/BookingsType";
 
-// const Options = () => {
-//   return (
-//     <ul className="w-full">
-//       <li className="px-20 py-12 hover:bg-blue">
-//         <ReusableInfoDetails label="Test" />
-//       </li>
-//       <li className="px-20 py-12">
-//         <ReusableInfoDetails label="Test" />
-//       </li>
-//     </ul>
-//   );
-// };
-
 const BookingTile: React.FC<BookingTileProps> = (props) => {
   const { id, hotel, room, check_in, check_out, booking_duration, status } =
     props;
