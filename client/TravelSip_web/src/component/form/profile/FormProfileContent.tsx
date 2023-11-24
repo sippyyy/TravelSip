@@ -6,6 +6,7 @@ import {
   ReusableButton,
   ReusableCalendar,
   ReusableInfoDetails,
+  ReusablePopupMessage,
   ReusableTextField,
 } from "../..";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -14,7 +15,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useSafeState, useUpdateEffect } from "ahooks";
 import { useMutation } from "react-query";
 import { useAuth } from "../../../context/AuthProvider";
-import { createProfile } from "../../../api/apis/profile";
+import { createProfile, editProfile } from "../../../api/apis/profile";
+import { closeModal, showModal } from "../../reusable/ReusableModal";
 
 type ValuesFormProfile = {
   imageUrl: string;
@@ -26,7 +28,13 @@ type ValuesFormProfile = {
   gender: string;
 };
 
-const FormProfileContent = () => {
+interface FormProfileContextProps {
+  statusIn: "idle" | "error" | "loading" | "success";
+  idIn: number | string;
+}
+
+const FormProfileContent: React.FC<FormProfileContextProps> = (props) => {
+  const { statusIn, idIn } = props;
   const { values, setFieldValue } = useFormikContext<ValuesFormProfile>();
   const [dob, setDob] = useSafeState(values?.dob ?? "");
   const [imgBg, setImgBg] = useSafeState<File | undefined>(undefined);
@@ -41,15 +49,38 @@ const FormProfileContent = () => {
     setFieldValue("dob", dob);
   }, [dob]);
 
-  const { mutate, status, data } = useMutation({
+  const { mutate, status } = useMutation({
     mutationFn: (data: FormData) => {
       const token = authState.accessToken;
-      return createProfile(token, data);
+      if (statusIn === "error") {
+        return createProfile(token, data);
+      } else {
+        return editProfile(token, data, idIn);
+      }
     },
   });
 
+  useUpdateEffect(() => {
+    if (status === "success") {
+      showModal(
+        "Completed",
+        <ReusablePopupMessage
+          message={
+            statusIn === "error"
+              ? "You completed your profile information successfully"
+              : "Edit user profile information completed"
+          }
+          greenButton="Close"
+          greenFunc={() => closeModal()}
+          success
+        />
+      );
+    }
+  },[status]);
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    console.log("submit");
     const formData = new FormData();
     formData.append("bio", values.bio);
     formData.append("nickname", values.nickname);
@@ -78,6 +109,7 @@ const FormProfileContent = () => {
           <Tooltip arrow title="Change Background Image">
             <>
               <ImageCovered
+                src={values.backgroundUrl}
                 id="bg_profile"
                 img={imgBg}
                 setValue={setImgBg}
@@ -85,7 +117,6 @@ const FormProfileContent = () => {
                 height="md:h-[300px] h-[150px] "
                 width2="md:w-[150px] w-[80px]"
                 height2="md:h-[150px] h-[80px]"
-                src="https://img.freepik.com/premium-photo/colorful-landscape-with-mountains-river-foreground_849761-2647.jpg"
                 radius="rounded-2xl"
               />
             </>
@@ -94,6 +125,7 @@ const FormProfileContent = () => {
             <Tooltip arrow title="Change Avatar">
               <>
                 <ImageCovered
+                  src={values.imageUrl}
                   id="ava_profile"
                   img={ava}
                   setValue={setAva}
@@ -101,7 +133,6 @@ const FormProfileContent = () => {
                   height="h-[100px] md:h-[150px]"
                   width2="w-[30px] md:w-[40px]"
                   height2="h-[30px] md:h-[40px]"
-                  src="https://img.freepik.com/premium-photo/colorful-landscape-with-mountains-river-foreground_849761-2647.jpg"
                   radius="rounded-full"
                 />
               </>

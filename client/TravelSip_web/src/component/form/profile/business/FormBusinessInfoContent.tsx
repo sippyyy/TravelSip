@@ -1,12 +1,12 @@
 import { Tooltip } from "@mui/material";
 import { Form, useFormikContext } from "formik";
 import React from "react";
-import {
-  ImageCovered,
-  ReusableButton,
-  ReusableInfoDetails,
-  ReusableTextField,
-} from "../../..";
+import { ImageCovered, ReusableButton, ReusableTextField } from "../../..";
+import { useMutation, useQuery } from "react-query";
+import { useAuth } from "../../../../context/AuthProvider";
+import { BusinessForm } from "../../../../interface/business.type";
+import { createBusiness } from "../../../../api/apis/business";
+import { useSafeState } from "ahooks";
 
 type ValuesFormBusiness = {
   imageUrl: string;
@@ -18,16 +18,47 @@ type ValuesFormBusiness = {
   tax: string;
 };
 
-const FormBusinessInfoContent = () => {
-  const { values } = useFormikContext<ValuesFormBusiness>();
+interface FormBusinessInfoContentProps {
+  idIn: number | string;
+  statusIn: "idle" | "error" | "loading" | "success";
+}
 
+const FormBusinessInfoContent: React.FC<FormBusinessInfoContentProps> = (
+  props
+) => {
+  const { values } = useFormikContext<ValuesFormBusiness>();
+  const { idIn, statusIn } = props;
+  const { authState } = useAuth();
+  const [ava, setAva] = useSafeState<File | undefined>(undefined);
+  const [bg, setBg] = useSafeState<File | undefined>(undefined);
+  const { mutate, status } = useMutation({
+    mutationFn: (data: FormData & BusinessForm) => {
+      const token = authState.accessToken;
+      if (statusIn === "error") {
+        return createBusiness(data, token);
+      } else {
+        return createBusiness(data, token);
+      }
+    },
+  });
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("bio", values.bio);
+    formData.append("name", values.name);
+    formData.append("email", values.email);
+    formData.append("phone", values.phone);
+    formData.append("tax", values.tax);
+    formData.append("imageUrl", values.imageUrl);
+    formData.append("backgroundUrl", values.backgroundUrl);
+
+    if (statusIn === "error") {
+      mutate;
+    }
+  };
   return (
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log(values);
-      }}
-    >
+    <Form>
       <div className="mx-12 p-12 rounded-2xl bg-white">
         <h2 className="text-xLarge font-bold border-l-[10px] border-solid border-blue pl-8 ">
           Business Information
@@ -39,6 +70,9 @@ const FormBusinessInfoContent = () => {
           <Tooltip arrow title="Change Background Image">
             <>
               <ImageCovered
+                id="bg_organization"
+                setValue={setBg}
+                img={bg}
                 width="w-full"
                 height=" h-[150px] md:h-[300px]"
                 width2="md:w-[150px] w-[80px]"
@@ -52,6 +86,9 @@ const FormBusinessInfoContent = () => {
             <Tooltip arrow title="Change Avatar">
               <>
                 <ImageCovered
+                  id="ava_organization"
+                  setValue={setAva}
+                  img={ava}
                   width="w-[100px] md:w-[150px]"
                   height="h-[100px] md:h-[150px]"
                   width2="w-[30px] md:w-[40px]"
@@ -119,7 +156,9 @@ const FormBusinessInfoContent = () => {
             bg="bg-green"
             textColor="text-white"
             width="w-[180px]"
-            onClick={() => {}}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
             type="submit"
           />
         </div>

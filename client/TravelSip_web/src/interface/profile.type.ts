@@ -7,3 +7,13 @@ export interface Profile {
   mobile: string;
   gender: string;
 }
+
+export interface ProfileDetails extends Profile {
+  id: number;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    date_joined: string;
+  };
+}
