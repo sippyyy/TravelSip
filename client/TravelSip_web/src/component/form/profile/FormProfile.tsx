@@ -11,18 +11,16 @@ const FormProfile: React.FC = () => {
   const { data, status } = useQuery({
     queryKey: [`profile user ${authState.id}`],
     queryFn: () => {
-      if(!data && status !== "success" && status !=="error"){
-        return getProfile(authState.id)
+      if (!data && status !== "success" && status !== "error") {
+        return getProfile(authState.id);
       }
     },
     staleTime: 2 * 1000,
     cacheTime: 10 * 1000,
     keepPreviousData: true,
     retry: false,
+    refetchOnWindowFocus: false,
   });
-
-
-
   return status !== "loading" ? (
     <Formik
       initialValues={
@@ -59,7 +57,7 @@ const FormProfile: React.FC = () => {
         gender: Yup.string(),
       })}
     >
-      <FormProfileContent idIn={data?.data?.id??0} statusIn={status} />
+      <FormProfileContent idIn={data?.data?.id ?? 0} statusIn={status} />
     </Formik>
   ) : (
     <></>

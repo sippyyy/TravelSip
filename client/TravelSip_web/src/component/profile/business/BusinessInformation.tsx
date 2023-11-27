@@ -1,10 +1,9 @@
-import React from 'react'
-import { FormBusinessInfo } from '../..'
+import React from "react";
+import { FormBusinessInfo } from "../..";
 
-const BusinessInformation = () => {
-  return (
-    <FormBusinessInfo />
-  )
-}
 
-export default BusinessInformation
+const BusinessInformation: React.FC = () => {
+  return <FormBusinessInfo />;
+};
+
+export default BusinessInformation;

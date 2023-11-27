@@ -16,4 +16,7 @@ export interface BusinessDetail {
     "user": number
 }
 
-export interface BusinessForm extends Omit<BusinessDetail, "id" | "user_hotel" | "user_destination" | "is_verified" | "user">{}
+export interface BusinessForm extends Omit<BusinessDetail, "id" | "user_hotel" | "user_destination" | "is_verified" | "user" | "imageUrl" | "backgroundUrl">{
+    imageUrl?:File,
+    backgroundUrl?:File
+}

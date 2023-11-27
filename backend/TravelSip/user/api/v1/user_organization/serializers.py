@@ -17,3 +17,4 @@ class UserOrganizationRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserOrganization
         exclude = ["is_verified", "user"]
+        

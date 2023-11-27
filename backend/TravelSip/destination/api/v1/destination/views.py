@@ -60,6 +60,12 @@ class DestinationView(
             return Response({"Error": str(er)})
 
     def list(self, request, *args, **kwargs):
+        my_accommodations = request.query_params.get("my_destinations")
+        if my_accommodations:
+            user = request.user.id
+            obj = self.queryset.filter(user__user_id=user).all()
+            serialized_data = self.get_serializer(obj, many=True).data
+            return Response(serialized_data, status=200)
         return super().list(request, *args, **kwargs)
 
     def perform_create(self, serializer):
@@ -68,22 +74,26 @@ class DestinationView(
     def create(self, request, *args, **kwargs):
         user_request = request.user
         or_group = request.user.organization.id
-        owner = UserOrganization.objects.filter(Q(user=user_request) & Q(id=or_group))
+        owner = UserOrganization.objects.filter(
+            Q(user_id=user_request) & Q(id=or_group)
+        )
         serializer = self.get_serializer(data=request.data)
-        if owner.exists() & serializer.is_valid():
-            owner_obj = owner.first()
-            if owner_obj.is_verified:
-                self.perform_create(serializer)
-                qs = self.queryset
-                serializer_data = self.serializer_class(qs, many=True).data
-                return Response(serializer_data)
-            else:
-                return Response(
-                    {
-                        "message": "Your organization account is not verified, please contact to support center of TravelSip to activate your Organization account!"
-                    },
-                    status=403,
-                )
+        if owner.exists():
+            if serializer.is_valid():
+                owner_obj = owner.first()
+                if owner_obj.is_verified:
+                    self.perform_create(serializer)
+                    qs = self.queryset
+                    serializer_data = self.serializer_class(qs, many=True).data
+                    return Response(serializer_data)
+                else:
+                    return Response(
+                        {
+                            "message": "Your organization account is not verified, please contact to support center of TravelSip to activate your Organization account!"
+                        },
+                        status=403,
+                    )
+            return Response(serializer.errors, status=400)
         else:
             return Response(
                 {"message": "You are not the owner of this organization"}, status=403

@@ -21,3 +21,5 @@ export interface HotelDetails extends Omit<Hotel, "reviews"> {
   price: string;
   contact: string;
 }
+
+export interface HotelForm extends Omit<Hotel, "id">{}

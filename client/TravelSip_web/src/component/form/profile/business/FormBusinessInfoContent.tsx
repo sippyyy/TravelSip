@@ -1,11 +1,11 @@
 import { Tooltip } from "@mui/material";
 import { Form, useFormikContext } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { ImageCovered, ReusableButton, ReusableTextField } from "../../..";
-import { useMutation, useQuery } from "react-query";
+import { useMutation} from "react-query";
 import { useAuth } from "../../../../context/AuthProvider";
 import { BusinessForm } from "../../../../interface/business.type";
-import { createBusiness } from "../../../../api/apis/business";
+import { createBusiness, editBusiness } from "../../../../api/apis/business";
 import { useSafeState } from "ahooks";
 
 type ValuesFormBusiness = {
@@ -20,43 +20,48 @@ type ValuesFormBusiness = {
 
 interface FormBusinessInfoContentProps {
   idIn: number | string;
-  statusIn: "idle" | "error" | "loading" | "success";
 }
 
 const FormBusinessInfoContent: React.FC<FormBusinessInfoContentProps> = (
   props
 ) => {
   const { values } = useFormikContext<ValuesFormBusiness>();
-  const { idIn, statusIn } = props;
+  const { idIn } = props;
   const { authState } = useAuth();
   const [ava, setAva] = useSafeState<File | undefined>(undefined);
   const [bg, setBg] = useSafeState<File | undefined>(undefined);
   const { mutate, status } = useMutation({
     mutationFn: (data: FormData & BusinessForm) => {
       const token = authState.accessToken;
-      if (statusIn === "error") {
+      if (!idIn) {
         return createBusiness(data, token);
       } else {
-        return createBusiness(data, token);
+        return editBusiness(data, token, idIn);
       }
     },
   });
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    const formData = new FormData();
+    const formData = new FormData() as FormData & BusinessForm;
     formData.append("bio", values.bio);
     formData.append("name", values.name);
     formData.append("email", values.email);
     formData.append("phone", values.phone);
     formData.append("tax", values.tax);
-    formData.append("imageUrl", values.imageUrl);
-    formData.append("backgroundUrl", values.backgroundUrl);
-
-    if (statusIn === "error") {
-      mutate;
+    if (ava) {
+      formData.append("imageUrl", ava);
     }
+    if (bg) {
+      formData.append("backgroundUrl", bg);
+    }
+    mutate(formData);
   };
+
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
+
   return (
     <Form>
       <div className="mx-12 p-12 rounded-2xl bg-white">
@@ -77,7 +82,7 @@ const FormBusinessInfoContent: React.FC<FormBusinessInfoContentProps> = (
                 height=" h-[150px] md:h-[300px]"
                 width2="md:w-[150px] w-[80px]"
                 height2="md:h-[150px] h-[80px]"
-                src="https://img.freepik.com/premium-photo/colorful-landscape-with-mountains-river-foreground_849761-2647.jpg"
+                src={values.backgroundUrl}
                 radius="rounded-2xl"
               />
             </>
@@ -93,7 +98,7 @@ const FormBusinessInfoContent: React.FC<FormBusinessInfoContentProps> = (
                   height="h-[100px] md:h-[150px]"
                   width2="w-[30px] md:w-[40px]"
                   height2="h-[30px] md:h-[40px]"
-                  src="https://img.freepik.com/premium-photo/colorful-landscape-with-mountains-river-foreground_849761-2647.jpg"
+                  src={values.imageUrl}
                   radius="rounded-full"
                 />
               </>

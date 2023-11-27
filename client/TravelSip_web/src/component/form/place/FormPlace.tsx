@@ -1,31 +1,31 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { FormPlaceContent } from "../..";
+import { Destination } from "../../../interface/destination.type";
+import { Hotel } from "../../../interface/hotel.type";
+import { useQuery } from "react-query";
+import { getHotel } from "../../../api/apis/getHotels";
 
 export interface FormPlaceProps {
   tab?: number | 0 | 1 | undefined;
-  data?: {
-    id: number;
-    title: string;
-    imageUrl: string;
-    location: string;
-    rooms: {
-      id: number;
-      facilities: number;
-      name: string;
-      person: number;
-      bed: number;
-      price: string;
-      imageUrl: string;
-    }[];
-    description: string;
-    contact:string;
-  };
+  type?: "hotel" | "destination";
+  setNewData?: React.Dispatch<React.SetStateAction<boolean>>;
+  id: number | string;
 }
 
 const FormPlace: React.FC<FormPlaceProps> = (props) => {
-  const { tab, data } = props;
+  const { tab, setNewData, id, type } = props;
+
+  const { data, error } = useQuery({
+    queryKey: [`place_details_${type ? type : ""}_${id}`],
+    queryFn: () => getHotel(id),
+  });
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <>
       {tab === undefined && data ? (
@@ -73,7 +73,7 @@ const FormPlace: React.FC<FormPlaceProps> = (props) => {
             city: Yup.string().required("This field is required!"),
           })}
         >
-          <FormPlaceContent tab={tab} />
+          <FormPlaceContent tab={tab} setNewData={setNewData} />
         </Formik>
       ) : null}
     </>

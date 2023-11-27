@@ -1,38 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PlaceTile } from "../../..";
-import hotels from "../../../../api/mock_api/hotels.list";
+import { useMutation } from "react-query";
+import { useAuth } from "../../../../context/AuthProvider";
+import { getMyHotels } from "../../../../api/apis/getHotels";
 
-// type HotelType = {
-//   id: string,
-//   country_id: string,
-//   title: string,
-//   imageUrl:string,
-//   rating: number,
-//   reviews: number,
-//   location: string,
-// }[]
+interface MyHotelsProps {
+  newData: boolean;
+  setNewData: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const MyHotels = () => {
-  return hotels.map(
-    (hotel: {
-      id: string;
-      title: string;
-      imageUrl: string;
-      rating: number;
-      reviews: number;
-      location: string;
-    }) => (
-      <PlaceTile
-        key={hotel.id}
-        link={`/hotel/${hotel.id}`}
-        title={hotel.title}
-        img={hotel.imageUrl}
-        rating={hotel.rating}
-        reviews={hotel.reviews}
-        address={hotel.location}
-      />
-    )
-  );
+const MyHotels: React.FC<MyHotelsProps> = (props) => {
+  const { newData, setNewData } = props;
+  const { authState } = useAuth();
+  const { mutate, data } = useMutation({
+    mutationFn: () => {
+      const token = authState.accessToken;
+      return getMyHotels(token);
+    },
+  });
+
+  useEffect(() => {
+    if (newData) {
+      mutate();
+      setNewData(false);
+    }
+  }, [newData]);
+
+  useEffect(() => {
+    if (!newData) {
+      setNewData(true);
+    }
+  }, []);
+
+  return data?.data?.map((hotel) => (
+    <PlaceTile
+      key={hotel.id}
+      link={`/hotel/${hotel.id}`}
+      title={hotel.title}
+      img={hotel.imageUrl}
+      rating={hotel.rating}
+      reviews={hotel.reviews}
+      address={hotel.location}
+    />
+  ));
 };
 
 export default MyHotels;

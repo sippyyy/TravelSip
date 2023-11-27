@@ -27,3 +27,17 @@ export interface DestinationDetail
   contact: string;
   popular: Hotels;
 }
+
+export interface DestinationForm
+  extends Omit<
+    DestinationDetail,
+    | "imageUrl"
+    | "location"
+    | "id"
+    | "reviews"
+    | "popular"
+    | "created_at"
+    | "edited_at"
+  > {
+  imageUrl?: File;
+}

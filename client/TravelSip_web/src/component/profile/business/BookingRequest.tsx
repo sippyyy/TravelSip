@@ -1,11 +1,27 @@
 import React from "react";
 import { Divider } from "@mui/material";
-import { bookings } from "../../../api/mock_api/booking";
 import { BookingRequestTile } from "../..";
 import { BookingTileProps } from "../../../interface/BookingsType";
+import { useQuery } from "react-query";
+import { useAuth } from "../../../context/AuthProvider";
+import { getMyBookings } from "../../../api/apis/booking";
+
 
 const BookingRequest = () => {
-  return bookings.map((booking: BookingTileProps, index: number) => (
+  const {authState} = useAuth()
+
+  const {data,status} = useQuery({
+    queryKey:["booking request"],
+    queryFn:()=>{
+      const token = authState.accessToken
+      return getMyBookings(token,false,true)
+    },
+    staleTime: 2 * 1000,
+    cacheTime: 10 * 1000,
+    keepPreviousData: true,
+    retry: false,
+  })
+  return data?.data?.map((booking: BookingTileProps, index: number) => (
     <React.Fragment key={booking.id}>
       <BookingRequestTile
         index={index}

@@ -13,7 +13,6 @@ interface PopupMessageProps {
 
 const ReusablePopupMessage: React.FC<PopupMessageProps> = (props) => {
   const { message, redButton, greenButton, greenFunc, success } = props;
-  console.log(greenButton);
   return (
     <div>
       {success ? (

@@ -5,19 +5,21 @@ import { IoMdAdd } from "react-icons/io";
 import { Tooltip } from "@mui/material";
 import { showDrawer } from "../../reusable/ReusableDrawer";
 import { FormPlace } from "../..";
+import { useSafeState } from "ahooks";
 
-const MyPlaces = () => {
+const MyPlaces: React.FC = () => {
   const [tab, setTab] = React.useState<number>(0);
+  const [newData, setNewData] = useSafeState<boolean>(true);
 
   const handleAddPlace = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    showDrawer(<FormPlace tab={tab} />,"right");
+    showDrawer(<FormPlace setNewData={setNewData} tab={tab} />, "right");
   };
 
   return (
     <div className="relative h-full">
       <TabBarPlaces value={tab} setValue={setTab} />
-      <div>{get_content_places(tab)}</div>
+      <div>{get_content_places(tab,newData,setNewData)}</div>
       <Tooltip title="Create new" arrow>
         <button
           onClick={(e) => {

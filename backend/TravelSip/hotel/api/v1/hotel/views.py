@@ -62,6 +62,12 @@ class HotelView(
             return Response({"Error": str(er)})
 
     def list(self, request, *args, **kwargs):
+        my_hotel = request.query_params.get("my_hotel")
+        if my_hotel:
+            user = request.user.id
+            obj = self.queryset.filter(user_user__id=user)
+            serialized_data = self.get_queryset(obj, many=True).data
+            return Response(serialized_data, status=200)
         return super().list(request, *args, **kwargs)
 
     def perform_create(self, serializer):
@@ -72,22 +78,25 @@ class HotelView(
         or_group = request.user.organization.id
         serializer = self.get_serializer(data=request.data)
         owner = UserOrganization.objects.filter(
-            Q(user=user_request.id) & Q(id=or_group)
+            Q(user_id=user_request.id) & Q(id=or_group)
         )
-        if owner.exists() & serializer.is_valid():
-            owner_obj = owner.first()
-            if owner_obj.is_verified:
-                self.perform_create(serializer)
-                qs = self.queryset
-                serializer_data = self.serializer_class(qs, many=True).data
-                return Response(serializer_data)
-            else:
-                return Response(
-                    {
-                        "message": "Your organization account is not verified, please contact to support center of TravelSip to activate your Organization account!"
-                    },
-                    status=403,
-                )
+        if owner.exists():
+            if serializer.is_valid():
+                owner_obj = owner.first()
+                if owner_obj.is_verified:
+                    self.perform_create(serializer)
+                    qs = self.queryset
+                    serializer_data = self.serializer_class(qs, many=True).data
+                    return Response(serializer_data)
+                else:
+                    return Response(
+                        {
+                            "message": "Your organization account is not verified, please contact to support center of TravelSip to activate your Organization account!"
+                        },
+                        status=403,
+                    )
+            return Response(serializer.errors, status=400)
+
         else:
             return Response(
                 {"message": "You are not the owner of this organization"}, status=403

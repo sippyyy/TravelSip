@@ -15,11 +15,16 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { showDrawer } from "../../reusable/ReusableDrawer";
 import { showModal } from "../../reusable/ReusableModal";
 import { Link } from "react-router-dom";
-import { PlaceProps } from "../../../interface/PlaceType";
-import { hotel } from "../../../api/mock_api/hotel.js";
+import { Destination } from "../../../interface/destination.type.js";
 
-const PlaceTile: React.FC<PlaceProps> = (props) => {
-  const { img, title, rating, link, address, reviews, destination } = props;
+interface PlaceTileProps {
+  type: "hotel" | "destination";
+  dataIn: Destination;
+  link: string;
+}
+
+const PlaceTile: React.FC<PlaceTileProps> = (props) => {
+  const { type, dataIn, link } = props;
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -50,7 +55,7 @@ const PlaceTile: React.FC<PlaceProps> = (props) => {
   };
 
   const handleEdit = () => {
-    showDrawer(<FormPlace data={hotel} />, "right");
+    showDrawer(<FormPlace type={type} id={dataIn?.id??""} />, "right");
     setAnchorEl(null);
   };
 
@@ -60,28 +65,32 @@ const PlaceTile: React.FC<PlaceProps> = (props) => {
         <Link to={link ? link : ""} className="flex-1">
           <div className="flex cursor-pointer flex-1">
             <img
-              src={img}
+              src={dataIn?.imageUrl ?? ""}
               className="object-cover w-[100px] h-[100px] rounded-lg"
               alt="places"
             />
             <div className="ml-12">
               <ReusableInfoDetails
-                icon={destination ? <MdOutlineCastle /> : <FaHotel />}
-                label={destination ? "Destination:" : "Hotel:"}
-                value={title}
+                icon={
+                  type === "destination" ? <MdOutlineCastle /> : <FaHotel />
+                }
+                label={type === "destination" ? "Destination:" : "Hotel:"}
+                value={dataIn?.title ?? ""}
                 bold
                 size="text-small md:text-medium"
               />
               <ReusableInfoDetails
                 icon={<FaLocationPin />}
                 label="Address:"
-                value={address}
+                value={`${dataIn?.location ?? ""}, ${dataIn?.city?.name ?? ""}`}
                 size="text-xSmall md:text-small"
               />
               <ReusableInfoDetails
                 icon={<GiPodiumWinner />}
                 label="Rating:"
-                value={`${rating}/5 (${reviews} reviews)`}
+                value={`${dataIn?.rating?.toFixed(1)}/5 (${
+                  dataIn?.reviews ?? ""
+                } reviews)`}
                 size="text-xSmall md:text-small"
               />
             </div>

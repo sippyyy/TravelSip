@@ -1,5 +1,5 @@
 import { Form, useFormikContext } from "formik";
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import {
   ImageCovered,
   ReusableButton,
@@ -8,10 +8,15 @@ import {
   ReusableTextField,
 } from "../..";
 import { SelectChangeEvent } from "@mui/material";
-import { cities } from "../../../api/mock_api/cities";
 import { closeModal, showModal } from "../../reusable/ReusableModal";
 import { closeDrawer } from "../../reusable/ReusableDrawer";
 import { FormPlaceProps } from "./FormPlace";
+import { useMutation, useQuery } from "react-query";
+import { createHotel } from "../../../api/apis/getHotels";
+import { useAuth } from "../../../context/AuthProvider";
+import { createDestination } from "../../../api/apis/getDestinations";
+import { getCities } from "../../../api/apis/getCities";
+import { useUpdateEffect } from "ahooks";
 
 type ValuesPlaceType = {
   title: string;
@@ -23,20 +28,38 @@ type ValuesPlaceType = {
 };
 
 const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
-  const { tab } = props;
+  const { tab,setNewData } = props;
   const { values, setFieldValue } = useFormikContext<ValuesPlaceType>();
+  const [img, setImg] = React.useState<File | undefined>(undefined);
+  const { authState } = useAuth();
 
   const handleChangeCity = (e: SelectChangeEvent) => {
     setFieldValue("city", e.target.value as string);
   };
 
-  const cityOptions: () => { value: string; text: string }[] = () => {
-    const newData = cities.map((city: { id: number; name: string }) => ({
-      value: city?.id ?? "",
-      text: city?.name ?? "",
-    }));
-    return newData;
-  };
+  const { data } = useQuery({
+    queryKey: ["city"],
+    queryFn: () => getCities(),
+    staleTime: 2 * 1000,
+    cacheTime: 10 * 1000,
+    keepPreviousData: true,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const cityOptions = useMemo(() => {
+    if (data) {
+      const newData = data?.data?.map?.(
+        (city: { id: number; name: string }) => ({
+          value: city?.id ?? "",
+          text: city?.name ?? "",
+        })
+      );
+      return newData;
+    } else {
+      return [{ value: "", text: "blank" }];
+    }
+  }, [data]);
 
   const handleCancel = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -53,10 +76,46 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
       />
     );
   };
+  const {
+    mutate,
+    data: dataCreated,
+    error,
+  } = useMutation({
+    mutationFn: (data: FormData) => {
+      const token = authState.accessToken;
+      if (tab === 0) {
+        return createHotel(token, data);
+      } else if (tab === 1) {
+        return createDestination(token, data);
+      } else {
+        return createDestination(token, data);
+      }
+    },
+  });
+
+  useUpdateEffect(() => {
+    if (error) {
+      console.log(error);
+    } else if (data) {
+      closeDrawer();
+      setNewData?.(true)
+    }
+  }, [dataCreated]);
 
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log({ values });
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("contact", values.contact);
+    formData.append("address", values.address);
+    if (values.city) {
+      formData.append("city", values.city);
+    }
+    if (img) {
+      formData.append("imageUrl", img);
+    }
+    mutate(formData);
   };
 
   return (
@@ -68,14 +127,15 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
       </p>
       <div className="flex items-center">
         <ImageCovered
+          setValue={setImg}
+          img={img}
+          id={"place_img"}
           width="w-[100px]"
           height="h-[100px]"
           radius="rounded-full"
           width2="w-[30px]"
           height2="w-[30px]"
-          src={
-            "https://img.freepik.com/premium-photo/colorful-landscape-with-mountains-river-foreground_849761-2647.jpg"
-          }
+          src={values.imageUrl}
         />
         <div className="w-[12px]"></div>
         <ReusableTextField name="title" flex1 label="Name" />
@@ -89,7 +149,7 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
       <div className="my-12 flex">
         <ReusableTextField name="address" label="Address" flex1 />
       </div>
-      {tab ? (
+      {tab || tab === 0 ? (
         <div className="my-12">
           <ReusableSelectInput
             label="City"
@@ -98,7 +158,7 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
             onChange={(e) => {
               handleChangeCity(e);
             }}
-            options={cityOptions()}
+            options={cityOptions}
           />
         </div>
       ) : null}

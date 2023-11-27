@@ -13,8 +13,6 @@ const Country:React.FC = () => {
     queryFn: () => getCountry(params?.id ?? 0),
   });
 
-  console.log(data);
-
   return (
     <div>
       <div className="md:flex md:justify-center">

@@ -7,7 +7,7 @@ export class Http {
       baseURL: import.meta.env.VITE_REACT_APP_BASE_URL,
       timeout: 10000,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: token ? `Bearer ${token}` : undefined,
       },
     });

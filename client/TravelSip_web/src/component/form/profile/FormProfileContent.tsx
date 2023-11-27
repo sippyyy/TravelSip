@@ -76,11 +76,10 @@ const FormProfileContent: React.FC<FormProfileContextProps> = (props) => {
         />
       );
     }
-  },[status]);
+  }, [status]);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    console.log("submit");
     const formData = new FormData();
     formData.append("bio", values.bio);
     formData.append("nickname", values.nickname);

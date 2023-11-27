@@ -16,6 +16,11 @@ const FormBusinessInfo: React.FC = () => {
         return getBusiness(authState.id);
       }
     },
+    staleTime: 2 * 1000,
+    cacheTime: 10 * 1000,
+    keepPreviousData: true,
+    retry: false,
+    refetchOnWindowFocus: false,
   });
   return status !== "loading" ? (
     <Formik
@@ -53,7 +58,7 @@ const FormBusinessInfo: React.FC = () => {
         tax: Yup.string().required("This field is required"),
       })}
     >
-      <FormBusinessInfoContent statusIn={status} idIn={data?.data?.id ?? 0} />
+      <FormBusinessInfoContent idIn={data?.data?.id ?? 0} />
     </Formik>
   ) : (
     <></>
