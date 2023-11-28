@@ -55,6 +55,11 @@ import FormRegister from "./form/login/FormRegister";
 import FormRegisterContent from "./form/login/FormRegisterContent";
 import NavBarMobile from "./reusable/NavBarMobile";
 import TopNavMobile from "./reusable/TopNavMobile";
+import RoomList from "./profile/business/Places/RoomList";
+import FormRoom from "./form/room/FormRoom";
+import FormRoomContent from "./form/room/FormRoomContent";
+import FormFacility from "./form/room/facility/FormFacility";
+import FormFacilityContent from "./form/room/facility/FormFacilityContent";
 export {
   Navbar,
   ReusableButton,
@@ -113,4 +118,9 @@ export {
   FormRegisterContent,
   NavBarMobile,
   TopNavMobile,
+  RoomList,
+  FormRoom,
+  FormRoomContent,
+  FormFacility,
+  FormFacilityContent,
 };

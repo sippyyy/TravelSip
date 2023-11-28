@@ -1,5 +1,5 @@
 export interface Facility {
-  id: number;
+  id?: number;
   air_conditioner: boolean;
   wifi: boolean;
   balcony: boolean;

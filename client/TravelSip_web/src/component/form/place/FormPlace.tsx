@@ -1,41 +1,41 @@
 import { Formik } from "formik";
-import React, { useEffect } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { FormPlaceContent } from "../..";
-import { Destination } from "../../../interface/destination.type";
-import { Hotel } from "../../../interface/hotel.type";
 import { useQuery } from "react-query";
 import { getHotel } from "../../../api/apis/getHotels";
+import { Rooms } from "../../../interface/room.type";
 
 export interface FormPlaceProps {
   tab?: number | 0 | 1 | undefined;
   type?: "hotel" | "destination";
   setNewData?: React.Dispatch<React.SetStateAction<boolean>>;
-  id: number | string;
+  id?: number | string;
+  rooms?: Rooms;
 }
 
 const FormPlace: React.FC<FormPlaceProps> = (props) => {
   const { tab, setNewData, id, type } = props;
 
-  const { data, error } = useQuery({
+  const { data, status } = useQuery({
     queryKey: [`place_details_${type ? type : ""}_${id}`],
-    queryFn: () => getHotel(id),
+    queryFn: () => {
+      if (id) {
+        return getHotel(id ? id : 0);
+      }
+    },
   });
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <>
-      {tab === undefined && data ? (
+      {status === "success" && data && tab === undefined ? (
         <Formik
           initialValues={{
-            title: data.title,
-            description: data.description,
-            contact: data.contact,
-            imageUrl: data.imageUrl,
-            address: data.location,
+            title: data?.data.title,
+            description: data?.data.description,
+            contact: data?.data.contact,
+            imageUrl: data?.data.imageUrl,
+            address: data?.data.location,
           }}
           onSubmit={(values) => {
             console.log(values);
@@ -48,7 +48,12 @@ const FormPlace: React.FC<FormPlaceProps> = (props) => {
             address: Yup.string().required("This field is required!"),
           })}
         >
-          <FormPlaceContent tab={tab} />
+          <FormPlaceContent
+            type={type}
+            id={data?.data?.id}
+            tab={tab}
+            rooms={data?.data?.rooms ?? []}
+          />
         </Formik>
       ) : null}
       {tab !== undefined && !data ? (

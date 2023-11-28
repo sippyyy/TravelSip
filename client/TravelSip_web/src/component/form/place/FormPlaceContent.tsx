@@ -6,15 +6,19 @@ import {
   ReusablePopupMessage,
   ReusableSelectInput,
   ReusableTextField,
+  RoomList,
 } from "../..";
 import { SelectChangeEvent } from "@mui/material";
 import { closeModal, showModal } from "../../reusable/ReusableModal";
 import { closeDrawer } from "../../reusable/ReusableDrawer";
 import { FormPlaceProps } from "./FormPlace";
 import { useMutation, useQuery } from "react-query";
-import { createHotel } from "../../../api/apis/getHotels";
+import { createHotel, editHotel } from "../../../api/apis/getHotels";
 import { useAuth } from "../../../context/AuthProvider";
-import { createDestination } from "../../../api/apis/getDestinations";
+import {
+  createDestination,
+  editDestination,
+} from "../../../api/apis/getDestinations";
 import { getCities } from "../../../api/apis/getCities";
 import { useUpdateEffect } from "ahooks";
 
@@ -28,7 +32,7 @@ type ValuesPlaceType = {
 };
 
 const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
-  const { tab,setNewData } = props;
+  const { tab, setNewData, type, id, rooms } = props;
   const { values, setFieldValue } = useFormikContext<ValuesPlaceType>();
   const [img, setImg] = React.useState<File | undefined>(undefined);
   const { authState } = useAuth();
@@ -87,9 +91,9 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
         return createHotel(token, data);
       } else if (tab === 1) {
         return createDestination(token, data);
-      } else {
-        return createDestination(token, data);
-      }
+      } else if (type === "hotel") {
+        return editHotel(token, data, id ? id : 0);
+      } else return editDestination(token, data, id ? id : 0);
     },
   });
 
@@ -98,7 +102,7 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
       console.log(error);
     } else if (data) {
       closeDrawer();
-      setNewData?.(true)
+      setNewData?.(true);
     }
   }, [dataCreated]);
 
@@ -123,7 +127,7 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
       <p className="mb-12 text-xLarge text-green font-bold text-center">
         {tab === 0 ? "Create Hotel" : null}
         {tab === 1 ? "Create Destination" : null}
-        {!tab && tab !== 0 ? "Edit Hotel" : null}
+        {!tab && tab !== 0 ? `Edit ${type}` : null}
       </p>
       <div className="flex items-center">
         <ImageCovered
@@ -162,7 +166,13 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
           />
         </div>
       ) : null}
-      <div className="flex absolute bottom-[12px] left-[12px] right-[12px]">
+      <div
+        className={`flex ${
+          type !== "hotel"
+            ? "absolute bottom-[12px] left-[12px] right-[12px]"
+            : "my-12"
+        }`}
+      >
         <ReusableButton
           flex1
           btnText="Cancel"
@@ -183,6 +193,7 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
           }}
         />
       </div>
+      {type === "hotel" ? <RoomList id={id ? id : 0} rooms={rooms} /> : null}
     </Form>
   );
 };

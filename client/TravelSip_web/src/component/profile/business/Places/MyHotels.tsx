@@ -36,11 +36,8 @@ const MyHotels: React.FC<MyHotelsProps> = (props) => {
     <PlaceTile
       key={hotel.id}
       link={`/hotel/${hotel.id}`}
-      title={hotel.title}
-      img={hotel.imageUrl}
-      rating={hotel.rating}
-      reviews={hotel.reviews}
-      address={hotel.location}
+      type="hotel"
+      dataIn={hotel}
     />
   ));
 };

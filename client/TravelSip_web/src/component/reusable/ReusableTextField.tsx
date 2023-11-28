@@ -12,6 +12,7 @@ interface Props {
   id?: string;
   value?: string;
   type?: string;
+  disabled?: boolean;
 }
 
 const ReusableTextField: React.FC<Props> = ({
@@ -23,12 +24,14 @@ const ReusableTextField: React.FC<Props> = ({
   id,
   value,
   type,
+  disabled,
   ...props
 }) => {
-  const [field] = useField({ ...props, name, value, type });
+  const [field] = useField({ ...props, name, value, type, disabled });
 
   return (
     <TextField
+      disabled={disabled}
       id={id ? id : "custom-css-standard-input"}
       color={color ? color : "green"}
       type={type ? type : "text"}

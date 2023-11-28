@@ -16,10 +16,11 @@ import { showDrawer } from "../../reusable/ReusableDrawer";
 import { showModal } from "../../reusable/ReusableModal";
 import { Link } from "react-router-dom";
 import { Destination } from "../../../interface/destination.type.js";
+import { Hotel } from "../../../interface/hotel.type.js";
 
 interface PlaceTileProps {
   type: "hotel" | "destination";
-  dataIn: Destination;
+  dataIn: Destination | Hotel;
   link: string;
 }
 
@@ -55,7 +56,7 @@ const PlaceTile: React.FC<PlaceTileProps> = (props) => {
   };
 
   const handleEdit = () => {
-    showDrawer(<FormPlace type={type} id={dataIn?.id??""} />, "right");
+    showDrawer(<FormPlace type={type} id={dataIn.id} />, "right");
     setAnchorEl(null);
   };
 
