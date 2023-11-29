@@ -21,6 +21,7 @@ import { useMutation } from "react-query";
 import { useAuth } from "../../../context/AuthProvider.js";
 import { deleteDestination } from "../../../api/apis/getDestinations.js";
 import { useUpdateEffect } from "ahooks";
+import { deleteHotel } from "../../../api/apis/getHotels.js";
 
 interface PlaceTileProps {
   type: "hotel" | "destination";
@@ -42,7 +43,11 @@ const PlaceTile: React.FC<PlaceTileProps> = (props) => {
   const { mutate, data } = useMutation({
     mutationFn: (id: string | number) => {
       const token = authState.accessToken;
-      return deleteDestination(token, id);
+      if (type === "destination") {
+        return deleteDestination(token, id);
+      } else {
+        return deleteHotel(token, id);
+      }
     },
   });
 

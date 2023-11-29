@@ -20,7 +20,7 @@ const ReusableInfoDetails: React.FC<Props> = (props) => {
     >
       {icon ? <span className="mr-8">{icon}</span> : ""}
       <p className="">{label}</p>
-      <p className="ml-8">{value}</p>
+      <p className="ml-8 line-clamp-1">{value}</p>
     </div>
   );
 };

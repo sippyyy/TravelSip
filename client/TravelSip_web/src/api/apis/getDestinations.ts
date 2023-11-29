@@ -7,7 +7,7 @@ import http, { Http } from "../../utils/http";
 export const getDestinations = () =>
   http.get<Destination[]>("api/v1/destinations/");
 export const getDestination = (id: number | string) =>
-  http.get<DestinationDetail>(`api/v1/destinations/${id}`);
+  http.get<DestinationDetail>(`api/v1/destinations/${id}/`);
 
 export const getMyDestinations = (token: string) =>
   new Http(token).instance.get<Destination[]>("api/v1/destinations/", {

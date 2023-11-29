@@ -18,3 +18,6 @@ export const createHotel = (token: string, data: FormData) =>
 
 export const editHotel = (token: string, data: FormData, id: number | string) =>
   new Http(token).instance.put(`api/v1/hotels/${id}/`, data);
+
+export const deleteHotel = (token: string, id: string | number) =>
+  new Http(token).instance.delete(`api/v1/hotels/${id}/`);

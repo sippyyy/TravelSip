@@ -123,7 +123,7 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
   };
 
   return (
-    <Form className="min-w-[420px] p-12">
+    <Form className="w-full  md:max-w-[420px] p-12">
       <p className="mb-12 text-xLarge text-green font-bold text-center">
         {tab === 0 ? "Create Hotel" : null}
         {tab === 1 ? "Create Destination" : null}

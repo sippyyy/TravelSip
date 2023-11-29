@@ -37,7 +37,7 @@ const ReusableCard: React.FC<Props> = (props) => {
       <Link to={link ? link : ""}>
         <img className="md:h-[230px] h-[120px] rounded-xl object-cover w-full" src={img} />
         <div className="mt-12">
-          <h4 className="text-left text-small md:text-regular font-medium line-clamp-1 flex-1">
+          <h4 className="text-left text-small md:text-regular font-medium line-clamp-1 w-full">
             {title}
           </h4>
           <p className="my-2 text-left text-xSmall text-gray line-clamp-1">

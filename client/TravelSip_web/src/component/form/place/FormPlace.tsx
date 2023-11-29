@@ -5,6 +5,7 @@ import { FormPlaceContent } from "../..";
 import { useQuery } from "react-query";
 import { getHotel } from "../../../api/apis/getHotels";
 import { Rooms } from "../../../interface/room.type";
+import { getDestination } from "../../../api/apis/getDestinations";
 
 export interface FormPlaceProps {
   tab?: number | 0 | 1 | undefined;
@@ -18,24 +19,37 @@ const FormPlace: React.FC<FormPlaceProps> = (props) => {
   const { tab, setNewData, id, type } = props;
 
   const { data, status } = useQuery({
-    queryKey: [`place_details_${type ? type : ""}_${id}`],
+    queryKey: [`place_details_hotel_${id}`],
     queryFn: () => {
-      if (id) {
+      if (id && type === "hotel") {
         return getHotel(id ? id : 0);
+      }
+    },
+  });
+
+  const { data: dataDestination, status: statusDestination } = useQuery({
+    queryKey: [`place_details_destination_${id}`],
+    queryFn: () => {
+      if (id && type === "destination") {
+        return getDestination(id ? id : 0);
       }
     },
   });
 
   return (
     <>
-      {status === "success" && data && tab === undefined ? (
+      {((type === "hotel" && status === "success") ||
+        (type === "destination" && statusDestination === "success")) &&
+      (data || dataDestination) &&
+      tab === undefined ? (
         <Formik
           initialValues={{
-            title: data?.data.title,
-            description: data?.data.description,
-            contact: data?.data.contact,
-            imageUrl: data?.data.imageUrl,
-            address: data?.data.location,
+            title: data?.data.title ?? dataDestination?.data?.title,
+            description:
+              data?.data.description ?? dataDestination?.data?.description,
+            contact: data?.data.contact ?? dataDestination?.data?.contact,
+            imageUrl: data?.data.imageUrl ?? dataDestination?.data?.imageUrl,
+            address: data?.data.location ?? dataDestination?.data?.address,
           }}
           onSubmit={(values) => {
             console.log(values);
@@ -50,7 +64,7 @@ const FormPlace: React.FC<FormPlaceProps> = (props) => {
         >
           <FormPlaceContent
             type={type}
-            id={data?.data?.id}
+            id={data?.data?.id ?? id}
             tab={tab}
             rooms={data?.data?.rooms ?? []}
           />

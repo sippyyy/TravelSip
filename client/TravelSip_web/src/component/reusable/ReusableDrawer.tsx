@@ -55,7 +55,12 @@ const ReusableDrawer = () => {
   return (
     <div>
       <React.Fragment>
-        <Drawer anchor={side} open={open} onClose={toggleDrawer(false)}>
+        <Drawer
+          className="w-full md:max-w-[420px]"
+          anchor={side}
+          open={open}
+          onClose={toggleDrawer(false)}
+        >
           {children}
         </Drawer>
       </React.Fragment>

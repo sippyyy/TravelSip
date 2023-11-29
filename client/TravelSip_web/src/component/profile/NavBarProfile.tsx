@@ -16,7 +16,7 @@ const NavBarProfile: React.FC = () => {
 
   return (
     <div className="flex justify-center px-12 justify-between py-16 items-center">
-      <button className="text-xLarge text-red" onClick={() => handleOpenMenu()}>
+      <button className="text-xLarge text-red block md:hidden" onClick={() => handleOpenMenu()}>
         <TiThMenuOutline />
       </button>
       <div className="container ">
