@@ -83,3 +83,9 @@ class DestinationDetailsSerializer(serializers.ModelSerializer):
         qs = Hotel.objects.filter(city=obj.city)
         serialized_data = HotelSerializer(qs, many=True).data
         return serialized_data
+
+
+class UpdateDestinationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Destination
+        fields = ["title", "imageUrl", "address", "description", "contact"]

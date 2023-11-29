@@ -108,7 +108,8 @@ class HotelView(
             client = storage.Client()
             bucket = client.bucket("travelsipapp")
             blob = bucket.blob(obj.imageUrl.name)
-            blob.delete()
+            if blob.exists():
+                blob.delete()
         super().destroy(request, *args, **kwargs)
         return Response({"message": "Deleted successfully!"}, status=200)
 

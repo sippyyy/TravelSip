@@ -12,6 +12,7 @@ from .serializers import (
     DestinationSerializer,
     DestinationCreateSerializer,
     DestinationDetailsSerializer,
+    UpdateDestinationSerializer,
 )
 
 from user.models import UserOrganization
@@ -49,6 +50,8 @@ class DestinationView(
 
         if self.action == "retrieve":
             return DestinationDetailsSerializer
+        if self.action == "update":
+            return UpdateDestinationSerializer
         return super().get_serializer_class()
 
     def retrieve(self, request, *args, **kwargs):
@@ -98,6 +101,10 @@ class DestinationView(
             return Response(
                 {"message": "You are not the owner of this organization"}, status=403
             )
+
+    def update(self, request, *args, **kwargs):
+        kwargs["partial"] = True
+        return super().update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         obj = self.get_object()
