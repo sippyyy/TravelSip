@@ -13,10 +13,14 @@ import { GiPodiumWinner } from "react-icons/gi";
 import { HiDotsVertical } from "react-icons/hi";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { showDrawer } from "../../reusable/ReusableDrawer";
-import { showModal } from "../../reusable/ReusableModal";
+import { closeModal, showModal } from "../../reusable/ReusableModal";
 import { Link } from "react-router-dom";
 import { Destination } from "../../../interface/destination.type.js";
 import { Hotel } from "../../../interface/hotel.type.js";
+import { useMutation } from "react-query";
+import { useAuth } from "../../../context/AuthProvider.js";
+import { deleteDestination } from "../../../api/apis/getDestinations.js";
+import { useUpdateEffect } from "ahooks";
 
 interface PlaceTileProps {
   type: "hotel" | "destination";
@@ -26,6 +30,7 @@ interface PlaceTileProps {
 
 const PlaceTile: React.FC<PlaceTileProps> = (props) => {
   const { type, dataIn, link } = props;
+  const { authState } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -34,23 +39,42 @@ const PlaceTile: React.FC<PlaceTileProps> = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const { mutate, data } = useMutation({
+    mutationFn: (id: string | number) => {
+      const token = authState.accessToken;
+      return deleteDestination(token, id);
+    },
+  });
+
+  useUpdateEffect(() => {
+    if (data) {
+      showModal(
+        "Completed",
+        <ReusablePopupMessage
+          message={data?.data?.message}
+          greenButton="Close"
+          greenFunc={() => closeModal()}
+        />
+      );
+    }
+  });
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const handleDelete = () => {
+  const handleDelete = (id: number | string) => {
     setAnchorEl(null);
-    console.log("delete");
+    mutate(id);
   };
 
-  const handleDeletePopOver = () => {
+  const handleDeletePopOver = (id: number | string) => {
     showModal(
       "Are you sure?",
       <ReusablePopupMessage
         message="You want to delete this business ?"
         redButton="Cancel"
         greenButton="Delete"
-        greenFunc={handleDelete}
+        greenFunc={() => handleDelete(id)}
       />
     );
   };
@@ -114,7 +138,7 @@ const PlaceTile: React.FC<PlaceTileProps> = (props) => {
             label: "Delete",
             icon: <MdDelete />,
             clickFunc: () => {
-              handleDeletePopOver();
+              handleDeletePopOver(dataIn?.id ?? "");
             },
           },
           {

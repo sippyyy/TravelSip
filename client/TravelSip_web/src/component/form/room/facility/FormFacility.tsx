@@ -1,7 +1,7 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import FormFacilityContent from "./FormFacilityContent";
-import { useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { getFacility } from "../../../../api/apis/facilities";
 
 interface FormFacilityProps {
@@ -11,18 +11,18 @@ interface FormFacilityProps {
 
 const FormFacility: React.FC<FormFacilityProps> = (props) => {
   const { id, room_id } = props;
-  const { data } = useQuery({
-    queryKey: ["facility"],
-    queryFn: () => {
-        if(id){
-            return getFacility(id)
-        }
-    },
-    staleTime: 2 * 1000,
-    cacheTime: 10 * 1000,
-    keepPreviousData: true,
+
+  const { mutate, data, status } = useMutation({
+    mutationFn: () => getFacility(id ? id : 0),
   });
-  return (
+
+  useEffect(() => {
+    if (id) {
+      mutate();
+    }
+  }, []);
+
+  return status !== "idle" && status !== "loading" ? (
     <Formik
       initialValues={
         data
@@ -53,9 +53,9 @@ const FormFacility: React.FC<FormFacilityProps> = (props) => {
       }
       onSubmit={() => {}}
     >
-      <FormFacilityContent />
+      <FormFacilityContent idFacility={id ? id : null} />
     </Formik>
-  );
+  ) : null;
 };
 
 export default FormFacility;

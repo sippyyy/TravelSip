@@ -9,12 +9,13 @@ import { HiDotsVertical } from "react-icons/hi";
 import { IoMdAdd } from "react-icons/io";
 
 import {
+  FormFacility,
   FormRoom,
   ReusableInfoDetails,
   ReusablePopOver,
   ReusablePopupMessage,
 } from "../../..";
-import { showDrawer } from "../../../reusable/ReusableDrawer";
+import { closeDrawer, showDrawer } from "../../../reusable/ReusableDrawer";
 import { closeModal, showModal } from "../../../reusable/ReusableModal";
 import { useMutation } from "react-query";
 import { deleteRoom } from "../../../../api/apis/room";
@@ -76,6 +77,11 @@ const RoomList: React.FC<RoomListProps> = (props) => {
           }}
         />
       );
+    } else {
+      showDrawer(
+        <FormFacility room_id={room.id} id={room?.facilities ?? ""} />,
+        "right"
+      );
     }
   };
 
@@ -86,11 +92,14 @@ const RoomList: React.FC<RoomListProps> = (props) => {
         <ReusablePopupMessage
           message="You've deleted room successfully"
           greenButton="Close"
-          greenFunc={() => closeModal()}
+          greenFunc={() => {
+            closeModal();
+            closeDrawer();
+          }}
         />
       );
     }
-  },[status]);
+  }, [status]);
 
   return (
     <div>

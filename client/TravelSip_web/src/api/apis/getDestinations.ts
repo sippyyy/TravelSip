@@ -22,3 +22,6 @@ export const editDestination = (
   data: FormData,
   id: number | string
 ) => new Http(token).instance.put(`api/v1/destinations/${id}/`, data);
+
+export const deleteDestination = (token: string, id: string | number) =>
+  new Http(token).instance.delete(`api/v1/destinations/${id}/`);
