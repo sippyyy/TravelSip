@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import {
   ImageCovered,
   ReusableButton,
+  ReusableLoadingModal,
   ReusablePopupMessage,
   ReusableSelectInput,
   ReusableTextField,
@@ -41,7 +42,7 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
     setFieldValue("city", e.target.value as string);
   };
 
-  const { data } = useQuery({
+  const { data,status } = useQuery({
     queryKey: ["city"],
     queryFn: () => getCities(),
     staleTime: 2 * 1000,
@@ -50,6 +51,15 @@ const FormPlaceContent: React.FC<FormPlaceProps> = (props) => {
     retry: false,
     refetchOnWindowFocus: false,
   });
+
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   const cityOptions = useMemo(() => {
     if (data) {

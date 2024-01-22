@@ -3,7 +3,7 @@ import { useSafeState, useUpdateEffect } from "ahooks";
 import { Form, useFormikContext } from "formik";
 import React from "react";
 import { Facility } from "../../../../interface/facility.type";
-import { ReusableButton, ReusablePopupMessage } from "../../..";
+import { ReusableButton, ReusableLoadingModal, ReusablePopupMessage } from "../../..";
 import { closeModal, showModal } from "../../../reusable/ReusableModal";
 import { closeDrawer } from "../../../reusable/ReusableDrawer";
 import { useMutation } from "react-query";
@@ -37,10 +37,6 @@ const FormFacilityContent: React.FC<FormFacilityContentProps> = (props) => {
       [event.target.name]: event.target.checked,
     });
   };
-
-  useUpdateEffect(() => {
-    console.log({ values });
-  }, [values]);
 
   const {
     air_conditioner,
@@ -103,8 +99,12 @@ const FormFacilityContent: React.FC<FormFacilityContentProps> = (props) => {
           }}
         />
       );
-    }
-  });
+    } else if (statusApi === "loading") {
+        showModal("Loading data...", <ReusableLoadingModal />);
+      } else {
+        closeModal();
+      }
+  },[statusApi]);
 
   return (
     <Form className="p-12">

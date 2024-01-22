@@ -1,12 +1,13 @@
 import { Tooltip } from "@mui/material";
 import { Form, useFormikContext } from "formik";
-import React, { useEffect } from "react";
-import { ImageCovered, ReusableButton, ReusableTextField } from "../../..";
+import React from "react";
+import { ImageCovered, ReusableButton, ReusableLoadingModal, ReusableTextField } from "../../..";
 import { useMutation} from "react-query";
 import { useAuth } from "../../../../context/AuthProvider";
 import { BusinessForm } from "../../../../interface/business.type";
 import { createBusiness, editBusiness } from "../../../../api/apis/business";
-import { useSafeState } from "ahooks";
+import { useSafeState, useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../../reusable/ReusableModal";
 
 type ValuesFormBusiness = {
   imageUrl: string;
@@ -41,6 +42,14 @@ const FormBusinessInfoContent: React.FC<FormBusinessInfoContentProps> = (
     },
   });
 
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     const formData = new FormData() as FormData & BusinessForm;
@@ -57,10 +66,6 @@ const FormBusinessInfoContent: React.FC<FormBusinessInfoContentProps> = (
     }
     mutate(formData);
   };
-
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
 
   return (
     <Form>

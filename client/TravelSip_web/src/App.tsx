@@ -30,6 +30,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./constant/theme";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import AuthProvider from "./context/AuthProvider";
+import ProfileProvider from "./context/ProfileProvider";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -104,8 +105,10 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <RouterProvider router={router} />
-        <ReusableModal />
+        <ProfileProvider>
+          <RouterProvider router={router} />
+          <ReusableModal />
+        </ProfileProvider>
       </AuthProvider>
     </ThemeProvider>
   );

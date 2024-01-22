@@ -1,6 +1,6 @@
 import { Form, useFormikContext } from "formik";
 import React, { useMemo } from "react";
-import { ReusableButton, ReusableCalendar, ReusableInfoDetails } from "../..";
+import { ReusableButton, ReusableCalendar, ReusableInfoDetails, ReusableLoadingModal } from "../..";
 import { useSafeState, useUpdateEffect } from "ahooks";
 import { now, tomorrow } from "../../../constant/time";
 import { BiSolidUser, BiSolidBed } from "react-icons/bi";
@@ -13,7 +13,7 @@ import { bookRoom } from "../../../api/apis/booking";
 import { useAuth } from "../../../context/AuthProvider";
 import { BookingRoomForm } from "../../../interface/BookingsType";
 import { day_be_format } from "../../../utils/get_day";
-import { showModal } from "../../reusable/ReusableModal";
+import { closeModal, showModal } from "../../reusable/ReusableModal";
 
 interface ValuesProps {
   check_in: string;
@@ -69,7 +69,11 @@ const FormBookingContent: React.FC<FormProps> = (props) => {
     if(status === "success"){
       closeDrawer()
       showModal("Booking room successfully!",undefined,`You just request to book room id #${values.room} from ${values.check_in} to ${values.check_out}. Please wait for the hotel's owner to accept your booking request. See more about the booking details/process at Booking Tab`)
-    }
+    } else if (status === "loading") {
+        showModal("Loading data...", <ReusableLoadingModal />);
+      } else {
+        closeModal();
+      }
   }, [status]);
 
   const duration = useMemo(() => {

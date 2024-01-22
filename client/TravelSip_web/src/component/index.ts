@@ -60,6 +60,7 @@ import FormRoom from "./form/room/FormRoom";
 import FormRoomContent from "./form/room/FormRoomContent";
 import FormFacility from "./form/room/facility/FormFacility";
 import FormFacilityContent from "./form/room/facility/FormFacilityContent";
+import ReusableLoadingModal from "./reusable/ReusableLoadingModal";
 export {
   Navbar,
   ReusableButton,
@@ -123,4 +124,5 @@ export {
   FormRoomContent,
   FormFacility,
   FormFacilityContent,
+  ReusableLoadingModal,
 };

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { PlaceTile } from "../../..";
+import { PlaceTile, ReusableLoadingModal } from "../../..";
 import { useMutation } from "react-query";
 import { useAuth } from "../../../../context/AuthProvider";
 import { getMyDestinations } from "../../../../api/apis/getDestinations";
 import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../../reusable/ReusableModal";
 
 interface DestinationProps {
   newData: boolean;
@@ -14,7 +15,7 @@ const MyDestinations: React.FC<DestinationProps> = (props) => {
   const { authState } = useAuth();
   const { newData, setNewData } = props;
 
-  const { mutate, data } = useMutation({
+  const { mutate, data,status } = useMutation({
     mutationFn: () => {
       const token = authState.accessToken;
       return getMyDestinations(token);
@@ -33,6 +34,14 @@ const MyDestinations: React.FC<DestinationProps> = (props) => {
       setNewData(true);
     }
   }, []);
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   return data?.data?.map((recommendation) => (
     <PlaceTile

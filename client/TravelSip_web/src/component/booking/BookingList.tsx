@@ -1,13 +1,15 @@
 import React from "react";
-import { BookingTile } from "..";
+import { BookingTile, ReusableLoadingModal } from "..";
 import { BookingTileProps } from "../../interface/BookingsType";
 import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthProvider";
 import { getMyBookings } from "../../api/apis/booking";
+import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../reusable/ReusableModal";
 
 const BookingList: React.FC = () => {
   const { authState } = useAuth();
-  const { data } = useQuery({
+  const { data, status } = useQuery({
     queryKey: ["booking list"],
     queryFn: () => {
       const token = authState.accessToken;
@@ -17,6 +19,14 @@ const BookingList: React.FC = () => {
     cacheTime: 10 * 1000,
     keepPreviousData: true,
   });
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   return data?.data?.map((booking: BookingTileProps) => (
     <BookingTile

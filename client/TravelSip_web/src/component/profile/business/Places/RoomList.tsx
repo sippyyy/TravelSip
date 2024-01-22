@@ -12,6 +12,7 @@ import {
   FormFacility,
   FormRoom,
   ReusableInfoDetails,
+  ReusableLoadingModal,
   ReusablePopOver,
   ReusablePopupMessage,
 } from "../../..";
@@ -53,7 +54,6 @@ const RoomList: React.FC<RoomListProps> = (props) => {
       return deleteRoom(token, id);
     },
   });
-
   const handleClickOption = (
     e: React.MouseEvent<HTMLButtonElement>,
     option: "edit" | "delete" | "add",
@@ -74,6 +74,7 @@ const RoomList: React.FC<RoomListProps> = (props) => {
           greenButton="Yes,please"
           greenFunc={() => {
             mutate(room.id);
+            closeModal()
           }}
         />
       );
@@ -98,6 +99,10 @@ const RoomList: React.FC<RoomListProps> = (props) => {
           }}
         />
       );
+    } else if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
     }
   }, [status]);
 

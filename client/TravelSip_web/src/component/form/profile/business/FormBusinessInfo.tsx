@@ -5,6 +5,9 @@ import FormBusinessInfoContent from "./FormBusinessInfoContent";
 import { useAuth } from "../../../../context/AuthProvider";
 import { useQuery } from "react-query";
 import { getBusiness } from "../../../../api/apis/business";
+import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../../reusable/ReusableModal";
+import { ReusableLoadingModal } from "../../..";
 
 const FormBusinessInfo: React.FC = () => {
   const { authState } = useAuth();
@@ -22,6 +25,14 @@ const FormBusinessInfo: React.FC = () => {
     retry: false,
     refetchOnWindowFocus: false,
   });
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
   return status !== "loading" ? (
     <Formik
       initialValues={

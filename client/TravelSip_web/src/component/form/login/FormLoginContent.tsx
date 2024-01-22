@@ -1,27 +1,39 @@
 import { Form, useFormikContext } from "formik";
 import React from "react";
-import { ReusableButton, ReusableTextField } from "../..";
+import { ReusableButton, ReusableLoadingModal, ReusableTextField } from "../..";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { Login } from "../../../interface/login.type";
 import { login } from "../../../api/apis/login";
 import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../reusable/ReusableModal";
+import { useAuth } from "../../../context/AuthProvider";
 
 const FormLoginContent = () => {
   const { values } = useFormikContext<Login>();
   const navigate = useNavigate();
+  const { loadToken } = useAuth();
 
-  const { mutate, data } = useMutation({
+  const { mutate, data, status } = useMutation({
     mutationFn: (data: Login) => {
       return login(data);
     },
   });
 
   useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
+
+  useUpdateEffect(() => {
     if (data?.status === 200) {
       localStorage.setItem("access_token", data.data.access);
       localStorage.setItem("refresh_token", data.data.refresh);
       navigate("/");
+      loadToken();
     }
   }, [data]);
 

@@ -3,6 +3,7 @@ import React from "react";
 import {
   FormPlace,
   ReusableInfoDetails,
+  ReusableLoadingModal,
   ReusablePopOver,
   ReusablePopupMessage,
 } from "../..";
@@ -40,7 +41,7 @@ const PlaceTile: React.FC<PlaceTileProps> = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const { mutate, data } = useMutation({
+  const { mutate, data, status } = useMutation({
     mutationFn: (id: string | number) => {
       const token = authState.accessToken;
       if (type === "destination") {
@@ -50,6 +51,14 @@ const PlaceTile: React.FC<PlaceTileProps> = (props) => {
       }
     },
   });
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   useUpdateEffect(() => {
     if (data) {
@@ -69,6 +78,7 @@ const PlaceTile: React.FC<PlaceTileProps> = (props) => {
 
   const handleDelete = (id: number | string) => {
     setAnchorEl(null);
+    closeModal();
     mutate(id);
   };
 

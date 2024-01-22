@@ -16,7 +16,10 @@ const NavBarProfile: React.FC = () => {
 
   return (
     <div className="flex justify-center px-12 justify-between py-16 items-center">
-      <button className="text-xLarge text-red block md:hidden" onClick={() => handleOpenMenu()}>
+      <button
+        className="text-xLarge text-red block md:hidden"
+        onClick={() => handleOpenMenu()}
+      >
         <TiThMenuOutline />
       </button>
       <div className="container ">
@@ -28,7 +31,9 @@ const NavBarProfile: React.FC = () => {
               </li>
             ))}
           </ul>
-          <h1 className="text-red font-xBold text-xLarge">Logo</h1>
+          <Link to="/">
+            <h1 className="text-red font-xBold text-xLarge">Logo</h1>
+          </Link>
         </header>
       </div>
     </div>

@@ -1,17 +1,28 @@
 import React from "react";
-import { Places } from "../../component";
+import { Places, ReusableLoadingModal } from "../../component";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { Params } from "../Hotel/HotelDetails";
 import { getCountry } from "../../api/apis/getCountries";
+import { closeModal, showModal } from "../../component/reusable/ReusableModal";
+import { useUpdateEffect } from "ahooks";
 
 const Country:React.FC = () => {
   const params = useParams<Params>();
 
-  const { data } = useQuery({
+  const { data,status } = useQuery({
     queryKey: [`country ${params.id}`],
     queryFn: () => getCountry(params?.id ?? 0),
   });
+
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   return (
     <div>

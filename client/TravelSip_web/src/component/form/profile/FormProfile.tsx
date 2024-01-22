@@ -1,27 +1,22 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { FormProfileContent } from "../..";
-import { useQuery } from "react-query";
-import { useAuth } from "../../../context/AuthProvider";
-import { getProfile } from "../../../api/apis/profile";
+import { useProfile } from "../../../context/ProfileProvider";
+import { useSafeState, useUpdateEffect } from "ahooks";
+import { ProfileDetails } from "../../../interface/profile.type";
 
 const FormProfile: React.FC = () => {
-  const { authState } = useAuth();
-  const { data, status } = useQuery({
-    queryKey: [`profile user ${authState.id}`],
-    queryFn: () => {
-      if (!data && status !== "success" && status !== "error") {
-        return getProfile(authState.id);
-      }
-    },
-    staleTime: 2 * 1000,
-    cacheTime: 10 * 1000,
-    keepPreviousData: true,
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
-  return status !== "loading" ? (
+  const { profile, status } = useProfile();
+  const [profileData, setProfileData] = useSafeState<
+    ProfileDetails | undefined
+  >();
+
+  useEffect(() => {
+    setProfileData(profile);
+  }, [profile]);
+
+  return status !== "idle" && status !== "loading" && profileData ? (
     <Formik
       initialValues={
         status === "error"
@@ -35,13 +30,13 @@ const FormProfile: React.FC = () => {
               gender: "",
             }
           : {
-              imageUrl: data?.data?.imageUrl ?? "",
-              backgroundUrl: data?.data?.backgroundUrl ?? "",
-              bio: data?.data?.bio ?? "",
-              nickname: data?.data?.nickname ?? "",
-              dob: data?.data?.dob ?? "",
-              mobile: data?.data?.mobile ?? "",
-              gender: data?.data?.gender ?? "",
+              imageUrl: profileData?.imageUrl ?? "234",
+              backgroundUrl: profileData?.backgroundUrl ?? "234",
+              bio: profileData?.bio ?? "234",
+              nickname: profileData?.nickname ?? "234",
+              dob: profileData?.dob ?? "234",
+              mobile: profileData?.mobile ?? "234",
+              gender: profileData?.gender ?? "234",
             }
       }
       onSubmit={(values) => {
@@ -57,7 +52,7 @@ const FormProfile: React.FC = () => {
         gender: Yup.string(),
       })}
     >
-      <FormProfileContent idIn={data?.data?.id ?? 0} statusIn={status} />
+      <FormProfileContent idIn={profile?.id ?? 0} statusIn={status} />
     </Formik>
   ) : (
     <></>

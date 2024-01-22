@@ -128,8 +128,8 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(BASE_DIR, "credentia
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 
 # Google Cloud Storage settings
-GS_BUCKET_NAME = "travelsipapp"
-GS_PROJECT_ID = "travelsip"
+GS_BUCKET_NAME = "new_travel_sip"
+GS_PROJECT_ID = "TravelSip"
 MEDIA_ROOT = "media/"
 UPLOAD_ROOT = "media/uploads/"
 MEDIA_URL = "https://storage.googleapis.com/{}/".format(GS_BUCKET_NAME)

@@ -1,22 +1,33 @@
 import React from "react";
 import ReactStars from "react-stars";
-import { ContentTile } from "../../component";
+import { ContentTile, ReusableLoadingModal } from "../../component";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getHotel } from "../../api/apis/getHotels";
+import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../component/reusable/ReusableModal";
 
 export type Params = { id: string };
 
 const HotelDetails: React.FC = () => {
   const params = useParams<Params>();
 
-  const { data } = useQuery({
+  const { data,status } = useQuery({
     queryKey: [`hotel ${params.id}`],
     queryFn: () => getHotel(params?.id ?? 0),
     staleTime: 2 * 1000,
     cacheTime: 10 * 1000,
     keepPreviousData: true,
   });
+
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   return (
     <div className="flex justify-center">

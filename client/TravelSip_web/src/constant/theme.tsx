@@ -82,6 +82,37 @@ declare module "@mui/material/InputBase" {
   }
 }
 
+// For InputBase
+declare module "@mui/material/InputBase" {
+  interface InputBasePropsColorOverrides {
+    blue: true;
+    red: true;
+    green: true;
+    white: true;
+    orange: true;
+    black: true;
+    dark: true;
+    gray: true;
+    yellow: true;
+  }
+}
+
+// For CircularProgress
+declare module "@mui/material/CircularProgress" {
+  interface CircularProgressPropsColorOverrides {
+    blue: true;
+    red: true;
+    green: true;
+    white: true;
+    orange: true;
+    black: true;
+    dark: true;
+    gray: true;
+    yellow: true;
+  }
+}
+
+
 export const blueBase = "#4267b2";
 export const redBase = "#eb6A58";
 export const greenBase = "#339282";

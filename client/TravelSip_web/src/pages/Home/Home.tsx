@@ -1,19 +1,29 @@
 import React from "react";
 import { BsSearch } from "react-icons/bs";
 import { register } from "swiper/element/bundle";
-import { Card, Country, Hotels, Places, ReusableSlider } from "../../component";
+import { Card, Country, Hotels, Places, ReusableLoadingModal, ReusableSlider } from "../../component";
 import { SwiperSlide } from "swiper/react";
 import { useQuery } from "react-query";
 import { getDestinations } from "../../api/apis/getDestinations";
+import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../component/reusable/ReusableModal";
 register();
 const Home: React.FC = () => {
-  const { data } = useQuery({
+  const { data, status } = useQuery({
     queryKey: ["destinations"],
     queryFn: () => getDestinations(),
     staleTime: 2 * 1000,
     cacheTime: 10 * 1000,
     keepPreviousData: true,
   });
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
   return (
     <>
       <div className="relative">

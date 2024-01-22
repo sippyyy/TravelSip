@@ -3,6 +3,8 @@ import React, { createContext, useContext, useEffect } from "react";
 import { useMutation } from "react-query";
 import { refresh, verify } from "../api/apis/login";
 import { jwtDecode } from "jwt-decode";
+import { closeModal, showModal } from "../component/reusable/ReusableModal";
+import { ReusableLoadingModal } from "../component";
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -40,9 +42,10 @@ const AuthProvider: React.FC<AuthProvideProps> = (props) => {
     id: 0,
   });
 
-  const { mutate, data, error } = useMutation({
+  const { mutate, data, error, status } = useMutation({
     mutationFn: async (type: "verify" | "getnew") => {
       const refreshToken = localStorage.getItem("refresh_token");
+      console.log(refreshToken)
       if (refreshToken) {
         if (type === "verify") {
           return await verify({ token: refreshToken });
@@ -54,6 +57,14 @@ const AuthProvider: React.FC<AuthProvideProps> = (props) => {
       }
     },
   });
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   const verifyToken: () => void = () => {
     mutate("verify");

@@ -1,8 +1,10 @@
 import React from "react";
-import { FormBooking, ReusableInfoDetails } from "..";
+import { FormBooking, ReusableInfoDetails, ReusableLoadingModal } from "..";
 import { getIconForFacility } from "../../utils/get_icon_facility";
 import { useQuery } from "react-query";
 import { getRoomDetails } from "../../api/apis/getHotels";
+import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../reusable/ReusableModal";
 
 interface RoomDetailsProps {
   id: number;
@@ -11,13 +13,21 @@ interface RoomDetailsProps {
 const RoomDetails: React.FC<RoomDetailsProps> = (props) => {
   const { id } = props;
 
-  const { data } = useQuery({
+  const { data, status } = useQuery({
     queryKey: [`room ${id}`],
     queryFn: () => getRoomDetails(id),
     staleTime: 2 * 1000,
     cacheTime: 10 * 1000,
     keepPreviousData: true,
   });
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   return data?.data ? (
     <div className="md:w-[450px] w-full">

@@ -6,6 +6,7 @@ import {
   ReusableButton,
   ReusableCalendar,
   ReusableInfoDetails,
+  ReusableLoadingModal,
   ReusablePopupMessage,
   ReusableTextField,
 } from "../..";
@@ -75,6 +76,10 @@ const FormProfileContent: React.FC<FormProfileContextProps> = (props) => {
           success
         />
       );
+    } else if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
     }
   }, [status]);
 

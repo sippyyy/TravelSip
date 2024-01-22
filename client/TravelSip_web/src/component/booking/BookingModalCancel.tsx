@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { FaRegMoneyBillAlt, FaHotel } from "react-icons/fa";
 import { closeModal, showModal } from "../reusable/ReusableModal";
-import { ReusableButton, ReusableInfoDetails, ReusablePopupMessage } from "..";
+import {
+  ReusableButton,
+  ReusableInfoDetails,
+  ReusableLoadingModal,
+  ReusablePopupMessage,
+} from "..";
 import { day_format } from "../../utils/get_day";
 import { useMutation } from "react-query";
 import { useAuth } from "../../context/AuthProvider";
 import { deleteBooking } from "../../api/apis/booking";
+import { useUpdateEffect } from "ahooks";
 
 interface BookingModelCancelProps {
   id: number;
@@ -39,7 +45,7 @@ const BookingModalCancel: React.FC<BookingModelCancelProps> = (props) => {
     }
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (status === "success") {
       closeModal();
       if (data?.data?.message) {
@@ -53,6 +59,10 @@ const BookingModalCancel: React.FC<BookingModelCancelProps> = (props) => {
           />
         );
       }
+    } else if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
     }
   }, [data, status]);
 

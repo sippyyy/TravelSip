@@ -1,11 +1,13 @@
 import { Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import { FormPlaceContent } from "../..";
+import { FormPlaceContent, ReusableLoadingModal } from "../..";
 import { useQuery } from "react-query";
 import { getHotel } from "../../../api/apis/getHotels";
 import { Rooms } from "../../../interface/room.type";
 import { getDestination } from "../../../api/apis/getDestinations";
+import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../reusable/ReusableModal";
 
 export interface FormPlaceProps {
   tab?: number | 0 | 1 | undefined;
@@ -35,6 +37,14 @@ const FormPlace: React.FC<FormPlaceProps> = (props) => {
       }
     },
   });
+
+  useUpdateEffect(() => {
+    if (status === "loading" || statusDestination === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status, statusDestination]);
 
   return (
     <>

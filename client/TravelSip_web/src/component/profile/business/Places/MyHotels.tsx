@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { PlaceTile } from "../../..";
+import { PlaceTile, ReusableLoadingModal } from "../../..";
 import { useMutation } from "react-query";
 import { useAuth } from "../../../../context/AuthProvider";
 import { getMyHotels } from "../../../../api/apis/getHotels";
+import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../../reusable/ReusableModal";
 
 interface MyHotelsProps {
   newData: boolean;
@@ -12,7 +14,7 @@ interface MyHotelsProps {
 const MyHotels: React.FC<MyHotelsProps> = (props) => {
   const { newData, setNewData } = props;
   const { authState } = useAuth();
-  const { mutate, data } = useMutation({
+  const { mutate, data, status } = useMutation({
     mutationFn: () => {
       const token = authState.accessToken;
       return getMyHotels(token);
@@ -31,6 +33,13 @@ const MyHotels: React.FC<MyHotelsProps> = (props) => {
       setNewData(true);
     }
   }, []);
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   return data?.data?.map((hotel) => (
     <PlaceTile

@@ -3,6 +3,9 @@ import React, { useEffect } from "react";
 import FormFacilityContent from "./FormFacilityContent";
 import { useMutation } from "react-query";
 import { getFacility } from "../../../../api/apis/facilities";
+import { useUpdateEffect } from "ahooks";
+import { closeModal, showModal } from "../../../reusable/ReusableModal";
+import { ReusableLoadingModal } from "../../..";
 
 interface FormFacilityProps {
   id?: string | number;
@@ -21,6 +24,14 @@ const FormFacility: React.FC<FormFacilityProps> = (props) => {
       mutate();
     }
   }, []);
+
+  useUpdateEffect(() => {
+    if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
+    }
+  }, [status]);
 
   return status !== "idle" && status !== "loading" ? (
     <Formik

@@ -4,6 +4,7 @@ import {
   FormFacility,
   ImageCovered,
   ReusableButton,
+  ReusableLoadingModal,
   ReusablePopupMessage,
   ReusableTextField,
 } from "../..";
@@ -64,8 +65,12 @@ const FormRoomContent: React.FC<FormRoomContentProps> = (props) => {
           />
         );
       }
+    } else if (status === "loading") {
+      showModal("Loading data...", <ReusableLoadingModal />);
+    } else {
+      closeModal();
     }
-  });
+  }, [status]);
 
   const handleSubmit = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();

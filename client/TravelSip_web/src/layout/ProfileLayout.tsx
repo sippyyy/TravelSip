@@ -3,7 +3,7 @@ import { NavBarProfile, ReusableDrawer, SideBarProfile } from "../component";
 
 import { Outlet } from "react-router-dom";
 
-const ProfileLayout = () => {
+const ProfileLayout: React.FC = () => {
   return (
     <div className="grid h-full grid-cols-4 gap-0">
       <div className="h-full hidden md:block">
